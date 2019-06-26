@@ -1,6 +1,74 @@
 <template>
   <div>
-    ユーザー画面
+    <div class="wrapper wrapper--user">
+      <header class="l-header">
+        <div class="l-container">
+          <h1 class="logo"><img src="assets/images/logo.png" alt=""></h1>
+        </div>
+      </header>
+      <main class="l-main">
+        <div class="l-container">
+          <h2 class="title js-title"></h2>
+          <div class="grid">
+            <div class="grid__inner">
+              <div class="grid__item">
+                <div class="js-post count" data-initial="a">
+                  <p class="count__num js-count js-count-a is-hide"></p>
+                  <div class="count__name">
+                    <p class="count__name__alphabet">A</p>
+                    <p class="count__name__text js-name-a"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="grid__item">
+                <div class="js-post count" data-initial="b">
+                  <p class="count__num js-count js-count-b is-hide"></p>
+                  <div class="count__name">
+                    <p class="count__name__alphabet">B</p>
+                    <p class="count__name__text js-name-b"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="grid__item">
+                <div class="js-post count" data-initial="c">
+                  <p class="count__num js-count js-count-c is-hide"></p>
+                  <div class="count__name">
+                    <p class="count__name__alphabet">C</p>
+                    <p class="count__name__text js-name-c"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="grid__item">
+                <div class="js-post count" data-initial="d">
+                  <p class="count__num js-count js-count-d is-hide"></p>
+                  <div class="count__name">
+                    <p class="count__name__alphabet">D</p>
+                    <p class="count__name__text js-name-d"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div class="form">
+        <div class="l-container">
+          <form name="comment-form" id="js-form">
+            <input type="text" name="comment" maxlength="30" class="form__input js-comment" placeholder="コメントを入力してください">
+            <div class="btn-wrap">
+              <button type="submit" name="btn" class="btn js-submit">送信</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="view-pc">
+      <p class="view-pc__text">スマホ画面で表示して下さい</p>
+    </div>
+    <div class="layer js-layer dn">
+      <img class="layer__loading js-layer-loading dn" src="assets/images/loading.gif" alt="">
+      <p class="layer__count-stop js-layer-count-stop dn">集計停止中</p>
+    </div>
   </div>
 </template>
 
