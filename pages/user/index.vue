@@ -3,12 +3,12 @@
     <div class="wrapper wrapper--user">
       <header class="l-header">
         <div class="l-container">
-          <h1 class="logo"><img src="assets/images/logo.png" alt=""></h1>
+          <h1 class="logo"><img src="~assets/images/logo.png" alt=""></h1>
         </div>
       </header>
       <main class="l-main">
         <div class="l-container">
-          <h2 class="title js-title"></h2>
+          <h2 class="title" ref="title"></h2>
           <div class="grid">
             <div class="grid__inner">
               <div class="grid__item">
@@ -56,7 +56,7 @@
           <form name="comment-form" id="js-form">
             <input type="text" name="comment" maxlength="30" class="form__input js-comment" placeholder="コメントを入力してください">
             <div class="btn-wrap">
-              <button type="submit" name="btn" class="btn js-submit">送信</button>
+              <button type="submit" name="btn" class="btn" ref="submit">送信</button>
             </div>
           </form>
         </div>
@@ -66,113 +66,62 @@
       <p class="view-pc__text">スマホ画面で表示して下さい</p>
     </div>
     <div class="layer js-layer dn">
-      <img class="layer__loading js-layer-loading dn" src="assets/images/loading.gif" alt="">
+      <img class="layer__loading js-layer-loading dn" src="~assets/images/loading.gif" alt="">
       <p class="layer__count-stop js-layer-count-stop dn">集計停止中</p>
     </div>
   </div>
 </template>
 
 <script>
+import firebase from '@/plugins/firebase';
 
 export default {
+  data() {
+    return {
+      TRANSITION_END: 'transitionend',// 2つ指定していると2回バインドされる
+      ANIMATION_END: 'animationend',// 2つ指定していると2回バインドされる
+
+      /*
+       * 初期化
+       */
+      database: {},
+      refTitle: {},
+      refCount: {},
+      refName: {},
+      refComment: {},
+      refCountStop: {},
+      refView: {},
+      title: {},
+      titleObj: {},
+      nameObj: {},
+      post: {},
+      // submit: {},
+      form: {},
+      countObj: {},
+      commentObj: {},
+      count: {},
+      countStop: false,
+      layer: {},
+      layerLoading: {},
+      layerCountStop: {}
+    }
+  },
   mounted() {
-    const TRANSITION_END = 'transitionend';// 2つ指定していると2回バインドされる
-    const ANIMATION_END = 'animationend';// 2つ指定していると2回バインドされる
-
-    /*
-     * 初期化
-     */
-    let database = firebase.database();
-    let refTitle = database.ref('title');
-    let refCount = database.ref('count');
-    let refName = database.ref('name');
-    let refComment = database.ref('comment');
-    let refCountStop = database.ref('countStop');
-    let refView = database.ref('view');
-    let $title = $('.js-title');
-    let titleObj = {};
-    let nameObj = {};
-    let $post = $('.js-post');
-    let $submit = $('.js-submit');
-    let $form = $('#js-form');
-    let countObj = {};
-    let commentObj = {};
-
-    let $count = $('.js-count');
-
-    let countStop = false;
-
-    let $layer = $('.js-layer');
-    let $layerLoading = $('.js-layer-loading');
-    let $layerCountStop = $('.js-layer-count-stop');
-
-    /*
-     * View
-     * ・タイトル表示
-     * ・カウント表示
-     * ・名前表示
-     */
-
-    let defRenderTitle = (titleObj) => {
-      $title.text(titleObj.value);
-    };
-
-    let renderTitle = (titleObj) => {
-      $title.text(titleObj.title);
-    };
-
-    let defRenderCount = (countObj) => {
-      let $targetCountObj = $(`.js-count-${countObj.id}`);
-
-      $targetCountObj.text(countObj.value);
-      checkFontSize($targetCountObj);
-    };
-
-    let renderCount = (countObj) => {
-      for (let key in countObj){
-        if(parseInt($(`.js-count-${key}`).text(), 10) !== countObj[key]) {
-          let $targetCountObj = $(`.js-count-${key}`);
-          let $targetCountObjPost = $targetCountObj.closest('.js-post');
-
-          $targetCountObjPost.addClass('is-animated');
-          $targetCountObj.text(countObj[key]);
-          checkFontSize($targetCountObj);
-        }
-      }
-    };
-
-    let defRenderName = (nameObj) => {
-      $(`.js-name-${nameObj.id}`).text(nameObj.value);
-    };
-
-    let renderName = (nameObj) => {
-      for (let key in nameObj){
-        $(`.js-name-${key}`).text(nameObj[key]);
-      }
-    };
-
-    let postActionCount = (initial, countVal) => {
-      let arg = {};
-      arg[initial] = countVal;
-      show();
-      refCount.update(arg)
-        .then((res)=>{
-          setTimeout(() => {
-            hide();
-          }, 300);
-        });
-    };
-
-    let postActionComment = (commentVal) => {
-      let arg = {};
-      arg['comment'] = commentVal;
-
-      refComment.push(arg)
-        .then((res)=>{
-          //console.log(res);
-        });
-    };
-
+    this.database = firebase.database();
+    this.refTitle = firebase.database().ref('title');
+    this.refCount = firebase.database().ref('count');
+    this.refName = firebase.database().ref('name');
+    this.refComment = firebase.database().ref('comment');
+    this.refCountStop = firebase.database().ref('countStop');
+    this.refView = firebase.database().ref('view');
+    this.title = this.$refs.title;
+    this.post = document.querySelectorAll('.js-post');
+    // this.submit = this.$refs.submit;
+    this.form = document.querySelector('#js-form');
+    this.count = document.querySelectorAll('.js-count');
+    this.layer = document.querySelector('.js-layer');
+    this.layerLoading = document.querySelector('.js-layer-loading');
+    this.layerCountStop = document.querySelector('.js-layer-count-stop');
     /*
      * カウント表示/非表示判定
      */
@@ -188,160 +137,235 @@ export default {
      * ・初期読み込み
      * ・pushイベント検知
      */
-    $post.on('click', (e) => {
-      if (countStop) {
-        return;
-      }
-      let initial = $(e.currentTarget).data('initial');
-      countObj[initial] = countObj[initial] + 1;
-      postActionCount(initial, countObj[initial]);
-    });
 
-    $form.on('submit', (e) => {
+    for (let i = 0; i < this.post.length; i++) {
+      let el = this.post[i];
+      el.addEventListener('click', () => {
+        if (this.countStop) {
+          return;
+        }
+        let initial = el.dataset['initial'];
+        this.countObj[initial] = this.countObj[initial] + 1;
+        this.postActionCount(initial, this.countObj[initial]);
+      });
+    }
+
+    this.form.addEventListener('submit', (e) => {
       e.preventDefault();
-      let commentVal = $(e.currentTarget).find('.js-comment').val();
+      let commentVal = this.form.querySelectorAll('.js-comment').value;
 
-      postActionComment(commentVal);
+      this.postActionComment(commentVal);
 
       // データベースに送信後は値を空にする
-      $(e.currentTarget).find('.js-comment').val('');
+      this.form.querySelectorAll('.js-comment').value;
     });
 
-    refTitle.on("child_added", (snapshot) => {
+    this.refTitle.on("child_added", (snapshot) => {
       // データベースと同期
       //titleObj[snapshot.key] = snapshot.val();
       //renderTitle(titleObj);
-      defRenderTitle({
+      this.defRenderTitle({
         id: snapshot.key,
         value: snapshot.val()
       });
     });
 
-    refTitle.on("value", (snapshot) => {
-      renderTitle(snapshot.val());
+    this.refTitle.on("value", (snapshot) => {
+      this.renderTitle(snapshot.val());
     });
 
-//refName.on("child_added", (snapshot) => {
-//  // データベースと同期
-//  nameObj[snapshot.key] = snapshot.val();
-//  renderName(nameObj);
-//});
+    //refName.on("child_added", (snapshot) => {
+    //  // データベースと同期
+    //  nameObj[snapshot.key] = snapshot.val();
+    //  renderName(nameObj);
+    //});
 
-    refName.on("child_added", (snapshot) => {
+    this.refName.on("child_added", (snapshot) => {
       // データベースと同期
       //nameObj[snapshot.key] = snapshot.val();
 
-      defRenderName({
+      this.defRenderName({
         id: snapshot.key,
         value: snapshot.val()
       });
     });
 
-    refName.on("value", (snapshot) => {
-      renderName(snapshot.val());
+    this.refName.on("value", (snapshot) => {
+      this.renderName(snapshot.val());
     });
 
-    refCount.on("child_added", (snapshot) => {
+    this.refCount.on("child_added", (snapshot) => {
       console.log('hoge');
       // データベースと同期
-      countObj[snapshot.key] = snapshot.val();
+      this.countObj[snapshot.key] = snapshot.val();
 
-      defRenderCount({
+      this.defRenderCount({
         id: snapshot.key,
         value: snapshot.val()
       });
     });
 
-    refCount.on("value", (snapshot) => {
+    this.refCount.on("value", (snapshot) => {
       console.log('fuga');
       let snapshotObj = snapshot.val();
 
       // データベースと同期
       for (let key in snapshotObj){
-        countObj[key] = snapshotObj[key];
+        this.countObj[key] = snapshotObj[key];
       }
 
-      renderCount(snapshot.val());
+      this.renderCount(snapshot.val());
     });
 
-    refView.on("child_added", (snapshot) => {
+    this.refView.on("child_added", (snapshot) => {
       if(snapshot.val() === true) {
-        $count.removeClass('is-hide');
+        for (let i = 0; i < this.count.length; i++) {
+          this.count[i].classList.remove('is-hide');
+        }
       } else {
-        $count.addClass('is-hide');
+        for (let i = 0; i < this.count.length; i++) {
+          this.count[i].classList.add('is-hide');
+        }
       }
     });
 
-    refView.on("value", (snapshot) => {
+    this.refView.on("value", (snapshot) => {
       if(snapshot.val().view === true) {
-        $count.removeClass('is-hide');
+        for (let i = 0; i < this.count.length; i++) {
+          this.count[i].classList.remove('is-hide');
+        }
       } else {
-        $count.addClass('is-hide');
+        for (let i = 0; i < this.count.length; i++) {
+          this.count[i].classList.add('is-hide');
+        }
       }
     });
 
-    refCountStop.on("child_added", (snapshot) => {
+    this.refCountStop.on("child_added", (snapshot) => {
       if(snapshot.val() === true) {
-        countStop = true;
-        showCountStop();
+        this.countStop = true;
+        this.showCountStop();
       } else {
-        countStop = false;
-        hideCountStop();
+        this.countStop = false;
+        this.hideCountStop();
       }
     });
 
-    refCountStop.on("value", (snapshot) => {
+    this.refCountStop.on("value", (snapshot) => {
       if(snapshot.val().countStop === true) {
-        countStop = true;
-        showCountStop();
+        this.countStop = true;
+        this.showCountStop();
       } else {
-        countStop = false;
-        hideCountStop();
+        this.countStop = false;
+        this.hideCountStop();
       }
     });
+
+    for (let i = 0; i < this.post.length; i++) {
+      let el = this.post[i];
+      el.addEventListener(this.ANIMATION_END, () => {
+        el.classList.remove('is-animated');
+      });
+    }
+  },
+  methods: {
+    /*
+     * View
+     * ・タイトル表示
+     * ・カウント表示
+     * ・名前表示
+     */
+
+    defRenderTitle(titleObj) {
+      this.title.textContent = titleObj.value;
+    },
+    renderTitle(titleObj) {
+      this.title.textContent = titleObj.title;
+    },
+    defRenderCount(countObj) {
+      let $targetCountObj = $(`.js-count-${countObj.id}`);
+
+      $targetCountObj.text(countObj.value);
+      this.checkFontSize($targetCountObj);
+    },
+    renderCount(countObj) {
+      for (let key in countObj){
+        if(parseInt($(`.js-count-${key}`).text(), 10) !== countObj[key]) {
+          let $targetCountObj = $(`.js-count-${key}`);
+          let $targetCountObjPost = $targetCountObj.closest('.js-post');
+
+          $targetCountObjPost.addClass('is-animated');
+          $targetCountObj.text(countObj[key]);
+          this.checkFontSize($targetCountObj);
+        }
+      }
+    },
+    defRenderName(nameObj) {
+      $(`.js-name-${nameObj.id}`).text(nameObj.value);
+    },
+    renderName(nameObj) {
+      for (let key in nameObj){
+        $(`.js-name-${key}`).text(nameObj[key]);
+      }
+    },
+    postActionCount(initial, countVal) {
+      let arg = {};
+      arg[initial] = countVal;
+      this.show();
+      this.refCount.update(arg)
+        .then((res)=>{
+          setTimeout(() => {
+            this.hide();
+          }, 300);
+        });
+    },
+    postActionComment(commentVal) {
+      let arg = {};
+      arg['comment'] = commentVal;
+
+      this.refComment.push(arg)
+        .then((res)=>{
+          //console.log(res);
+        });
+    },
 
     /*
      * その他
      */
-    let checkFontSize = (targetCountObj) => {
-      let $countTextLength = targetCountObj.text().length;
-      if($countTextLength > 3) {
+    checkFontSize(targetCountObj) {
+      let countTextLength = targetCountObj.text().length;
+      if(countTextLength > 3) {
         targetCountObj.addClass('count__num--long');
       } else {
         targetCountObj.removeClass('count__num--long');
       }
-    };
+    },
+    show() {
+      this.layer.classList.remove('dn');
+      this.layerLoading.classList.remove('dn');
+      this.layer.classList.add('is-show');
+    },
+    hide() {
+      this.layer.classList.remove('is-show');
 
-    let show = () => {
-      $layer.removeClass('dn');
-      $layerLoading.removeClass('dn');
-      $layer.addClass('is-show');
-    };
+      setTimeout(() => {
+        this.layerLoading.classList.add('dn');
+        this.layer.classList.add('dn');
+      }, 600);
+    },
+    showCountStop() {
+      this.layer.classList.remove('dn');
+      this.layerCountStop.classList.remove('dn');
+      this.layer.classList.add('is-show');
+    },
+    hideCountStop() {
+      this.layer.classList.remove('is-show');
 
-    let hide = () => {
-      $layer.removeClass('is-show').one(TRANSITION_END, () => {
-        $layerLoading.addClass('dn');
-        $layer.addClass('dn');
-      });
-    };
-
-    let showCountStop = () => {
-      $layer.removeClass('dn');
-      $layerCountStop.removeClass('dn');
-      $layer.addClass('is-show');
-    };
-
-    let hideCountStop = () => {
-      $layer.removeClass('is-show').one(TRANSITION_END, () => {
-        $layerCountStop.addClass('dn');
-        $layer.addClass('dn');
-      });
-    };
-
-    $post.on(ANIMATION_END, (e) => {
-      $(e.currentTarget).removeClass('is-animated');
-    });
-
+      setTimeout(() => {
+        this.layerCountStop.classList.add('dn');
+        this.layer.classList.add('dn');
+      }, 600);
+    }
   }
 }
 </script>
