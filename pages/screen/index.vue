@@ -3,8 +3,8 @@
     <div class="wrapper">
       <header class="l-header">
         <div class="l-container">
-          <!--<p class="logo screen-logo"><img src="assets/images/logo.png" alt=""></p>-->
-          <h1 class="screen-title js-title"></h1>
+          <p class="logo screen-logo"><img src="~assets/images/logo.png" alt=""></p>
+<!--          <h1 class="screen-title js-title"></h1>-->
         </div>
       </header>
       <main class="l-main">
@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import firebase from '@/plugins/firebase';
 
 export default {
   mounted() {

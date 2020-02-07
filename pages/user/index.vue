@@ -152,7 +152,7 @@ export default {
 
     this.form.addEventListener('submit', (e) => {
       e.preventDefault();
-      let commentVal = this.form.querySelectorAll('.js-comment').value;
+      let commentVal = this.form.querySelector('.js-comment').value;
 
       this.postActionComment(commentVal);
 
