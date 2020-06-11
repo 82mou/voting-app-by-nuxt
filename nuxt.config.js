@@ -22,6 +22,12 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    [
+      '@nuxtjs/dotenv',
+      {
+        path: './',
+      },
+    ],
     ["bootstrap-vue/nuxt", { css: false }]
   ],
   /*

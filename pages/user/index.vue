@@ -195,7 +195,6 @@ export default {
     });
 
     this.refCount.on("child_added", (snapshot) => {
-      console.log('hoge');
       // データベースと同期
       this.countObj[snapshot.key] = snapshot.val();
 
@@ -206,7 +205,6 @@ export default {
     });
 
     this.refCount.on("value", (snapshot) => {
-      console.log('fuga');
       let snapshotObj = snapshot.val();
 
       // データベースと同期

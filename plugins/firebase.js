@@ -1,14 +1,15 @@
 import firebase from 'firebase'
 
-if (!firebase.apps.length) {
-  firebase.initializeApp({
-    apiKey: "AIzaSyDxb8qU1eeu0F-A6ZuJEOuWoNPCl6nswK8",
-    authDomain: "event-75f97.firebaseapp.com",
-    databaseURL: "https://event-75f97.firebaseio.com",
-    projectId: "event-75f97",
-    storageBucket: "event-75f97.appspot.com",
-    messagingSenderId: "1085545854963"
-  })
+const firebaseConfig = {
+  apiKey: process.env.NUXT_ENV_FIREBASE_API_KET,
+  authDomain: process.env.NUXT_ENV_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.NUXT_ENV_FIREBASE_DATABASE_URL,
+  projectId: process.env.NUXT_ENV_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NUXT_ENV_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NUXT_ENV_FIREBASE_MESSAGING_SENDER_ID,
+  appID: process.env.NUXT_ENV_FIREBASE_APP_ID,
 }
+
+firebase.initializeApp(firebaseConfig);
 
 export default firebase
