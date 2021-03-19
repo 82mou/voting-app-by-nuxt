@@ -112,13 +112,13 @@ export default {
     }
   },
   mounted() {
-    this.database = firebase.database();
-    this.refTitle = firebase.database().ref('title');
-    this.refCount = firebase.database().ref('count');
-    this.refName = firebase.database().ref('name');
-    this.refComment = firebase.database().ref('comment');
-    this.refCountStop = firebase.database().ref('countStop');
-    this.refView = firebase.database().ref('view');
+    this.database = firebase.firestore();
+    this.refTitle = this.database.collection('titles').doc('title');
+    this.refCount = this.database.collection('counts').doc('count');
+    this.refName = this.database.collection('names').doc('name');
+    this.refComment = this.database.collection('pushComments').doc('pushComment');
+    this.refCountStop = this.database.collection('counterSwitcher').doc('counterSwitch');
+    this.refView = this.database.collection('viewCounterSwitcher').doc('viewCounterSwitch');
     this.title = this.$refs.title;
     this.post = document.querySelectorAll('.js-post');
     // this.submit = this.$refs.submit;
