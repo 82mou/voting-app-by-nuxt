@@ -99,7 +99,12 @@ export default {
       form: {},
       countObj: {},
       commentObj: {},
-      count: {},
+      counts: {
+        a: '',
+        b: '',
+        c: '',
+        d: '',
+      },
       countStop: false,
       layer: {},
       layerLoading: {},
