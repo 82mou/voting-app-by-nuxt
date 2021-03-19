@@ -12,40 +12,40 @@
           <div class="grid">
             <div class="grid__inner">
               <div class="grid__item">
-                <div class="js-post count" data-initial="a">
+                <button @click="submit" class="js-post count" data-initial="a">
                   <p class="count__num js-count js-count-a is-hide"></p>
                   <div class="count__name">
                     <p class="count__name__alphabet">A</p>
                     <p class="count__name__text js-name-a"></p>
                   </div>
-                </div>
+                </button>
               </div>
               <div class="grid__item">
-                <div class="js-post count" data-initial="b">
+                <button @click="submit" class="js-post count" data-initial="b">
                   <p class="count__num js-count js-count-b is-hide"></p>
                   <div class="count__name">
                     <p class="count__name__alphabet">B</p>
                     <p class="count__name__text js-name-b"></p>
                   </div>
-                </div>
+                </button>
               </div>
               <div class="grid__item">
-                <div class="js-post count" data-initial="c">
+                <button @click="submit" class="js-post count" data-initial="c">
                   <p class="count__num js-count js-count-c is-hide"></p>
                   <div class="count__name">
                     <p class="count__name__alphabet">C</p>
                     <p class="count__name__text js-name-c"></p>
                   </div>
-                </div>
+                </button>
               </div>
               <div class="grid__item">
-                <div class="js-post count" data-initial="d">
+                <button @click="submit" class="js-post count" data-initial="d">
                   <p class="count__num js-count js-count-d is-hide"></p>
                   <div class="count__name">
                     <p class="count__name__alphabet">D</p>
                     <p class="count__name__text js-name-d"></p>
                   </div>
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -363,6 +363,15 @@ export default {
         this.layerCountStop.classList.add('dn');
         this.layer.classList.add('dn');
       }, 600);
+    },
+    submit() {
+      const db = firebase.firestore();
+      let counts = db.collection('counts');
+      let a = counts.doc('a');
+      a
+       .update({
+         count: 1000,
+       })
     }
   }
 }
