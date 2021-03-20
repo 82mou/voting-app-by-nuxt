@@ -36,21 +36,21 @@
 }
 
 // SPでのみ有効
-@mixin media-sp-only($bp:$break-point-sp-max) {
+@mixin media-sp-only($bp: $break-point-sp-max) {
   @include media-max($bp) {
     @content;
   }
 }
 
 // SPサイズ以上で有効
-@mixin media-larger-than-sp-only($bp:$break-point-tb-min) {
+@mixin media-larger-than-sp-only($bp: $break-point-tb-min) {
   @include media-min($bp) {
     @content;
   }
 }
 
 // タブレッドサイズでのみ有効
-@mixin media-tb-only($bpmin:$break-point-tb-min, $bpmax:$break-point-tb-max) {
+@mixin media-tb-only($bpmin: $break-point-tb-min, $bpmax: $break-point-tb-max) {
   @include media-min-and-max($bpmin, $bpmax) {
     @content;
   }
@@ -64,33 +64,32 @@
 }
 
 // PCサイズでのみ有効
-@mixin media-pc-only($bp:$break-point-pc-min) {
+@mixin media-pc-only($bp: $break-point-pc-min) {
   @include media-min($bp) {
     @content;
   }
 }
 
 // PCサイズ上限以上でのみ有効
-@mixin media-pc-over($bp:$break-point-pc-max) {
+@mixin media-pc-over($bp: $break-point-pc-max) {
   @include media-min($bp) {
     @content;
   }
 }
 
 // 便利バージョン
-@mixin media($type, $bp:0) {
-  @if $type == 'sp' {
+@mixin media($type, $bp: 0) {
+  @if $type == "sp" {
     @if $bp == 0 {
       @include media-sp-only {
         @content;
       }
-    }
-    @else {
+    } @else {
       @include media-sp-only($bp) {
         @content;
       }
     }
-  } @else if $type == 'tb' {
+  } @else if $type == "tb" {
     @if $bp == 0 {
       @include media-larger-than-sp-only {
         @content;
@@ -100,7 +99,7 @@
         @content;
       }
     }
-  } @else if $type == 'tb-only' {
+  } @else if $type == "tb-only" {
     @if $bp == 0 {
       @include media-tb-only {
         @content;
@@ -110,7 +109,7 @@
         @content;
       }
     }
-  } @else if $type == 'not-pc' {
+  } @else if $type == "not-pc" {
     @if $bp == 0 {
       @include media-not-pc-only {
         @content;
@@ -120,7 +119,7 @@
         @content;
       }
     }
-  } @else if $type == 'pc' {
+  } @else if $type == "pc" {
     @if $bp == 0 {
       @include media-pc-only {
         @content;
@@ -130,7 +129,7 @@
         @content;
       }
     }
-  } @else if $type == 'pc-over' {
+  } @else if $type == "pc-over" {
     @if $bp == 0 {
       @include media-pc-over {
         @content;
@@ -140,22 +139,22 @@
         @content;
       }
     }
-  } @else if $type == 'all' {
+  } @else if $type == "all" {
     @content;
   } @else {
-    @debug 'Invalid $type string. It must be set "sp", "larger-than-sp", "not-pc", "pc", "tb" or "all".'
+    @debug 'Invalid $type string. It must be set "sp", "larger-than-sp", "not-pc", "pc", "tb" or "all".';
   }
 }
 
 // 表示・非表示系クラス
 .sp-only {
-  @include media('pc') {
+  @include media("pc") {
     display: none;
   }
 }
 
 .pc-only {
-  @include media('sp') {
+  @include media("sp") {
     display: none;
   }
 }
