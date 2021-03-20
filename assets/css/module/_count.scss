@@ -8,10 +8,10 @@
   border: 1px solid #d0cfcf;
   border-radius: 6px;
   background-color: $white;
-  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   &.is-animated {
     animation-name: count;
-    animation-duration: .75s;
+    animation-duration: 0.75s;
   }
 }
 
@@ -45,7 +45,7 @@
   font-size: 45px;
   font-weight: bold;
   opacity: 1;
-  transition: opacity .5s;
+  transition: opacity 0.5s;
   &.count__num--long {
     font-size: 35px;
   }
@@ -70,7 +70,7 @@
   font-weight: bold;
   line-height: 1;
   color: #f4f4f4;
-  transition: color .5s;
+  transition: color 0.5s;
 }
 .count__name__text {
   padding: 0 10px;
@@ -85,19 +85,19 @@
 }
 
 .screen-count {
-	position: relative;
+  position: relative;
   height: 320px;
   padding: 35px 30px 30px;
   cursor: default;
 }
 .screen-count__alphabet {
-	position: absolute;
+  position: absolute;
   top: 20px;
   left: 30px;
-	color: rgba(33, 150 ,225, .1);
-	line-height: 1;
-	font-weight: bold;
-	font-size: 130px;
+  color: rgba(33, 150, 225, 0.1);
+  line-height: 1;
+  font-weight: bold;
+  font-size: 130px;
 }
 .screen-count__name {
   //display: flex;
@@ -108,7 +108,7 @@
   color: #696b74;
   font-size: 60px;
   font-weight: bold;
-	word-break: break-all;
+  word-break: break-all;
 }
 .screen-count__num {
   position: absolute;
@@ -121,7 +121,7 @@
   font-weight: bold;
   font-size: 140px;
   opacity: 1;
-  transition: opacity .5s;
+  transition: opacity 0.5s;
   &.is-hide {
     opacity: 0;
   }

@@ -89,10 +89,10 @@
   </div>
 </template>
 
-<script>
-import firebase from "@/plugins/firebase";
+<script lang="ts">
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   data() {
     return {
       TRANSITION_END: "transitionend", // 2つ指定していると2回バインドされる
@@ -101,7 +101,6 @@ export default {
       /*
        * 初期化
        */
-      database: {},
       refTitle: {},
       refCount: {},
       refName: {},
@@ -130,25 +129,26 @@ export default {
     };
   },
   mounted() {
-    this.database = firebase.firestore();
-    this.refTitle = this.database.collection("titles").doc("title");
-    this.refCount = this.database.collection("counts").doc("count");
-    this.refName = this.database.collection("names").doc("name");
-    this.refComment = this.database.collection("pushComments");
-    this.refCountStop = this.database
+    // this.database = firebase.firestore();
+    this.db = this.$firebase.firestore();
+    this.refTitle = this.db.collection("titles").doc("title");
+    this.refCount = this.db.collection("counts").doc("count");
+    this.refName = this.db.collection("names").doc("name");
+    this.refComment = this.db.collection("pushComments");
+    this.refCountStop = this.db
       .collection("counterSwitcher")
       .doc("counterSwitch");
-    this.refView = this.database
+    this.refView = this.db
       .collection("viewCounterSwitcher")
       .doc("viewCounterSwitch");
     this.title = this.$refs.title;
     this.post = document.querySelectorAll(".js-post");
     // this.submit = this.$refs.submit;
-    this.form = document.querySelector("#js-form");
-    this.count = document.querySelectorAll(".js-count");
-    this.layer = document.querySelector(".js-layer");
-    this.layerLoading = document.querySelector(".js-layer-loading");
-    this.layerCountStop = document.querySelector(".js-layer-count-stop");
+    // this.form = document.querySelector("#js-form");
+    // this.count = document.querySelectorAll(".js-count");
+    // this.layer = document.querySelector(".js-layer");
+    // this.layerLoading = document.querySelector(".js-layer-loading");
+    // this.layerCountStop = document.querySelector(".js-layer-count-stop");
     /*
      * カウント表示/非表示判定
      */
@@ -165,17 +165,17 @@ export default {
      * ・pushイベント検知
      */
 
-    for (let i = 0; i < this.post.length; i++) {
-      let el = this.post[i];
-      el.addEventListener("click", () => {
-        if (this.countStop) {
-          return;
-        }
-        let initial = el.dataset["initial"];
-        this.countObj[initial] = this.countObj[initial] + 1;
-        this.postActionCount(initial, this.countObj[initial]);
-      });
-    }
+    // for (let i = 0; i < this.post.length; i++) {
+    //   let el = this.post[i];
+    //   el.addEventListener("click", () => {
+    //     if (this.countStop) {
+    //       return;
+    //     }
+    //     let initial = el.dataset["initial"];
+    //     this.countObj[initial] = this.countObj[initial] + 1;
+    //     this.postActionCount(initial, this.countObj[initial]);
+    //   });
+    // }
 
     // Nuxt移行完了までコメントアウト
     // this.form.addEventListener('submit', (e) => {
@@ -287,12 +287,12 @@ export default {
     //   }
     // });
 
-    for (let i = 0; i < this.post.length; i++) {
-      let el = this.post[i];
-      el.addEventListener(this.ANIMATION_END, () => {
-        el.classList.remove("is-animated");
-      });
-    }
+    // for (let i = 0; i < this.post.length; i++) {
+    //   let el = this.post[i];
+    //   el.addEventListener(this.ANIMATION_END, () => {
+    //     el.classList.remove("is-animated");
+    //   });
+    // }
   },
   methods: {
     /*
@@ -302,55 +302,55 @@ export default {
      * ・名前表示
      */
 
-    defRenderTitle(titleObj) {
-      this.title.textContent = titleObj.value;
+    defRenderTitle(titleObj: any) {
+      // this.title.textContent = titleObj.value;
     },
-    renderTitle(titleObj) {
-      this.title.textContent = titleObj.title;
+    renderTitle(titleObj: any) {
+      // this.title.textContent = titleObj.title;
     },
-    defRenderCount(countObj) {
-      let $targetCountObj = $(`.js-count-${countObj.id}`);
+    defRenderCount(countObj: any) {
+      // let $targetCountObj = $(`.js-count-${countObj.id}`);
 
-      $targetCountObj.text(countObj.value);
-      this.checkFontSize($targetCountObj);
+      // $targetCountObj.text(countObj.value);
+      // this.checkFontSize($targetCountObj);
     },
-    renderCount(countObj) {
-      for (let key in countObj) {
-        if (parseInt($(`.js-count-${key}`).text(), 10) !== countObj[key]) {
-          let $targetCountObj = $(`.js-count-${key}`);
-          let $targetCountObjPost = $targetCountObj.closest(".js-post");
+    renderCount(countObj: any) {
+      // for (let key in countObj) {
+      //   if (parseInt($(`.js-count-${key}`).text(), 10) !== countObj[key]) {
+      //     let $targetCountObj = $(`.js-count-${key}`);
+      //     let $targetCountObjPost = $targetCountObj.closest(".js-post");
 
-          $targetCountObjPost.addClass("is-animated");
-          $targetCountObj.text(countObj[key]);
-          this.checkFontSize($targetCountObj);
-        }
-      }
+      //     $targetCountObjPost.addClass("is-animated");
+      //     $targetCountObj.text(countObj[key]);
+      //     this.checkFontSize($targetCountObj);
+      //   }
+      // }
     },
-    defRenderName(nameObj) {
-      $(`.js-name-${nameObj.id}`).text(nameObj.value);
+    defRenderName(nameObj: any) {
+      // $(`.js-name-${nameObj.id}`).text(nameObj.value);
     },
-    renderName(nameObj) {
-      for (let key in nameObj) {
-        $(`.js-name-${key}`).text(nameObj[key]);
-      }
+    renderName(nameObj: any) {
+      // for (let key in nameObj) {
+      //   $(`.js-name-${key}`).text(nameObj[key]);
+      // }
     },
-    postActionCount(initial, countVal) {
-      let arg = {};
-      arg[initial] = countVal;
-      this.show();
-      this.refCount.update(arg).then((res) => {
-        setTimeout(() => {
-          this.hide();
-        }, 300);
-      });
+    postActionCount(initial: any, countVal: any) {
+      // let arg = {};
+      // arg[initial] = countVal;
+      // this.show();
+      // this.refCount.update(arg).then((res) => {
+      //   setTimeout(() => {
+      //     this.hide();
+      //   }, 300);
+      // });
     },
     onSubmitComment() {
-      this.refComment.add({ text: this.commentText });
-      this.getData();
+      (this as any).refComment.add({ text: (this as any).commentText });
+      (this as any).getData();
     },
     getData() {
-      this.refComment.get().then((snapshot) => {
-        snapshot.docs.forEach(function(doc) {
+      (this as any).refComment.get().then((snapshot: any) => {
+        snapshot.docs.forEach((doc: any) => {
           console.log(doc.data().text);
         });
       });
@@ -359,48 +359,48 @@ export default {
     /*
      * その他
      */
-    checkFontSize(targetCountObj) {
-      let countTextLength = targetCountObj.text().length;
-      if (countTextLength > 3) {
-        targetCountObj.addClass("count__num--long");
-      } else {
-        targetCountObj.removeClass("count__num--long");
-      }
+    checkFontSize(targetCountObj: any) {
+      // let countTextLength = targetCountObj.text().length;
+      // if (countTextLength > 3) {
+      //   targetCountObj.addClass("count__num--long");
+      // } else {
+      //   targetCountObj.removeClass("count__num--long");
+      // }
     },
     show() {
-      this.layer.classList.remove("dn");
-      this.layerLoading.classList.remove("dn");
-      this.layer.classList.add("is-show");
+      // this.layer.classList.remove("dn");
+      // this.layerLoading.classList.remove("dn");
+      // this.layer.classList.add("is-show");
     },
     hide() {
-      this.layer.classList.remove("is-show");
+      // this.layer.classList.remove("is-show");
 
-      setTimeout(() => {
-        this.layerLoading.classList.add("dn");
-        this.layer.classList.add("dn");
-      }, 600);
+      // setTimeout(() => {
+      //   this.layerLoading.classList.add("dn");
+      //   this.layer.classList.add("dn");
+      // }, 600);
     },
     showCountStop() {
-      this.layer.classList.remove("dn");
-      this.layerCountStop.classList.remove("dn");
-      this.layer.classList.add("is-show");
+      // this.layer.classList.remove("dn");
+      // this.layerCountStop.classList.remove("dn");
+      // this.layer.classList.add("is-show");
     },
     hideCountStop() {
-      this.layer.classList.remove("is-show");
+      // this.layer.classList.remove("is-show");
 
-      setTimeout(() => {
-        this.layerCountStop.classList.add("dn");
-        this.layer.classList.add("dn");
-      }, 600);
+      // setTimeout(() => {
+      //   this.layerCountStop.classList.add("dn");
+      //   this.layer.classList.add("dn");
+      // }, 600);
     },
     submit() {
-      const db = firebase.firestore();
-      let counts = db.collection("counts");
-      let a = counts.doc("a");
-      a.update({
-        count: 1000,
-      });
+      // const db = firebase.firestore();
+      // let counts = this.$db.collection("counts");
+      // let a = counts.doc("a");
+      // a.update({
+      //   count: 1000,
+      // });
     },
   },
-};
+});
 </script>
