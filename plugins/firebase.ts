@@ -39,8 +39,9 @@ declare module 'vuex/types/index' {
 // インジェクション
 const myPlugin: Plugin = (context, inject) => {
   inject('firebase', firebase)
+  inject('db', firebase.firestore())
 }
 
 export default myPlugin
-export { firebase }
+// export { firebase }
 // export const db: firebase.firestore.Firestore = firebase.firestore()

@@ -130,15 +130,14 @@ export default Vue.extend({
   },
   mounted() {
     // this.database = firebase.firestore();
-    this.db = this.$firebase.firestore();
-    this.refTitle = this.db.collection("titles").doc("title");
-    this.refCount = this.db.collection("counts").doc("count");
-    this.refName = this.db.collection("names").doc("name");
-    this.refComment = this.db.collection("pushComments");
-    this.refCountStop = this.db
+    this.refTitle = this.$db.collection("titles").doc("title");
+    this.refCount = this.$db.collection("counts").doc("count");
+    this.refName = this.$db.collection("names").doc("name");
+    this.refComment = this.$db.collection("pushComments");
+    this.refCountStop = this.$db
       .collection("counterSwitcher")
       .doc("counterSwitch");
-    this.refView = this.db
+    this.refView = this.$db
       .collection("viewCounterSwitcher")
       .doc("viewCounterSwitch");
     this.title = this.$refs.title;
