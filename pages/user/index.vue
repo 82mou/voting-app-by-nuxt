@@ -8,7 +8,7 @@
       </header>
       <main class="l-main">
         <div class="l-container">
-          <h2 class="title" ref="title"></h2>
+          <h2 class="title">{{ title }}</h2>
           <div class="grid">
             <div class="grid__inner">
               <div class="grid__item">
@@ -91,6 +91,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapState } from "vuex";
 
 export default Vue.extend({
   data() {
@@ -98,50 +99,55 @@ export default Vue.extend({
       TRANSITION_END: "transitionend", // 2つ指定していると2回バインドされる
       ANIMATION_END: "animationend", // 2つ指定していると2回バインドされる
 
-      /*
-       * 初期化
-       */
-      refTitle: {},
-      refCount: {},
-      refName: {},
-      refComment: {},
-      refCountStop: {},
-      refView: {},
-      title: {},
-      titleObj: {},
-      nameObj: {},
-      post: {},
-      // submit: {},
-      form: {},
-      countObj: {},
-      commentObj: {},
-      counts: {
-        a: "",
-        b: "",
-        c: "",
-        d: "",
+      // title: mapState(["title"]),
+      panels: {
+        a: {
+          count: 0,
+          name: "あああ",
+          sound: 0,
+        },
+        b: {
+          count: 0,
+          name: "いいい",
+          sound: 1,
+        },
+        c: {
+          count: 0,
+          name: "ううう",
+          sound: 2,
+        },
+        e: {
+          count: 0,
+          name: "えええ",
+          sound: 3,
+        },
       },
       countStop: false,
+      countHide: false,
+      pushComments: {},
       layer: {},
       layerLoading: {},
       layerCountStop: {},
       commentText: "",
     };
   },
+  computed: {
+    ...mapState(["title"]),
+  },
   mounted() {
     // this.database = firebase.firestore();
-    this.refTitle = this.$db.collection("titles").doc("title");
-    this.refCount = this.$db.collection("counts").doc("count");
-    this.refName = this.$db.collection("names").doc("name");
-    this.refComment = this.$db.collection("pushComments");
-    this.refCountStop = this.$db
-      .collection("counterSwitcher")
-      .doc("counterSwitch");
-    this.refView = this.$db
-      .collection("viewCounterSwitcher")
-      .doc("viewCounterSwitch");
-    this.title = this.$refs.title;
-    this.post = document.querySelectorAll(".js-post");
+    // this.refTitle = this.$db.collection("votingApp").doc("votingAppObj");
+    // this.refCount = this.$db.collection("counts").doc("count");
+    // this.refName = this.$db.collection("names").doc("name");
+    // this.refComment = this.$db.collection("pushComments");
+    // this.refCountStop = this.$db
+    //   .collection("counterSwitcher")
+    //   .doc("counterSwitch");
+    // this.refView = this.$db
+    //   .collection("viewCounterSwitcher")
+    //   .doc("viewCounterSwitch");
+    // this.title = this.$refs.title;
+    // this.post = document.querySelectorAll(".js-post");
     // this.submit = this.$refs.submit;
     // this.form = document.querySelector("#js-form");
     // this.count = document.querySelectorAll(".js-count");
@@ -151,11 +157,9 @@ export default Vue.extend({
     /*
      * カウント表示/非表示判定
      */
-
     /*
      * 集計停止判定
      */
-
     /*
      * クリックイベント
      * ・アルファベット桜花
@@ -163,7 +167,6 @@ export default Vue.extend({
      * ・初期読み込み
      * ・pushイベント検知
      */
-
     // for (let i = 0; i < this.post.length; i++) {
     //   let el = this.post[i];
     //   el.addEventListener("click", () => {
@@ -175,18 +178,14 @@ export default Vue.extend({
     //     this.postActionCount(initial, this.countObj[initial]);
     //   });
     // }
-
     // Nuxt移行完了までコメントアウト
     // this.form.addEventListener('submit', (e) => {
     //   e.preventDefault();
     //   let commentVal = this.form.querySelector('.js-comment').value;
-
     //   this.postActionComment(commentVal);
-
     //   // データベースに送信後は値を空にする
     //   this.form.querySelectorAll('.js-comment').value;
     // });
-
     // this.refTitle.on("child_added", (snapshot) => {
     //   // データベースと同期
     //   //titleObj[snapshot.key] = snapshot.val();
@@ -196,52 +195,41 @@ export default Vue.extend({
     //     value: snapshot.val()
     //   });
     // });
-
     // this.refTitle.on("value", (snapshot) => {
     //   this.renderTitle(snapshot.val());
     // });
-
     //refName.on("child_added", (snapshot) => {
     //  // データベースと同期
     //  nameObj[snapshot.key] = snapshot.val();
     //  renderName(nameObj);
     //});
-
     // this.refName.on("child_added", (snapshot) => {
     //   // データベースと同期
     //   //nameObj[snapshot.key] = snapshot.val();
-
     //   this.defRenderName({
     //     id: snapshot.key,
     //     value: snapshot.val()
     //   });
     // });
-
     // this.refName.on("value", (snapshot) => {
     //   this.renderName(snapshot.val());
     // });
-
     // this.refCount.on("child_added", (snapshot) => {
     //   // データベースと同期
     //   this.countObj[snapshot.key] = snapshot.val();
-
     //   this.defRenderCount({
     //     id: snapshot.key,
     //     value: snapshot.val()
     //   });
     // });
-
     // this.refCount.on("value", (snapshot) => {
     //   let snapshotObj = snapshot.val();
-
     //   // データベースと同期
     //   for (let key in snapshotObj){
     //     this.countObj[key] = snapshotObj[key];
     //   }
-
     //   this.renderCount(snapshot.val());
     // });
-
     // this.refView.on("child_added", (snapshot) => {
     //   if(snapshot.val() === true) {
     //     for (let i = 0; i < this.count.length; i++) {
@@ -253,7 +241,6 @@ export default Vue.extend({
     //     }
     //   }
     // });
-
     // this.refView.on("value", (snapshot) => {
     //   if(snapshot.val().view === true) {
     //     for (let i = 0; i < this.count.length; i++) {
@@ -265,7 +252,6 @@ export default Vue.extend({
     //     }
     //   }
     // });
-
     // this.refCountStop.on("child_added", (snapshot) => {
     //   if(snapshot.val() === true) {
     //     this.countStop = true;
@@ -275,7 +261,6 @@ export default Vue.extend({
     //     this.hideCountStop();
     //   }
     // });
-
     // this.refCountStop.on("value", (snapshot) => {
     //   if(snapshot.val().countStop === true) {
     //     this.countStop = true;
@@ -285,7 +270,6 @@ export default Vue.extend({
     //     this.hideCountStop();
     //   }
     // });
-
     // for (let i = 0; i < this.post.length; i++) {
     //   let el = this.post[i];
     //   el.addEventListener(this.ANIMATION_END, () => {
@@ -294,6 +278,21 @@ export default Vue.extend({
     // }
   },
   methods: {
+    // escapeHtml(string: any) {
+    //   if (typeof string !== "string") {
+    //     return string;
+    //   }
+    //   return string.replace(/[&'`"<>]/g, function (match) {
+    //     return {
+    //       "&": "&amp;",
+    //       "'": "&#x27;",
+    //       "`": "&#x60;",
+    //       '"': "&quot;",
+    //       "<": "&lt;",
+    //       ">": "&gt;",
+    //     }[match];
+    //   });
+    // },
     /*
      * View
      * ・タイトル表示
@@ -309,7 +308,6 @@ export default Vue.extend({
     },
     defRenderCount(countObj: any) {
       // let $targetCountObj = $(`.js-count-${countObj.id}`);
-
       // $targetCountObj.text(countObj.value);
       // this.checkFontSize($targetCountObj);
     },
@@ -318,7 +316,6 @@ export default Vue.extend({
       //   if (parseInt($(`.js-count-${key}`).text(), 10) !== countObj[key]) {
       //     let $targetCountObj = $(`.js-count-${key}`);
       //     let $targetCountObjPost = $targetCountObj.closest(".js-post");
-
       //     $targetCountObjPost.addClass("is-animated");
       //     $targetCountObj.text(countObj[key]);
       //     this.checkFontSize($targetCountObj);
@@ -373,7 +370,6 @@ export default Vue.extend({
     },
     hide() {
       // this.layer.classList.remove("is-show");
-
       // setTimeout(() => {
       //   this.layerLoading.classList.add("dn");
       //   this.layer.classList.add("dn");
@@ -386,7 +382,6 @@ export default Vue.extend({
     },
     hideCountStop() {
       // this.layer.classList.remove("is-show");
-
       // setTimeout(() => {
       //   this.layerCountStop.classList.add("dn");
       //   this.layer.classList.add("dn");
