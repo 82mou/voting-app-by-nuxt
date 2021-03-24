@@ -1,0 +1,36 @@
+.show-pc {
+  @include for-tablet-sp {
+    display: none;
+  }
+}
+
+.show-sp {
+  display: none;
+  @include for-sp {
+    display: block;
+  }
+}
+
+.new-line-pc {
+  @include for-tablet-sp {
+    display: none;
+  }
+}
+
+.new-line-pc-tablet {
+  @include for-sp {
+    display: none;
+  }
+}
+
+.new-line-tablet-sp {
+  @include for-pc {
+    display: none;
+  }
+}
+
+.new-line-sp {
+  @include for-pc-tablet {
+    display: none;
+  }
+}

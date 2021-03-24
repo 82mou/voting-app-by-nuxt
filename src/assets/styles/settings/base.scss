@@ -1,0 +1,42 @@
+html {
+  font-family: $font-notosansjp;
+  font-size: 16px;
+  font-weight: 400;
+  color: $color-base-font-color;
+  word-spacing: 1px;
+  letter-spacing: 0.05em;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+button {
+  margin: 0;
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+}
+
+.svg-sprite {
+  display: none;
+}
+
+img,
+svg {
+  display: block;
+  height: auto;
+  width: auto;
+}
+
+svg {
+  fill: currentColor;
+}

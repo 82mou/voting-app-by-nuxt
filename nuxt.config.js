@@ -1,18 +1,20 @@
+import Sass from "sass";
+import Fiber from "fibers";
+
+const routerBase = {
+  router: {
+    base: "",
+  },
+};
+
 export default {
-  /*
-   ** Nuxt rendering mode
-   ** See https://nuxtjs.org/api/configuration-mode
-   */
-  mode: "universal",
-  /*
-   ** Nuxt target
-   ** See https://nuxtjs.org/api/configuration-target
-   */
-  target: "server",
-  /*
-   ** Headers of the page
-   */
+  srcDir: "src",
+  target: "static",
+  ssr: true,
   head: {
+    htmlAttrs: {
+      lang: "ja",
+    },
     title: "投票システム",
     meta: [
       { charset: "utf-8" },
@@ -29,53 +31,81 @@ export default {
     // innerHTML内の文字がエスケープされるのを防ぐ
     __dangerouslyDisableSanitizers: ["script"],
   },
-  /*
-   ** Global CSS
-   */
-  css: ["~/assets/css/style.scss"],
-  /*
-   ** Plugins to load before mounting the App
-   */
+  css: ["~/assets/styles/global.scss"],
   plugins: [{ src: "~/plugins/firebase.ts", mode: "client" }],
-  /*
-   ** Auto import components
-   ** See https://nuxtjs.org/api/configuration-components
-   */
   components: true,
-  /*
-   ** Nuxt.js dev-modules
-   */
   buildModules: [
     "@nuxt/typescript-build",
+    "@nuxtjs/eslint-module",
     // Doc: https://github.com/nuxt-community/stylelint-module
     "@nuxtjs/stylelint-module",
+    "@nuxtjs/style-resources",
+    "nuxt-svg-loader",
   ],
-  /*
-   ** Nuxt.js modules
-   */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
-    [
-      "@nuxtjs/dotenv",
-      {
-        path: "./",
-      },
-    ],
     ["bootstrap-vue/nuxt", { css: false }],
+    "nuxt-webfontloader",
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
-  /*
-   ** Build configuration
-   */
+  styleResources: {
+    scss: [
+      "./src/assets/styles/_variables.scss",
+      "./src/assets/styles/_mixins.scss",
+      "./src/assets/styles/_function.scss",
+    ],
+  },
+  svgLoader: {
+    svgoConfig: {
+      plugins: [{ removeViewBox: false }, { removeTitle: false }],
+    },
+  },
+  generate: {
+    cache: false,
+    fallback: false,
+    crawler: false,
+  },
+  ...routerBase,
+  webfontloader: {
+    google: {
+      families: ["Noto+Sans+JP:500,700"],
+    },
+  },
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {},
+    loaders: {
+      scss: {
+        implementation: Sass,
+        sassOptions: {
+          fiber: Fiber,
+        },
+      },
+    },
+    extend(config, { isClient, loaders: { vue } }) {
+      vue.transformAssetUrls.video = ["src", "poster"];
+    },
+    postcss: {
+      preset: {
+        autoprefixer: {
+          grid: "autoplace",
+        },
+      },
+    },
+    babel: {
+      presets({ isServer }) {
+        return [
+          [
+            require.resolve("@nuxt/babel-preset-app"),
+            {
+              buildTarget: isServer ? "server" : "client",
+              corejs: { version: 3 },
+            },
+          ],
+        ];
+      },
+    },
   },
 };

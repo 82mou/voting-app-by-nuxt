@@ -1,0 +1,17 @@
+@function vw($size, $viewport: 1440) {
+  $rate: 100 / $viewport;
+  @return $rate * $size * 1vw;
+}
+
+@function vw_sp($size, $viewport: 375) {
+  $rate: 100 / $viewport;
+  @return $rate * $size * 1vw;
+}
+
+@function vw_fix($size, $viewport: 1366, $breakpoint: 1366) {
+  @return $size * $breakpoint / $viewport * 1px;
+}
+
+@function vw_fix_sp($size, $viewport: 375, $breakpoint: 768) {
+  @return $size * $breakpoint / $viewport * 1px;
+}

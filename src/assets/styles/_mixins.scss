@@ -1,0 +1,128 @@
+// 荒い粒度
+// pc用
+@mixin for-pc {
+  @media screen and (min-width: $size-tablet) {
+    @content;
+  }
+}
+
+// tablet用
+@mixin for-tablet {
+  @media screen and (min-width: $size-sp + 1) and (max-width: $size-tablet - 1) {
+    @content;
+  }
+}
+
+// sp用
+@mixin for-sp {
+  @media screen and (max-width: $size-sp) {
+    @content;
+  }
+}
+
+// tabletより広い
+@mixin for-pc-tablet {
+  @media screen and (min-width: $size-sp + 1) {
+    @content;
+  }
+}
+
+// tabletより狭い
+@mixin for-tablet-sp {
+  @media screen and (max-width: $size-tablet - 1) {
+    @content;
+  }
+}
+
+// より細かい粒度、上記で足りないとき分割して使う
+// pc => pc-larger + pc-small
+@mixin for-pc-larger {
+  @media screen and (min-width: $size-pc-large) {
+    @content;
+  }
+}
+@mixin for-pc-small {
+  @media screen and (min-width: $size-tablet + 1) and (max-width: $size-pc-large - 1) {
+    @content;
+  }
+}
+
+// tablet => tablet-large + tablet-small
+@mixin for-tablet-large {
+  @media screen and (min-width: $size-tablet-small + 1) and (max-width: $size-tablet) {
+    @content;
+  }
+}
+@mixin for-tablet-small {
+  @media screen and (min-width: $size-sp + 1) and (max-width: $size-tablet-small) {
+    @content;
+  }
+}
+
+// sp => sp-large + sp-smaller
+@mixin for-sp-large {
+  @media screen and (min-width: $size-sp-small) and (max-width: $size-sp) {
+    @content;
+  }
+}
+@mixin for-sp-smaller {
+  @media screen and (max-width: $size-sp-small) {
+    @content;
+  }
+}
+
+// 任意のブレイクポイント
+@mixin mq($media-width) {
+  @media only screen and (max-width: $media-width) {
+    @content;
+  }
+}
+
+// object-fit polyfill
+@mixin object-fit($fit: cover, $position: null) {
+  object-fit: $fit;
+
+  @if $position {
+    object-position: $position;
+    font-family: "object-fit: #{$fit}; object-position: #{$position}";
+  } @else {
+    font-family: "object-fit: #{$fit}";
+  }
+}
+
+// 三点リーダー
+@mixin line-clamp($num, $num-sp: null) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $num;
+  overflow: hidden;
+
+  @if $num-sp {
+    @include for-sp {
+      -webkit-line-clamp: $num-sp;
+    }
+  }
+}
+
+@mixin page-container() {
+  box-sizing: border-box;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include for-pc {
+    max-width: $size-pc-content + $size-pc-margin * 2;
+    padding-left: $size-pc-margin;
+    padding-right: $size-pc-margin;
+  }
+
+  @include for-tablet {
+    padding-left: $size-tablet-margin;
+    padding-right: $size-tablet-margin;
+  }
+
+  @include for-sp {
+    padding-left: $size-sp-margin;
+    padding-right: $size-sp-margin;
+  }
+}
