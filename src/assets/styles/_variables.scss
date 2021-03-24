@@ -1,0 +1,84 @@
+// font
+$font-notosansjp: "Noto Sans JP", "Source Sans Pro", -apple-system,
+  BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$base-font-size: 16px;
+
+// content-size
+$size-pc-content: 1080px;
+$size-pc-margin: 40px;
+$size-tablet-margin: 16px;
+$size-sp-margin: 12px;
+$size-pc-margin-inner: 32px;
+$size-sp-margin-inner: 16px;
+
+// for mediaquery
+$size-pc-large: $size-pc-content + $size-pc-margin * 2;
+$size-tablet: 900px;
+$size-tablet-small: 720px;
+$size-sp: 600px;
+$size-sp-small: 360px;
+
+// color
+$color-base-white: #fff;
+$color-base-gray: #f6f6f6;
+$color-base-font-color: #252525;
+$color-main-black: #252525;
+$color-main-gray: #838383;
+$color-main-lightgray: #e0e0e0;
+$color-main-bordergray: #cecece;
+$color-main-darkgray: #525252;
+$color-accent-red: #e01e31;
+$color-accent-blue: #55c2ff;
+$color-accent-gray: #3a3a3a;
+
+$color-bland-facebook: #1877f2;
+$color-bland-twitter: #1b95e0;
+$color-bland-line: #00b833;
+$color-bland-youtube: #ff0000;
+
+// animation
+$animation-duration: 0.6s;
+$base-transition-opacity: 0.7;
+
+// Cubic
+$ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+// Circ
+$ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+$ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+$ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
+// Expo
+$ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+$ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+$ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+
+// Quad
+$ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+$ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+
+// Quart
+$ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+$ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+$ease-in-out-quar: cubic-bezier(0.77, 0, 0.175, 1);
+
+// Quint
+$ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+$ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+$ease-in-out-quin: cubic-bezier(0.86, 0, 0.07, 1);
+
+// Sine
+$ease-in-sine: cubic-bezier(0.47, 0, 0.745, 0.715);
+$ease-out-sine: cubic-bezier(0.39, 0.575, 0.565, 1);
+$ease-in-out-sine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+
+// Back
+$ease-in-back: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+$ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+// Original
+$ease-out-org: cubic-bezier(0.15, 0, 0.1, 1);

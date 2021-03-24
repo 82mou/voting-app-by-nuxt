@@ -1,0 +1,24 @@
+@import "./settings/sanitize.scss";
+@import "./settings/reset.scss";
+@import "./settings/base.scss";
+@import "./tools/keyframe.scss";
+@import "./tools/util.scss";
+
+// 旧style郡
+@import "~bootstrap/scss/bootstrap";
+
+@import "./layout/l-grid";
+@import "./layout/l-container";
+@import "./layout/l-header";
+@import "./layout/l-main";
+
+@import "./module/wrapper";
+@import "./module/push-comment";
+@import "./module/count";
+@import "./module/logo";
+@import "./module/title";
+@import "./module/grid";
+@import "./module/form";
+@import "./module/btn";
+@import "./module/layer";
+@import "./module/view-pc";
