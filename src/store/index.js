@@ -1,25 +1,25 @@
 export const state = () => ({
-  title: "タイトルが入ります。",
+  title: "",
   panels: {
     a: {
       count: 0,
-      name: "あああ",
+      name: "",
       sound: 0,
     },
     b: {
       count: 0,
-      name: "いいい",
-      sound: 1,
+      name: "",
+      sound: 0,
     },
     c: {
       count: 0,
-      name: "ううう",
-      sound: 2,
+      name: "",
+      sound: 0,
     },
     d: {
       count: 0,
-      name: "えええ",
-      sound: 3,
+      name: "",
+      sound: 0,
     },
   },
   countStop: false,
@@ -37,6 +37,9 @@ export const mutations = {
   setTitle(state, value) {
     state.title = value;
   },
+  setPanels(state, { id, obj }) {
+    state.panels[id] = obj;
+  },
 };
 
 export const actions = {
@@ -49,8 +52,23 @@ export const actions = {
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
-          console.log(doc.data().text);
           commit("setTitle", doc.data().text);
+        });
+      })
+      .catch((error) => {
+        console.error("Error getting document:", error);
+      });
+  },
+  /**
+   * firebaseのDBのpanelsを取得してstoreと同期
+   */
+  changePanels({ commit }) {
+    this.$db
+      .collection("panels")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach(function (doc) {
+          commit("setPanels", { id: doc.id, obj: doc.data() });
         });
       })
       .catch((error) => {
