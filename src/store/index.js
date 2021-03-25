@@ -23,7 +23,7 @@ export const state = () => ({
     },
   },
   countStop: false,
-  countHide: false,
+  countShow: true,
   pushComments: {},
 });
 
@@ -34,13 +34,27 @@ export const getters = {
 };
 
 export const mutations = {
-  // setTitle(state, { value }) {
-  //   state.title = value;
-  // },
+  setTitle(state, value) {
+    state.title = value;
+  },
 };
 
 export const actions = {
-  // increment(state) {
-  //   state.counter++;
-  // },
+  /**
+   * firebaseのDBのtitleを取得してstoreと同期
+   */
+  changeTitle({ commit }) {
+    this.$db
+      .collection("title")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach(function (doc) {
+          console.log(doc.data().text);
+          commit("setTitle", doc.data().text);
+        });
+      })
+      .catch((error) => {
+        console.error("Error getting document:", error);
+      });
+  },
 };
