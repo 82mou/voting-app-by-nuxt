@@ -5,11 +5,23 @@
   z-index: 1;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  transition: opacity 0.5s;
-  &.is-show {
+  background-color: rgba(255, 255, 255, 0.6);
+  // opacity: 0;
+  // transition: opacity 0.5s;
+  // &.is-show {
+  //   opacity: 1;
+  // }
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
+  &-enter-to,
+  &-leave {
     opacity: 1;
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.4s $ease-out-cubic;
   }
 }
 .layer__loading {
