@@ -133,6 +133,7 @@ export default Vue.extend({
   },
   mounted() {
     this.$store.dispatch("changeTitle");
+    this.$store.dispatch("changePanels");
     // this.refCount = this.$db.collection("counts").doc("count");
     // this.refName = this.$db.collection("names").doc("name");
     // this.refComment = this.$db.collection("pushComments");
