@@ -14,7 +14,7 @@
               <div class="grid__item">
                 <button class="count" data-initial="a" @click="submit">
                   <transition name="count__num">
-                    <p v-if="!countHide" class="count__num">
+                    <p v-if="countShow" class="count__num">
                       {{ panels.a.count }}
                     </p>
                   </transition>
@@ -28,7 +28,7 @@
               </div>
               <div class="grid__item">
                 <button class="js-post count" data-initial="b" @click="submit">
-                  <p v-if="!countHide" class="count__num">
+                  <p v-if="countShow" class="count__num">
                     {{ panels.b.count }}
                   </p>
                   <div class="count__name">
@@ -41,7 +41,7 @@
               </div>
               <div class="grid__item">
                 <button class="js-post count" data-initial="c" @click="submit">
-                  <p v-if="!countHide" class="count__num">
+                  <p v-if="countShow" class="count__num">
                     {{ panels.c.count }}
                   </p>
                   <div class="count__name">
@@ -54,7 +54,7 @@
               </div>
               <div class="grid__item">
                 <button class="js-post count" data-initial="d" @click="submit">
-                  <p v-if="!countHide" class="count__num">
+                  <p v-if="countShow" class="count__num">
                     {{ panels.d.count }}
                   </p>
                   <div class="count__name">
@@ -96,14 +96,16 @@
     <div class="view-pc">
       <p class="view-pc__text">スマホ画面で表示して下さい</p>
     </div>
-    <div class="layer js-layer dn">
-      <img
-        class="layer__loading js-layer-loading dn"
-        src="~assets/images/loading.gif"
-        alt=""
-      />
-      <p class="layer__count-stop js-layer-count-stop dn">集計停止中</p>
-    </div>
+    <transition name="layer">
+      <div v-if="countStop" class="layer">
+        <!-- <img
+          class="layer__loading js-layer-loading dn"
+          src="~assets/images/loading.gif"
+          alt=""
+        /> -->
+        <p class="layer__count-stop js-layer-count-stop">集計停止中</p>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -114,35 +116,9 @@ import { mapState } from "vuex";
 export default Vue.extend({
   data() {
     return {
-      TRANSITION_END: "transitionend", // 2つ指定していると2回バインドされる
-      ANIMATION_END: "animationend", // 2つ指定していると2回バインドされる
+      // TRANSITION_END: "transitionend", // 2つ指定していると2回バインドされる
+      // ANIMATION_END: "animationend", // 2つ指定していると2回バインドされる
 
-      // title: mapState(["title"]),
-      // panels: {
-      //   a: {
-      //     count: 0,
-      //     name: "あああ",
-      //     sound: 0,
-      //   },
-      //   b: {
-      //     count: 0,
-      //     name: "いいい",
-      //     sound: 1,
-      //   },
-      //   c: {
-      //     count: 0,
-      //     name: "ううう",
-      //     sound: 2,
-      //   },
-      //   d: {
-      //     count: 0,
-      //     name: "えええ",
-      //     sound: 3,
-      //   },
-      // },
-      countStop: false,
-      countHide: false,
-      pushComments: {},
       layer: {},
       layerLoading: {},
       layerCountStop: {},
@@ -152,10 +128,11 @@ export default Vue.extend({
   computed: {
     ...mapState(["title"]),
     ...mapState(["panels"]),
+    ...mapState(["countShow"]),
+    ...mapState(["countStop"]),
   },
   mounted() {
-    // this.database = firebase.firestore();
-    // this.refTitle = this.$db.collection("votingApp").doc("votingAppObj");
+    this.$store.dispatch("changeTitle");
     // this.refCount = this.$db.collection("counts").doc("count");
     // this.refName = this.$db.collection("names").doc("name");
     // this.refComment = this.$db.collection("pushComments");
@@ -165,7 +142,6 @@ export default Vue.extend({
     // this.refView = this.$db
     //   .collection("viewCounterSwitcher")
     //   .doc("viewCounterSwitch");
-    // this.title = this.$refs.title;
     // this.post = document.querySelectorAll(".js-post");
     // this.submit = this.$refs.submit;
     // this.form = document.querySelector("#js-form");
@@ -204,18 +180,6 @@ export default Vue.extend({
     //   this.postActionComment(commentVal);
     //   // データベースに送信後は値を空にする
     //   this.form.querySelectorAll('.js-comment').value;
-    // });
-    // this.refTitle.on("child_added", (snapshot) => {
-    //   // データベースと同期
-    //   //titleObj[snapshot.key] = snapshot.val();
-    //   //renderTitle(titleObj);
-    //   this.defRenderTitle({
-    //     id: snapshot.key,
-    //     value: snapshot.val()
-    //   });
-    // });
-    // this.refTitle.on("value", (snapshot) => {
-    //   this.renderTitle(snapshot.val());
     // });
     // refName.on("child_added", (snapshot) => {
     //  // データベースと同期
@@ -314,17 +278,10 @@ export default Vue.extend({
     // },
     /*
      * View
-     * ・タイトル表示
      * ・カウント表示
      * ・名前表示
      */
 
-    defRenderTitle(titleObj: any) {
-      // this.title.textContent = titleObj.value;
-    },
-    renderTitle(titleObj: any) {
-      // this.title.textContent = titleObj.title;
-    },
     defRenderCount(countObj: any) {
       // let $targetCountObj = $(`.js-count-${countObj.id}`);
       // $targetCountObj.text(countObj.value);
