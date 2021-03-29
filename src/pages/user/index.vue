@@ -12,7 +12,11 @@
           <div class="grid">
             <div class="grid__inner">
               <div class="grid__item">
-                <button class="count" data-initial="a" @click="submit('a')">
+                <button
+                  class="count"
+                  :disabled="isProcessing"
+                  @click="submit('a')"
+                >
                   <transition name="count__num">
                     <p v-if="countShow" class="count__num">
                       {{ panels.a.count }}
@@ -27,7 +31,11 @@
                 </button>
               </div>
               <div class="grid__item">
-                <button class="count" data-initial="b" @click="submit('b')">
+                <button
+                  class="count"
+                  :disabled="isProcessing"
+                  @click="submit('b')"
+                >
                   <p v-if="countShow" class="count__num">
                     {{ panels.b.count }}
                   </p>
@@ -40,7 +48,11 @@
                 </button>
               </div>
               <div class="grid__item">
-                <button class="count" data-initial="c" @click="submit('c')">
+                <button
+                  class="count"
+                  :disabled="isProcessing"
+                  @click="submit('c')"
+                >
                   <p v-if="countShow" class="count__num">
                     {{ panels.c.count }}
                   </p>
@@ -53,7 +65,11 @@
                 </button>
               </div>
               <div class="grid__item">
-                <button class="count" data-initial="d" @click="submit('d')">
+                <button
+                  class="count"
+                  :disabled="isProcessing"
+                  @click="submit('d')"
+                >
                   <p v-if="countShow" class="count__num">
                     {{ panels.d.count }}
                   </p>
@@ -123,6 +139,7 @@ export default Vue.extend({
       layerLoading: {},
       layerCountStop: {},
       commentText: "",
+      isProcessing: false,
     };
   },
   computed: {
@@ -365,12 +382,14 @@ export default Vue.extend({
       // }, 600);
     },
     submit(panelId: any) {
-      this.$store.dispatch("changeCount", { panelId });
-      // let counts = this.$db.collection("counts");
-      // let a = counts.doc("a");
-      // a.update({
-      //   count: 1000,
-      // });
+      if (!this.isProcessing) {
+        this.$store.dispatch("changeCountDb", panelId);
+      }
+      this.isProcessing = true;
+
+      setTimeout(() => {
+        this.isProcessing = false;
+      }, 500);
     },
   },
 });
