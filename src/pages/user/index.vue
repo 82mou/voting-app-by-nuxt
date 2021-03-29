@@ -24,7 +24,7 @@
                   </transition>
                   <div class="count__name">
                     <p class="count__name__alphabet">A</p>
-                    <p class="count__name__text js-name-a">
+                    <p class="count__name__text">
                       {{ panels.a.name }}
                     </p>
                   </div>
@@ -41,7 +41,7 @@
                   </p>
                   <div class="count__name">
                     <p class="count__name__alphabet">B</p>
-                    <p class="count__name__text js-name-b">
+                    <p class="count__name__text">
                       {{ panels.b.name }}
                     </p>
                   </div>
@@ -58,7 +58,7 @@
                   </p>
                   <div class="count__name">
                     <p class="count__name__alphabet">C</p>
-                    <p class="count__name__text js-name-c">
+                    <p class="count__name__text">
                       {{ panels.c.name }}
                     </p>
                   </div>
@@ -75,7 +75,7 @@
                   </p>
                   <div class="count__name">
                     <p class="count__name__alphabet">D</p>
-                    <p class="count__name__text js-name-d">
+                    <p class="count__name__text">
                       {{ panels.d.name }}
                     </p>
                   </div>
