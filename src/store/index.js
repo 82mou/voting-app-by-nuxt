@@ -75,4 +75,22 @@ export const actions = {
         console.error("Error getting document:", error);
       });
   },
+  /**
+   * firebaseのDBのpanelsを取得してstoreと同期
+   */
+  changeCount({ commit }, { panelId }) {
+    this.$db
+      .collection("panels")
+      .doc(panelId)
+      .update({
+        count: this.$increment,
+      })
+      .then(() => {
+        console.log("Document successfully updated!");
+      })
+      .catch((error) => {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+      });
+  },
 };
