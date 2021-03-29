@@ -42,7 +42,9 @@ export const mutations = {
   },
   setCount(state, { panelId, count }) {
     state.panels[panelId].count = count;
-    console.log(state.panels[panelId].count);
+  },
+  setComments(state, { id, obj }) {
+    state.comments[id] = obj;
   },
 };
 
@@ -126,10 +128,27 @@ export const actions = {
         text: commentText,
       })
       .then((docRef) => {
+        dispatch("changeComment", commentText);
         console.log("Document written with ID: ", docRef.id);
       })
       .catch((error) => {
         console.error("Error adding document: ", error);
+      });
+  },
+  /**
+   * commentsを更新
+   */
+  changeComment({ commit }, commentText) {
+    this.$db
+      .collection("comments")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach(function (doc) {
+          commit("setComments", { id: doc.id, obj: doc.data() });
+        });
+      })
+      .catch((error) => {
+        console.error("Error getting document:", error);
       });
   },
 };
