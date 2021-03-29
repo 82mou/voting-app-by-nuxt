@@ -40,6 +40,7 @@ declare module 'vuex/types/index' {
 const myPlugin: Plugin = (context, inject) => {
   inject('firebase', firebase)
   inject('db', firebase.firestore())
+  inject('increment', firebase.firestore.FieldValue.increment(1))
 }
 
 export default myPlugin

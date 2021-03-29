@@ -12,7 +12,7 @@
           <div class="grid">
             <div class="grid__inner">
               <div class="grid__item">
-                <button class="count" data-initial="a" @click="submit">
+                <button class="count" data-initial="a" @click="submit('a')">
                   <transition name="count__num">
                     <p v-if="countShow" class="count__num">
                       {{ panels.a.count }}
@@ -27,7 +27,7 @@
                 </button>
               </div>
               <div class="grid__item">
-                <button class="js-post count" data-initial="b" @click="submit">
+                <button class="count" data-initial="b" @click="submit('b')">
                   <p v-if="countShow" class="count__num">
                     {{ panels.b.count }}
                   </p>
@@ -40,7 +40,7 @@
                 </button>
               </div>
               <div class="grid__item">
-                <button class="js-post count" data-initial="c" @click="submit">
+                <button class="count" data-initial="c" @click="submit('c')">
                   <p v-if="countShow" class="count__num">
                     {{ panels.c.count }}
                   </p>
@@ -53,7 +53,7 @@
                 </button>
               </div>
               <div class="grid__item">
-                <button class="js-post count" data-initial="d" @click="submit">
+                <button class="count" data-initial="d" @click="submit('d')">
                   <p v-if="countShow" class="count__num">
                     {{ panels.d.count }}
                   </p>
@@ -364,8 +364,8 @@ export default Vue.extend({
       //   this.layer.classList.add("dn");
       // }, 600);
     },
-    submit() {
-      // const db = firebase.firestore();
+    submit(panelId: any) {
+      this.$store.dispatch("changeCount", { panelId });
       // let counts = this.$db.collection("counts");
       // let a = counts.doc("a");
       // a.update({
