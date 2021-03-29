@@ -24,7 +24,7 @@ export const state = () => ({
   },
   countStop: false,
   countShow: true,
-  pushComments: {},
+  comments: {},
 });
 
 export const getters = {
@@ -37,14 +37,18 @@ export const mutations = {
   setTitle(state, value) {
     state.title = value;
   },
-  setPanels(state, { id, obj }) {
-    state.panels[id] = obj;
+  setPanels(state, { panelId, obj }) {
+    state.panels[panelId] = obj;
+  },
+  setCount(state, { panelId, count }) {
+    state.panels[panelId].count = count;
+    console.log(state.panels[panelId].count);
   },
 };
 
 export const actions = {
   /**
-   * firebaseのDBのtitleを取得してstoreと同期
+   * DBのtitleを取得してstoreと同期
    */
   changeTitle({ commit }) {
     this.$db
@@ -60,7 +64,7 @@ export const actions = {
       });
   },
   /**
-   * firebaseのDBのpanelsを取得してstoreと同期
+   * DBのpanelsを取得してstoreと同期
    */
   changePanels({ commit }) {
     this.$db
@@ -68,7 +72,7 @@ export const actions = {
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
-          commit("setPanels", { id: doc.id, obj: doc.data() });
+          commit("setPanels", { panelId: doc.id, obj: doc.data() });
         });
       })
       .catch((error) => {
@@ -76,9 +80,9 @@ export const actions = {
       });
   },
   /**
-   * firebaseのDBのpanelsを取得してstoreと同期
+   * DBのpanelsのカウントを更新しstore更新のactionを呼ぶ
    */
-  changeCount({ commit }, { panelId }) {
+  changeCountDb({ dispatch }, panelId) {
     this.$db
       .collection("panels")
       .doc(panelId)
@@ -86,11 +90,46 @@ export const actions = {
         count: this.$increment,
       })
       .then(() => {
+        dispatch("changeCount", panelId);
         console.log("Document successfully updated!");
       })
       .catch((error) => {
-        // The document probably doesn't exist.
         console.error("Error updating document: ", error);
+      });
+  },
+  /**
+   * panelsのcountを更新
+   */
+  changeCount({ commit }, panelId) {
+    this.$db
+      .collection("panels")
+      .doc(panelId)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          commit("setCount", { panelId, count: doc.data().count });
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  },
+  /**
+   * DBのコメントを更新しstore更新のactionを呼ぶ
+   */
+  changeCommentDb({ dispatch }, commentText) {
+    this.$db
+      .collection("comments")
+      .add({
+        text: commentText,
+      })
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
       });
   },
 };

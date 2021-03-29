@@ -12,7 +12,11 @@
           <div class="grid">
             <div class="grid__inner">
               <div class="grid__item">
-                <button class="count" data-initial="a" @click="submit('a')">
+                <button
+                  class="count"
+                  :disabled="isProcessing"
+                  @click="submit('a')"
+                >
                   <transition name="count__num">
                     <p v-if="countShow" class="count__num">
                       {{ panels.a.count }}
@@ -20,46 +24,58 @@
                   </transition>
                   <div class="count__name">
                     <p class="count__name__alphabet">A</p>
-                    <p class="count__name__text js-name-a">
+                    <p class="count__name__text">
                       {{ panels.a.name }}
                     </p>
                   </div>
                 </button>
               </div>
               <div class="grid__item">
-                <button class="count" data-initial="b" @click="submit('b')">
+                <button
+                  class="count"
+                  :disabled="isProcessing"
+                  @click="submit('b')"
+                >
                   <p v-if="countShow" class="count__num">
                     {{ panels.b.count }}
                   </p>
                   <div class="count__name">
                     <p class="count__name__alphabet">B</p>
-                    <p class="count__name__text js-name-b">
+                    <p class="count__name__text">
                       {{ panels.b.name }}
                     </p>
                   </div>
                 </button>
               </div>
               <div class="grid__item">
-                <button class="count" data-initial="c" @click="submit('c')">
+                <button
+                  class="count"
+                  :disabled="isProcessing"
+                  @click="submit('c')"
+                >
                   <p v-if="countShow" class="count__num">
                     {{ panels.c.count }}
                   </p>
                   <div class="count__name">
                     <p class="count__name__alphabet">C</p>
-                    <p class="count__name__text js-name-c">
+                    <p class="count__name__text">
                       {{ panels.c.name }}
                     </p>
                   </div>
                 </button>
               </div>
               <div class="grid__item">
-                <button class="count" data-initial="d" @click="submit('d')">
+                <button
+                  class="count"
+                  :disabled="isProcessing"
+                  @click="submit('d')"
+                >
                   <p v-if="countShow" class="count__num">
                     {{ panels.d.count }}
                   </p>
                   <div class="count__name">
                     <p class="count__name__alphabet">D</p>
-                    <p class="count__name__text js-name-d">
+                    <p class="count__name__text">
                       {{ panels.d.name }}
                     </p>
                   </div>
@@ -123,6 +139,7 @@ export default Vue.extend({
       layerLoading: {},
       layerCountStop: {},
       commentText: "",
+      isProcessing: false,
     };
   },
   computed: {
@@ -318,6 +335,7 @@ export default Vue.extend({
       // });
     },
     onSubmitComment() {
+      this.$store.dispatch("changeCommentDb", this.commentText);
       // (this as any).refComment.add({ text: (this as any).commentText });
       // (this as any).getData();
     },
@@ -365,12 +383,14 @@ export default Vue.extend({
       // }, 600);
     },
     submit(panelId: any) {
-      this.$store.dispatch("changeCount", { panelId });
-      // let counts = this.$db.collection("counts");
-      // let a = counts.doc("a");
-      // a.update({
-      //   count: 1000,
-      // });
+      if (!this.isProcessing) {
+        this.$store.dispatch("changeCountDb", panelId);
+      }
+      this.isProcessing = true;
+
+      setTimeout(() => {
+        this.isProcessing = false;
+      }, 500);
     },
   },
 });
