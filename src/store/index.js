@@ -24,7 +24,7 @@ export const state = () => ({
   },
   countStop: false,
   countShow: true,
-  pushComments: {},
+  comments: {},
 });
 
 export const getters = {
@@ -114,6 +114,22 @@ export const actions = {
       })
       .catch((error) => {
         console.log("Error getting document:", error);
+      });
+  },
+  /**
+   * DBのコメントを更新しstore更新のactionを呼ぶ
+   */
+  changeCommentDb({ dispatch }, commentText) {
+    this.$db
+      .collection("comments")
+      .add({
+        text: commentText,
+      })
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
       });
   },
 };

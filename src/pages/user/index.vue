@@ -335,6 +335,7 @@ export default Vue.extend({
       // });
     },
     onSubmitComment() {
+      this.$store.dispatch("changeCommentDb", this.commentText);
       // (this as any).refComment.add({ text: (this as any).commentText });
       // (this as any).getData();
     },
