@@ -336,6 +336,7 @@ export default Vue.extend({
     },
     onSubmitComment() {
       this.$store.dispatch("changeCommentDb", this.commentText);
+      this.commentText = "";
     },
     getData() {
       // (this as any).refComment.get().then((snapshot: any) => {
