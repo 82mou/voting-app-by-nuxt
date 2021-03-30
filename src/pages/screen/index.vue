@@ -6,7 +6,7 @@
           <p class="logo screen-logo">
             <img src="~assets/images/logo.png" alt="" />
           </p>
-          <!--          <h1 class="screen-title js-title"></h1>-->
+          <h1 class="screen-title">{{ title }}</h1>
         </div>
       </header>
       <main class="l-main">
@@ -17,36 +17,60 @@
                 <div class="js-post count screen-count">
                   <p class="screen-count__alphabet">A</p>
                   <div class="screen-count__name">
-                    <p class="screen-count__name__text js-name-a"></p>
+                    <p class="screen-count__name__text">
+                      {{ panels.a.name }}
+                    </p>
                   </div>
-                  <p class="screen-count__num js-count js-count-a is-hide"></p>
+                  <transition name="screen-count__num">
+                    <p v-if="countShow" class="screen-count__num">
+                      {{ panels.a.count }}
+                    </p>
+                  </transition>
                 </div>
               </div>
               <div class="grid__item">
                 <div class="js-post count screen-count">
                   <p class="screen-count__alphabet">B</p>
                   <div class="screen-count__name">
-                    <p class="screen-count__name__text js-name-b"></p>
+                    <p class="screen-count__name__text">
+                      {{ panels.b.name }}
+                    </p>
                   </div>
-                  <p class="screen-count__num js-count js-count-b is-hide"></p>
+                  <transition name="screen-count__num">
+                    <p v-if="countShow" class="screen-count__num">
+                      {{ panels.b.count }}
+                    </p>
+                  </transition>
                 </div>
               </div>
               <div class="grid__item">
                 <div class="js-post count screen-count">
                   <p class="screen-count__alphabet">C</p>
                   <div class="screen-count__name">
-                    <p class="screen-count__name__text js-name-c"></p>
+                    <p class="screen-count__name__text">
+                      {{ panels.c.name }}
+                    </p>
                   </div>
-                  <p class="screen-count__num js-count js-count-c is-hide"></p>
+                  <transition name="screen-count__num">
+                    <p v-if="countShow" class="screen-count__num">
+                      {{ panels.c.count }}
+                    </p>
+                  </transition>
                 </div>
               </div>
               <div class="grid__item">
                 <div class="js-post count screen-count">
                   <p class="screen-count__alphabet">D</p>
                   <div class="screen-count__name">
-                    <p class="screen-count__name__text js-name-d"></p>
+                    <p class="screen-count__name__text">
+                      {{ panels.d.name }}
+                    </p>
                   </div>
-                  <p class="screen-count__num js-count js-count-d is-hide"></p>
+                  <transition name="screen-count__num">
+                    <p v-if="countShow" class="screen-count__num">
+                      {{ panels.d.count }}
+                    </p>
+                  </transition>
                 </div>
               </div>
             </div>
@@ -57,26 +81,33 @@
         </div>
       </main>
     </div>
-    <div class="layer js-layer dn">
-      <p
-        class="layer__count-stop layer__count-stop--screen js-layer-count-stop dn"
-      >
-        集計停止中
-      </p>
-    </div>
+    <transition name="layer">
+      <div v-if="countStop" class="layer">
+        <p class="layer__count-stop layer__count-stop--screen">集計停止中</p>
+      </div>
+    </transition>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+import { mapState } from "vuex";
+
+export default Vue.extend({
+  computed: {
+    ...mapState(["title"]),
+    ...mapState(["panels"]),
+    ...mapState(["countShow"]),
+    ...mapState(["countStop"]),
+  },
   mounted() {
+    this.$store.dispatch("changeTitle");
+    this.$store.dispatch("changePanels");
     // const TRANSITION_END = "transitionend"; // 2つ指定していると2回バインドされる
     // const ANIMATION_END = "animationend"; // 2つ指定していると2回バインドされる
     /*
      * 初期化
      */
-    // const database = firebase.database();
-    // const refTitle = database.ref("title");
     // const refCount = database.ref("count");
     // const refName = database.ref("name");
     // const refSound = database.ref("sound");
@@ -420,5 +451,5 @@ export default {
     //   $(e.currentTarget).removeClass("is-animated");
     // });
   },
-};
+});
 </script>

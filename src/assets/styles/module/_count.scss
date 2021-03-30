@@ -134,7 +134,16 @@
   font-size: 140px;
   opacity: 1;
   transition: opacity 0.5s;
-  &.is-hide {
+  &-enter,
+  &-leave-to {
     opacity: 0;
+  }
+  &-enter-to,
+  &-leave {
+    opacity: 1;
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.4s $ease-out-cubic;
   }
 }

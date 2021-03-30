@@ -119,7 +119,7 @@
           src="~assets/images/loading.gif"
           alt=""
         /> -->
-        <p class="layer__count-stop js-layer-count-stop">集計停止中</p>
+        <p class="layer__count-stop">集計停止中</p>
       </div>
     </transition>
   </div>
