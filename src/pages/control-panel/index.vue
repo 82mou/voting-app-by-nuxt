@@ -7,10 +7,11 @@
           <div class="col-8">
             <div>
               <div class="form-group">
-                <form id="js-title-form" name="title-form">
+                <form name="title-form" @submit.prevent="onSubmitTitle">
                   <div class="input-group">
                     <span class="input-group-addon">タイトル</span>
                     <input
+                      v-model="title"
                       type="text"
                       name="title"
                       class="form-control js-title"
@@ -27,10 +28,11 @@
                 </form>
               </div>
               <div class="form-group">
-                <form id="js-name-form-a" name="name-form-a">
+                <form name="name-form-a" @submit.prevent="onSubmitPanelTitle">
                   <div class="input-group">
                     <span class="input-group-addon">A</span>
                     <input
+                      v-model="panelTitleA"
                       type="text"
                       name="name-a"
                       class="form-control js-name-a"
@@ -116,10 +118,11 @@
                 </form>
               </div>
               <div class="form-group">
-                <form id="js-name-form-b" name="name-form-b">
+                <form name="name-form-b" @submit.prevent="onSubmitPanelTitle">
                   <div class="input-group">
                     <span class="input-group-addon">B</span>
                     <input
+                      v-model="panelTitleB"
                       type="text"
                       name="name-b"
                       class="form-control js-name-b"
@@ -205,10 +208,11 @@
                 </form>
               </div>
               <div class="form-group">
-                <form id="js-name-form-c" name="name-form-c">
+                <form name="name-form-c" @submit.prevent="onSubmitPanelTitle">
                   <div class="input-group">
                     <span class="input-group-addon">C</span>
                     <input
+                      v-model="panelTitleC"
                       type="text"
                       name="name-c"
                       class="form-control js-name-c"
@@ -294,10 +298,11 @@
                 </form>
               </div>
               <div class="form-group">
-                <form id="js-name-form-d" name="name-form-d">
+                <form name="name-form-d" @submit.prevent="onSubmitPanelTitle">
                   <div class="input-group">
                     <span class="input-group-addon">D</span>
                     <input
+                      v-model="panelTitleD"
                       type="text"
                       name="name-d"
                       class="form-control js-name-d"
@@ -458,6 +463,15 @@
 
 <script>
 export default {
+  data() {
+    return {
+      title: "",
+      panelTitleA: "",
+      panelTitleB: "",
+      panelTitleC: "",
+      panelTitleD: "",
+    };
+  },
   mounted() {
     /*
      * 初期化
@@ -871,6 +885,11 @@ export default {
     //     $countSwitch.prop("checked", true);
     //   }
     // });
+  },
+  methods: {
+    onSubmitTitle() {
+      this.$store.dispatch("changeTitleDb", this.title);
+    },
   },
 };
 </script>

@@ -87,11 +87,7 @@
       </main>
       <div class="form">
         <div class="l-container">
-          <form
-            id="js-form"
-            name="comment-form"
-            @submit.prevent="onSubmitComment"
-          >
+          <form name="comment-form" @submit.prevent="onSubmitComment">
             <input
               v-model="commentText"
               type="text"

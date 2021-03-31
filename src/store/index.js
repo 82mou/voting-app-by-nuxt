@@ -50,6 +50,24 @@ export const mutations = {
 
 export const actions = {
   /**
+   * DBのtitleを更新しstore更新のactionを呼ぶ
+   */
+  changeTitleDb({ dispatch }, title) {
+    this.$db
+      .collection("title")
+      .doc("vvHrtBzRHrX9ABc7Tbu3")
+      .update({
+        text: title,
+      })
+      .then(() => {
+        dispatch("changeTitle");
+        console.log("Document successfully updated!");
+      })
+      .catch((error) => {
+        console.error("Error updating document: ", error);
+      });
+  },
+  /**
    * DBのtitleを取得してstoreと同期
    */
   changeTitle({ commit }) {
