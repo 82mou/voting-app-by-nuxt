@@ -404,7 +404,7 @@
               <button
                 type="submit"
                 class="btn btn-outline-danger"
-                @click="clearTitle"
+                @click.prevent="clearTitle"
               >
                 入力クリア
               </button>
@@ -415,7 +415,7 @@
               <div class="form-check">
                 <label class="form-check-label">
                   <input
-                    id="js-count-view-switch"
+                    v-model="countShow"
                     class="form-check-input"
                     type="checkbox"
                     value="option1"
@@ -425,7 +425,7 @@
               <div class="form-check">
                 <label class="form-check-label">
                   <input
-                    id="js-count-switch"
+                    v-model="countStop"
                     class="form-check-input"
                     type="checkbox"
                     value="option2"
@@ -433,7 +433,7 @@
                 </label>
               </div>
               <div class="text-center">
-                <button type="button" class="btn btn-danger js-btn-all-clear">
+                <button type="button" class="btn btn-danger">
                   オールクリア
                 </button>
               </div>
@@ -489,12 +489,32 @@ export default Vue.extend({
       panelNameB: "",
       panelNameC: "",
       panelNameD: "",
+      // newCountShow: false,
+      // newCountStop: true,
     };
   },
   computed: {
     ...mapState(["comments"]),
+    countShow: {
+      get() {
+        return this.$store.state.countShow;
+      },
+      set(boolean) {
+        this.$store.commit("setCountShow", boolean);
+      },
+    },
+    countStop: {
+      get() {
+        return this.$store.state.countStop;
+      },
+      set(boolean) {
+        this.$store.commit("setCountStop", boolean);
+      },
+    },
   },
   mounted() {
+    // this.$store.dispatch("changeCountStop");
+    // this.$store.dispatch("changeCountShow");
     /*
      * 初期化
      */
@@ -922,6 +942,12 @@ export default Vue.extend({
       this.panelNameC = "";
       this.panelNameD = "";
     },
+    // onChangeCountStop() {
+    // this.$store.dispatch("changeCountStopDb", this.countStop);
+    // },
+    // onChangeCountShow() {
+    // this.$store.dispatch("changeCountShowDb", this.countShow);
+    // },
   },
 });
 </script>

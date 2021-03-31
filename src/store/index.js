@@ -23,7 +23,7 @@ export const state = () => ({
     },
   },
   countStop: false,
-  countShow: true,
+  countShow: false,
   comments: {},
 });
 
@@ -48,6 +48,12 @@ export const mutations = {
   },
   setComments(state, { id, obj }) {
     state.comments[id] = obj;
+  },
+  setCountStop(state, boolean) {
+    state.countStop = boolean;
+  },
+  setCountShow(state, boolean) {
+    state.countShow = boolean;
   },
 };
 
@@ -209,4 +215,72 @@ export const actions = {
         console.error("Error getting document:", error);
       });
   },
+  /**
+   * DBのcountStopを更新しstore更新のactionを呼ぶ
+   */
+  // changeCountStopDb({ dispatch }, boolean) {
+  //   this.$db
+  //     .collection("countStopSwitch")
+  //     .doc("0kVm6l0gkeOZCj2KchES")
+  //     .update({
+  //       countStop: boolean,
+  //     })
+  //     .then(() => {
+  //       dispatch("changeCountStop");
+  //       console.log("Document successfully updated!");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error updating document: ", error);
+  //     });
+  // },
+  /**
+   * DBのcountStopを取得してstoreと同期
+   */
+  // changeCountStop({ commit }) {
+  //   this.$db
+  //     .collection("countStopSwitch")
+  //     .get()
+  //     .then((snapshot) => {
+  //       snapshot.forEach(function (doc) {
+  //         commit("setCountStop", doc.data().countSTop);
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error getting document:", error);
+  //     });
+  // },
+  /**
+   * DBのcountShowを更新しstore更新のactionを呼ぶ
+   */
+  // changeCountShowDb({ dispatch }, boolean) {
+  //   this.$db
+  //     .collection("countShowSwitch")
+  //     .doc("ks5IgdHG7AxI1baZANt3")
+  //     .update({
+  //       countShow: boolean,
+  //     })
+  //     .then(() => {
+  //       dispatch("changeCountShow");
+  //       console.log("Document successfully updated!");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error updating document: ", error);
+  //     });
+  // },
+  /**
+   * DBのcountShowを取得してstoreと同期
+   */
+  // changeCountShow({ commit }) {
+  //   this.$db
+  //     .collection("countShowSwitch")
+  //     .get()
+  //     .then((snapshot) => {
+  //       snapshot.forEach(function (doc) {
+  //         commit("setCountShow", doc.data().countShow);
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error getting document:", error);
+  //     });
+  // },
 };
