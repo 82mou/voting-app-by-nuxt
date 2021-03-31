@@ -14,7 +14,7 @@
                       v-model="title"
                       type="text"
                       name="title"
-                      class="form-control js-title"
+                      class="form-control"
                       aria-label="Amount (to the nearest dollar)"
                     />
                     <button
@@ -28,14 +28,17 @@
                 </form>
               </div>
               <div class="form-group">
-                <form name="name-form-a" @submit.prevent="onSubmitPanelTitle">
+                <form
+                  name="name-form-a"
+                  @submit.prevent="onSubmitPanelName('a', panelNameA)"
+                >
                   <div class="input-group">
                     <span class="input-group-addon">A</span>
                     <input
-                      v-model="panelTitleA"
+                      v-model="panelNameA"
                       type="text"
                       name="name-a"
-                      class="form-control js-name-a"
+                      class="form-control"
                     />
                     <button
                       type="submit"
@@ -118,14 +121,17 @@
                 </form>
               </div>
               <div class="form-group">
-                <form name="name-form-b" @submit.prevent="onSubmitPanelTitle">
+                <form
+                  name="name-form-b"
+                  @submit.prevent="onSubmitPanelName('b', panelNameB)"
+                >
                   <div class="input-group">
                     <span class="input-group-addon">B</span>
                     <input
-                      v-model="panelTitleB"
+                      v-model="panelNameB"
                       type="text"
                       name="name-b"
-                      class="form-control js-name-b"
+                      class="form-control"
                     />
                     <button
                       type="submit"
@@ -208,14 +214,17 @@
                 </form>
               </div>
               <div class="form-group">
-                <form name="name-form-c" @submit.prevent="onSubmitPanelTitle">
+                <form
+                  name="name-form-c"
+                  @submit.prevent="onSubmitPanelName('c', panelNameC)"
+                >
                   <div class="input-group">
                     <span class="input-group-addon">C</span>
                     <input
-                      v-model="panelTitleC"
+                      v-model="panelNameC"
                       type="text"
                       name="name-c"
-                      class="form-control js-name-c"
+                      class="form-control"
                     />
                     <button
                       type="submit"
@@ -298,14 +307,17 @@
                 </form>
               </div>
               <div class="form-group">
-                <form name="name-form-d" @submit.prevent="onSubmitPanelTitle">
+                <form
+                  name="name-form-d"
+                  @submit.prevent="onSubmitPanelName('d', panelNameD)"
+                >
                   <div class="input-group">
                     <span class="input-group-addon">D</span>
                     <input
-                      v-model="panelTitleD"
+                      v-model="panelNameD"
                       type="text"
                       name="name-d"
-                      class="form-control js-name-d"
+                      class="form-control"
                     />
                     <button
                       type="submit"
@@ -389,7 +401,11 @@
               </div>
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-outline-danger js-btn-clear">
+              <button
+                type="submit"
+                class="btn btn-outline-danger"
+                @click="clearTitle"
+              >
                 入力クリア
               </button>
             </div>
@@ -442,7 +458,7 @@
                   type="text"
                   name="comment"
                   maxlength="30"
-                  class="form-control js-push-comment"
+                  class="form-controlomment"
                   placeholder="コメント入力MAX30文字"
                 />
                 <button
@@ -461,16 +477,22 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+import { mapState } from "vuex";
+
+export default Vue.extend({
   data() {
     return {
       title: "",
-      panelTitleA: "",
-      panelTitleB: "",
-      panelTitleC: "",
-      panelTitleD: "",
+      panelNameA: "",
+      panelNameB: "",
+      panelNameC: "",
+      panelNameD: "",
     };
+  },
+  computed: {
+    ...mapState(["comments"]),
   },
   mounted() {
     /*
@@ -890,8 +912,18 @@ export default {
     onSubmitTitle() {
       this.$store.dispatch("changeTitleDb", this.title);
     },
+    onSubmitPanelName(panelId: any, panelName: any) {
+      this.$store.dispatch("changePanelNameDb", { panelId, panelName });
+    },
+    clearTitle() {
+      this.title = "";
+      this.panelNameA = "";
+      this.panelNameB = "";
+      this.panelNameC = "";
+      this.panelNameD = "";
+    },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

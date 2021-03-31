@@ -40,8 +40,11 @@ export const mutations = {
   setPanels(state, { panelId, obj }) {
     state.panels[panelId] = obj;
   },
-  setCount(state, { panelId, count }) {
+  setPanelCount(state, { panelId, count }) {
     state.panels[panelId].count = count;
+  },
+  setPanelName(state, { panelId, name }) {
+    state.panels[panelId].name = name;
   },
   setComments(state, { id, obj }) {
     state.comments[id] = obj;
@@ -100,6 +103,43 @@ export const actions = {
       });
   },
   /**
+   * DBのpanelsのnameを更新しstore更新のactionを呼ぶ
+   */
+  changePanelNameDb({ dispatch }, { panelId, panelName }) {
+    this.$db
+      .collection("panels")
+      .doc(panelId)
+      .update({
+        name: panelName,
+      })
+      .then(() => {
+        dispatch("changePanelName", panelId);
+        console.log("Document successfully updated!");
+      })
+      .catch((error) => {
+        console.error("Error updating document: ", error);
+      });
+  },
+  /**
+   * panelsのnameを更新
+   */
+  changePanelName({ commit }, panelId) {
+    this.$db
+      .collection("panels")
+      .doc(panelId)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          commit("setPanelName", { panelId, count: doc.data().name });
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  },
+  /**
    * DBのpanelsのカウントを更新しstore更新のactionを呼ぶ
    */
   changeCountDb({ dispatch }, panelId) {
@@ -127,7 +167,7 @@ export const actions = {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          commit("setCount", { panelId, count: doc.data().count });
+          commit("setPanelCount", { panelId, count: doc.data().count });
         } else {
           console.log("No such document!");
         }
