@@ -403,7 +403,7 @@
             <div class="text-center">
               <button
                 type="submit"
-                class="btn btn-outline-danger js-btn-clear"
+                class="btn btn-outline-danger"
                 @click="clearTitle"
               >
                 入力クリア
