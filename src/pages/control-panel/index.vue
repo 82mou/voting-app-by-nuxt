@@ -401,7 +401,11 @@
               </div>
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-outline-danger js-btn-clear">
+              <button
+                type="submit"
+                class="btn btn-outline-danger js-btn-clear"
+                @click="clearTitle"
+              >
                 入力クリア
               </button>
             </div>
@@ -910,6 +914,13 @@ export default Vue.extend({
     },
     onSubmitPanelName(panelId: any, panelName: any) {
       this.$store.dispatch("changePanelNameDb", { panelId, panelName });
+    },
+    clearTitle() {
+      this.title = "";
+      this.panelNameA = "";
+      this.panelNameB = "";
+      this.panelNameC = "";
+      this.panelNameD = "";
     },
   },
 });
