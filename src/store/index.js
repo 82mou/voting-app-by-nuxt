@@ -50,11 +50,9 @@ export const mutations = {
     state.comments[id] = obj;
   },
   setCountStop(state, boolean) {
-    console.log(boolean);
     state.countStop = boolean;
   },
   setCountShow(state, boolean) {
-    console.log(boolean);
     state.countShow = boolean;
   },
 };
