@@ -392,5 +392,5 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-// スタイルをここに移す
+@import "@/assets/styles/global.scss";
 </style>
