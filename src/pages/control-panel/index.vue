@@ -419,6 +419,7 @@
                     class="form-check-input"
                     type="checkbox"
                     value="option1"
+                    @input="onChangeCountShow"
                   />統計数表示
                 </label>
               </div>
@@ -429,6 +430,7 @@
                     class="form-check-input"
                     type="checkbox"
                     value="option2"
+                    @input="onChangeCountStop"
                   />集計停止
                 </label>
               </div>
@@ -489,8 +491,8 @@ export default Vue.extend({
       panelNameB: "",
       panelNameC: "",
       panelNameD: "",
-      // newCountShow: false,
-      // newCountStop: true,
+      countShowFlg: false,
+      countStopFlg: true,
     };
   },
   computed: {
@@ -513,8 +515,8 @@ export default Vue.extend({
     },
   },
   mounted() {
-    // this.$store.dispatch("changeCountStop");
-    // this.$store.dispatch("changeCountShow");
+    this.$store.dispatch("changeCountStop");
+    this.$store.dispatch("changeCountShow");
     /*
      * 初期化
      */
@@ -948,12 +950,19 @@ export default Vue.extend({
       // @ts-ignore
       this.panelNameD = "";
     },
-    // onChangeCountStop() {
-    // this.$store.dispatch("changeCountStopDb", this.countStop);
-    // },
-    // onChangeCountShow() {
-    // this.$store.dispatch("changeCountShowDb", this.countShow);
-    // },
+    onChangeCountStop(e: any) {
+      console.log(e.target);
+      // @ts-ignore
+      this.countStopFlg = !!e.target.checked;
+      // @ts-ignore
+      this.$store.dispatch("changeCountStopDb", this.countStopFlg);
+    },
+    onChangeCountShow(e: any) {
+      // @ts-ignore
+      this.countShowFlg = !!e.target.checked;
+      // @ts-ignore
+      this.$store.dispatch("changeCountShowDb", this.countShowFlg);
+    },
   },
 });
 </script>
