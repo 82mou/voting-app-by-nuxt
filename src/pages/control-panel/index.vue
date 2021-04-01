@@ -51,7 +51,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-3 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音1</span>
+                        <span class="sound-text mb-0 mr-3">音1</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -65,7 +65,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音2</span>
+                        <span class="sound-text mb-0 mr-3">音2</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -79,7 +79,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音3</span>
+                        <span class="sound-text mb-0 mr-3">音3</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -93,7 +93,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音4</span>
+                        <span class="sound-text mb-0 mr-3">音4</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -107,7 +107,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">無音</span>
+                        <span class="sound-text mb-0 mr-3">無音</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -144,7 +144,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-3 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音1</span>
+                        <span class="sound-text mb-0 mr-3">音1</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -158,7 +158,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音2</span>
+                        <span class="sound-text mb-0 mr-3">音2</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -172,7 +172,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音3</span>
+                        <span class="sound-text mb-0 mr-3">音3</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -186,7 +186,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音4</span>
+                        <span class="sound-text mb-0 mr-3">音4</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -200,7 +200,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">無音</span>
+                        <span class="sound-text mb-0 mr-3">無音</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -237,7 +237,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-3 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音1</span>
+                        <span class="sound-text mb-0 mr-3">音1</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -251,7 +251,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音2</span>
+                        <span class="sound-text mb-0 mr-3">音2</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -265,7 +265,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音3</span>
+                        <span class="sound-text mb-0 mr-3">音3</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -279,7 +279,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音4</span>
+                        <span class="sound-text mb-0 mr-3">音4</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -293,7 +293,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">無音</span>
+                        <span class="sound-text mb-0 mr-3">無音</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -330,7 +330,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-3 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音1</span>
+                        <span class="sound-text mb-0 mr-3">音1</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -344,7 +344,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音2</span>
+                        <span class="sound-text mb-0 mr-3">音2</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -358,7 +358,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音3</span>
+                        <span class="sound-text mb-0 mr-3">音3</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -372,7 +372,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">音4</span>
+                        <span class="sound-text mb-0 mr-3">音4</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -386,7 +386,7 @@
                       class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
                     >
                       <label class="form-check-label sound-text-label pl-0">
-                        <span class="sound-text mb-0">無音</span>
+                        <span class="sound-text mb-0 mr-3">無音</span>
                         <input
                           class="form-check-input sound-checkbox ml-0 js-sound"
                           type="radio"
@@ -419,6 +419,7 @@
                     class="form-check-input"
                     type="checkbox"
                     value="option1"
+                    @input="onChangeCountShow"
                   />統計数表示
                 </label>
               </div>
@@ -429,6 +430,7 @@
                     class="form-check-input"
                     type="checkbox"
                     value="option2"
+                    @input="onChangeCountStop"
                   />集計停止
                 </label>
               </div>
@@ -458,7 +460,7 @@
                   type="text"
                   name="comment"
                   maxlength="30"
-                  class="form-controlomment"
+                  class="form-control"
                   placeholder="コメント入力MAX30文字"
                 />
                 <button
@@ -489,8 +491,8 @@ export default Vue.extend({
       panelNameB: "",
       panelNameC: "",
       panelNameD: "",
-      // newCountShow: false,
-      // newCountStop: true,
+      countShowFlg: false,
+      countStopFlg: true,
     };
   },
   computed: {
@@ -513,8 +515,8 @@ export default Vue.extend({
     },
   },
   mounted() {
-    // this.$store.dispatch("changeCountStop");
-    // this.$store.dispatch("changeCountShow");
+    this.$store.dispatch("changeCountStop");
+    this.$store.dispatch("changeCountShow");
     /*
      * 初期化
      */
@@ -930,29 +932,44 @@ export default Vue.extend({
   },
   methods: {
     onSubmitTitle() {
+      // @ts-ignore
       this.$store.dispatch("changeTitleDb", this.title);
     },
     onSubmitPanelName(panelId: any, panelName: any) {
       this.$store.dispatch("changePanelNameDb", { panelId, panelName });
     },
     clearTitle() {
+      // @ts-ignore
       this.title = "";
+      // @ts-ignore
       this.panelNameA = "";
+      // @ts-ignore
       this.panelNameB = "";
+      // @ts-ignore
       this.panelNameC = "";
+      // @ts-ignore
       this.panelNameD = "";
     },
-    // onChangeCountStop() {
-    // this.$store.dispatch("changeCountStopDb", this.countStop);
-    // },
-    // onChangeCountShow() {
-    // this.$store.dispatch("changeCountShowDb", this.countShow);
-    // },
+    onChangeCountStop(e: any) {
+      console.log(e.target);
+      // @ts-ignore
+      this.countStopFlg = !!e.target.checked;
+      // @ts-ignore
+      this.$store.dispatch("changeCountStopDb", this.countStopFlg);
+    },
+    onChangeCountShow(e: any) {
+      // @ts-ignore
+      this.countShowFlg = !!e.target.checked;
+      // @ts-ignore
+      this.$store.dispatch("changeCountShowDb", this.countShowFlg);
+    },
   },
 });
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/styles/bootstrap.scss";
+
 .comment-pool {
   padding-left: 0;
   > li {

@@ -1,12 +1,10 @@
-@import "./settings/sanitize.scss";
-@import "./settings/reset.scss";
-@import "./settings/base.scss";
-@import "./tools/keyframe.scss";
-@import "./tools/util.scss";
+@import "./settings/sanitize";
+@import "./settings/reset";
+@import "./settings/base";
+@import "./tools/keyframe";
+@import "./tools/util";
 
 // 旧style郡
-@import "~bootstrap/scss/bootstrap";
-
 @import "./layout/l-grid";
 @import "./layout/l-container";
 @import "./layout/l-header";

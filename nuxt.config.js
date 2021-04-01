@@ -31,7 +31,7 @@ export default {
     // innerHTML内の文字がエスケープされるのを防ぐ
     __dangerouslyDisableSanitizers: ["script"],
   },
-  css: ["~/assets/styles/global.scss"],
+  // css: ["~/assets/styles/global.scss"],
   plugins: [{ src: "~/plugins/firebase.ts", mode: "client" }],
   components: true,
   buildModules: [
@@ -42,11 +42,7 @@ export default {
     "@nuxtjs/style-resources",
     "nuxt-svg-loader",
   ],
-  modules: [
-    "@nuxtjs/axios",
-    ["bootstrap-vue/nuxt", { css: false }],
-    "nuxt-webfontloader",
-  ],
+  modules: ["@nuxtjs/axios", ["bootstrap-vue/nuxt"], "nuxt-webfontloader"],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
