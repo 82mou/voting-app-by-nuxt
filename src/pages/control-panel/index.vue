@@ -452,7 +452,8 @@
               コメントクリア
             </button>
           </div>
-          <ul class="comment-pool js-comment-pool"></ul>
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <ul ref="commentPool" class="comment-pool" v-html="comments"></ul>
           <form id="js-push-comment-form" name="comment-form">
             <div class="form-group mt-3">
               <div class="input-group">
@@ -513,10 +514,33 @@ export default Vue.extend({
         this.$store.commit("setCountStop", boolean);
       },
     },
+    comments: {
+      get() {
+        // const defRenderComment = (commentObj) => {
+        //   // @ts-ignore
+        //   commentPool.insertAdjacentHTML(
+        //     "beforeend",
+        //     // @ts-ignore
+        //     `<li><p class="comment-pool__text">${this.escapeHtml(
+        //       commentObj.value.comment
+        //     )}</p><button type="button" class="btn btn-outline-primary comment-pool-btn js-comment-pool-btn" value="${
+        //       commentObj.value.comment
+        //     }">入力</button></li>`
+        //   );
+        // };
+        return this.$store.state.comments;
+      },
+      set(boolean) {
+        this.$store.commit("setComments", boolean);
+      },
+    },
   },
   mounted() {
+    console.log(this.$store.state.comments);
     this.$store.dispatch("changeCountStop");
     this.$store.dispatch("changeCountShow");
+    this.$store.dispatch("changeComments");
+    // const commentPool = this.$refs.commentPool;
     /*
      * 初期化
      */
@@ -656,42 +680,34 @@ export default Vue.extend({
     //     }
     //   }
     // };
-    // const defRenderComment = (commentObj) => {
-    //   $commentPool.append(
-    //     `<li><p class="comment-pool__text">${escapeHtml(
+    // const defRenderComment = (commentObj: any) => {
+    //   // @ts-ignore
+    //   commentPool.insertAdjacentHTML(
+    //     "beforeend",
+    //     // @ts-ignore
+    //     `<li><p class="comment-pool__text">${this.escapeHtml(
     //       commentObj.value.comment
     //     )}</p><button type="button" class="btn btn-outline-primary comment-pool-btn js-comment-pool-btn" value="${
     //       commentObj.value.comment
     //     }">入力</button></li>`
     //   );
     // };
-    // const renderComment = (commentObj) => {
+    // const renderComment = (commentObj: any) => {
     //   // 一旦全てを初期化
-    //   $commentPool.empty();
+    //   // @ts-ignore
+    //   commentPool.innerHTML = "";
     //   for (const key in commentObj) {
-    //     $commentPool.append(
-    //       `<li><p class="comment-pool__text">${escapeHtml(
+    //     // @ts-ignore
+    //     commentPool.insertAdjacentHTML(
+    //       "beforeend",
+    //       // @ts-ignore
+    //       `<li><p class="comment-pool__text">${this.escapeHtml(
     //         commentObj[key].comment
     //       )}</p><button type="button" class="btn btn-outline-primary comment-pool-btn js-comment-pool-btn" value="${
     //         commentObj[key].comment
     //       }">入力</button></li>`
     //     );
     //   }
-    // };
-    // const escapeHtml = (string) => {
-    //   if (typeof string !== "string") {
-    //     return string;
-    //   }
-    //   return string.replace(/[&'`"<>]/g, function (match) {
-    //     return {
-    //       "&": "&amp;",
-    //       "'": "&#x27;",
-    //       "`": "&#x60;",
-    //       '"': "&quot;",
-    //       "<": "&lt;",
-    //       ">": "&gt;",
-    //     }[match];
-    //   });
     // };
     /*
      * Changeイベント
@@ -962,6 +978,21 @@ export default Vue.extend({
       this.countShowFlg = !!e.target.checked;
       // @ts-ignore
       this.$store.dispatch("changeCountShowDb", this.countShowFlg);
+    },
+    escapeHtml(string: any) {
+      if (typeof string !== "string") {
+        return string;
+      }
+      return string.replace(/[&'`"<>]/g, function (match) {
+        return {
+          "&": "&amp;",
+          "'": "&#x27;",
+          "`": "&#x60;",
+          '"': "&quot;",
+          "<": "&lt;",
+          ">": "&gt;",
+        }[match];
+      });
     },
   },
 });

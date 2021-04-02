@@ -46,15 +46,14 @@ export const mutations = {
   setPanelName(state, { panelId, name }) {
     state.panels[panelId].name = name;
   },
-  setComments(state, { id, obj }) {
-    state.comments[id] = obj;
-  },
   setCountStop(state, boolean) {
     state.countStop = boolean;
   },
   setCountShow(state, boolean) {
-    console.log(boolean);
     state.countShow = boolean;
+  },
+  setComments(state, { id, obj }) {
+    state.comments[id] = obj;
   },
 };
 
@@ -278,6 +277,22 @@ export const actions = {
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
           commit("setCountShow", doc.data().countShow);
+        });
+      })
+      .catch((error) => {
+        console.error("Error getting document:", error);
+      });
+  },
+  /**
+   * DBのcommentsを取得してstoreと同期
+   */
+  changeComments({ commit }) {
+    this.$db
+      .collection("comments")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach(function (doc) {
+          commit("setComments", { id: doc.id, obj: doc.data() });
         });
       })
       .catch((error) => {
