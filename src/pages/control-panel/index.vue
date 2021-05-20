@@ -452,8 +452,14 @@
               コメントクリア
             </button>
           </div>
-          <!-- eslint-disable-next-line vue/no-v-html -->
-          <ul ref="commentPool" class="comment-pool" v-html="comments"></ul>
+          <ul v-if="comments" ref="commentPool" class="comment-pool">
+            <li
+              v-for="(value, name, index) in comments"
+              :key="`comment-${index}`"
+            >
+              {{ value.text }}
+            </li>
+          </ul>
           <form id="js-push-comment-form" name="comment-form">
             <div class="form-group mt-3">
               <div class="input-group">
@@ -536,7 +542,6 @@ export default Vue.extend({
     },
   },
   mounted() {
-    console.log(this.$store.state.comments);
     this.$store.dispatch("changeCountStop");
     this.$store.dispatch("changeCountShow");
     this.$store.dispatch("changeComments");
@@ -983,16 +988,16 @@ export default Vue.extend({
       if (typeof string !== "string") {
         return string;
       }
-      return string.replace(/[&'`"<>]/g, function (match) {
-        return {
-          "&": "&amp;",
-          "'": "&#x27;",
-          "`": "&#x60;",
-          '"': "&quot;",
-          "<": "&lt;",
-          ">": "&gt;",
-        }[match];
-      });
+      // return string.replace(/[&'`"<>]/g, function (match) {
+      //   return {
+      //     "&": "&amp;",
+      //     "'": "&#x27;",
+      //     "`": "&#x60;",
+      //     '"': "&quot;",
+      //     "<": "&lt;",
+      //     ">": "&gt;",
+      //   }[match];
+      // });
     },
   },
 });
