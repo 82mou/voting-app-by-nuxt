@@ -452,7 +452,9 @@
               コメントクリア
             </button>
           </div>
-          <ul class="comment-pool">
+          <pre>{{ comments }}</pre>
+          <pre>{{ Object.keys(comments).length }}</pre>
+          <ul v-if="Object.keys(comments).length" class="comment-pool">
             <li
               v-for="(value, name, index) in comments"
               :key="`comment-${index}`"
@@ -522,6 +524,7 @@ export default Vue.extend({
         return this.$store.state.countStop;
       },
       set(boolean) {
+        console.log(boolean);
         this.$store.commit("setCountStop", boolean);
       },
     },
@@ -530,20 +533,20 @@ export default Vue.extend({
       get() {
         return this.$store.state.comments;
       },
-      set(boolean) {
-        this.$store.commit("setComments", boolean);
+      set(object) {
+        this.$store.commit("setComments", object);
       },
     },
   },
   created() {
-    this.$store.dispatch("changeCountStop");
-    this.$store.dispatch("changeCountShow");
-    this.$store.dispatch("changeComments");
-  },
-  mounted() {
     // this.$store.dispatch("changeCountStop");
     // this.$store.dispatch("changeCountShow");
     // this.$store.dispatch("changeComments");
+  },
+  mounted() {
+    this.$store.dispatch("changeCountStop");
+    this.$store.dispatch("changeCountShow");
+    this.$store.dispatch("changeComments");
     /*
      * 初期化
      */

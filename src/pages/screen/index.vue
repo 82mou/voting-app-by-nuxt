@@ -76,7 +76,9 @@
             </div>
           </div>
           <p class="push-comment">
-            <span class="push-comment-text js-push-comment-text"></span>
+            <span class="push-comment-text js-push-comment-text">{{
+              renderComment
+            }}</span>
           </p>
         </div>
       </main>
@@ -99,10 +101,19 @@ export default Vue.extend({
     ...mapState(["panels"]),
     ...mapState(["countShow"]),
     ...mapState(["countStop"]),
+    ...mapState(["renderComment"]),
+  },
+  created() {
+    // this.$store.dispatch("changeTitle");
+    // this.$store.dispatch("changePanels");
+    // this.$store.dispatch("changeRenderComment");
   },
   mounted() {
     this.$store.dispatch("changeTitle");
     this.$store.dispatch("changePanels");
+    this.$store.dispatch("changeRenderComment");
+    // this.$store.dispatch("changeTitle");
+    // this.$store.dispatch("changePanels");
     // const TRANSITION_END = "transitionend"; // 2つ指定していると2回バインドされる
     // const ANIMATION_END = "animationend"; // 2つ指定していると2回バインドされる
     /*

@@ -144,11 +144,21 @@ export default Vue.extend({
     ...mapState(["countShow"]),
     ...mapState(["countStop"]),
   },
+  created() {
+    // this.$store.dispatch("changeTitle");
+    // this.$store.dispatch("changePanels");
+    // this.$store.dispatch("changeCountShow");
+    // this.$store.dispatch("changeCountStop");
+  },
   mounted() {
     this.$store.dispatch("changeTitle");
     this.$store.dispatch("changePanels");
-    this.$store.dispatch("changeCountStop");
     this.$store.dispatch("changeCountShow");
+    this.$store.dispatch("changeCountStop");
+    // this.$store.dispatch("changeTitle");
+    // this.$store.dispatch("changePanels");
+    // this.$store.dispatch("changeCountStop");
+    // this.$store.dispatch("changeCountShow");
     // this.refCount = this.$db.collection("counts").doc("count");
     // this.refName = this.$db.collection("names").doc("name");
     // this.refComment = this.$db.collection("pushComments");
