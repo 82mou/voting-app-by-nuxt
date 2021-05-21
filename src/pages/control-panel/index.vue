@@ -20,7 +20,7 @@
                     <button
                       type="submit"
                       name="btn"
-                      class="btn btn-primary ml-3 js-submit-title"
+                      class="btn btn-primary ml-3"
                     >
                       送信
                     </button>
@@ -43,7 +43,7 @@
                     <button
                       type="submit"
                       name="submit-name-a"
-                      class="btn btn-primary ml-3 js-submit-name-a"
+                      class="btn btn-primary ml-3"
                     >
                       送信
                     </button>
@@ -452,22 +452,33 @@
               コメントクリア
             </button>
           </div>
-          <ul class="comment-pool js-comment-pool"></ul>
-          <form id="js-push-comment-form" name="comment-form">
+          <ul class="comment-pool">
+            <li
+              v-for="(value, name, index) in comments"
+              :key="`comment-${index}`"
+            >
+              <p class="comment-pool__text">{{ value.text }}</p>
+              <button
+                type="button"
+                class="btn btn-outline-primary comment-pool-btn js-comment-pool-btn"
+                @click="renderComment = value.text"
+              >
+                入力
+              </button>
+            </li>
+          </ul>
+          <form name="comment-form" @submit.prevent="onRenderComment">
             <div class="form-group mt-3">
               <div class="input-group">
                 <input
+                  v-model="renderComment"
                   type="text"
                   name="comment"
                   maxlength="30"
                   class="form-control"
                   placeholder="コメント入力MAX30文字"
                 />
-                <button
-                  type="submit"
-                  name="btn"
-                  class="btn btn-primary ml-3 js-push-comment-submit"
-                >
+                <button type="submit" name="btn" class="btn btn-primary ml-3">
                   送信
                 </button>
               </div>
@@ -493,6 +504,7 @@ export default Vue.extend({
       panelNameD: "",
       countShowFlg: false,
       countStopFlg: true,
+      renderComment: "",
     };
   },
   computed: {
@@ -513,10 +525,25 @@ export default Vue.extend({
         this.$store.commit("setCountStop", boolean);
       },
     },
+    comments: {
+      // return this.$store.state.comments;
+      get() {
+        return this.$store.state.comments;
+      },
+      set(boolean) {
+        this.$store.commit("setComments", boolean);
+      },
+    },
   },
-  mounted() {
+  created() {
     this.$store.dispatch("changeCountStop");
     this.$store.dispatch("changeCountShow");
+    this.$store.dispatch("changeComments");
+  },
+  mounted() {
+    // this.$store.dispatch("changeCountStop");
+    // this.$store.dispatch("changeCountShow");
+    // this.$store.dispatch("changeComments");
     /*
      * 初期化
      */
@@ -656,42 +683,34 @@ export default Vue.extend({
     //     }
     //   }
     // };
-    // const defRenderComment = (commentObj) => {
-    //   $commentPool.append(
-    //     `<li><p class="comment-pool__text">${escapeHtml(
+    // const defRenderComment = (commentObj: any) => {
+    //   // @ts-ignore
+    //   commentPool.insertAdjacentHTML(
+    //     "beforeend",
+    //     // @ts-ignore
+    //     `<li><p class="comment-pool__text">${this.escapeHtml(
     //       commentObj.value.comment
     //     )}</p><button type="button" class="btn btn-outline-primary comment-pool-btn js-comment-pool-btn" value="${
     //       commentObj.value.comment
     //     }">入力</button></li>`
     //   );
     // };
-    // const renderComment = (commentObj) => {
+    // const renderComment = (commentObj: any) => {
     //   // 一旦全てを初期化
-    //   $commentPool.empty();
+    //   // @ts-ignore
+    //   commentPool.innerHTML = "";
     //   for (const key in commentObj) {
-    //     $commentPool.append(
-    //       `<li><p class="comment-pool__text">${escapeHtml(
+    //     // @ts-ignore
+    //     commentPool.insertAdjacentHTML(
+    //       "beforeend",
+    //       // @ts-ignore
+    //       `<li><p class="comment-pool__text">${this.escapeHtml(
     //         commentObj[key].comment
     //       )}</p><button type="button" class="btn btn-outline-primary comment-pool-btn js-comment-pool-btn" value="${
     //         commentObj[key].comment
     //       }">入力</button></li>`
     //     );
     //   }
-    // };
-    // const escapeHtml = (string) => {
-    //   if (typeof string !== "string") {
-    //     return string;
-    //   }
-    //   return string.replace(/[&'`"<>]/g, function (match) {
-    //     return {
-    //       "&": "&amp;",
-    //       "'": "&#x27;",
-    //       "`": "&#x60;",
-    //       '"': "&quot;",
-    //       "<": "&lt;",
-    //       ">": "&gt;",
-    //     }[match];
-    //   });
     // };
     /*
      * Changeイベント
@@ -951,7 +970,6 @@ export default Vue.extend({
       this.panelNameD = "";
     },
     onChangeCountStop(e: any) {
-      console.log(e.target);
       // @ts-ignore
       this.countStopFlg = !!e.target.checked;
       // @ts-ignore
@@ -962,6 +980,25 @@ export default Vue.extend({
       this.countShowFlg = !!e.target.checked;
       // @ts-ignore
       this.$store.dispatch("changeCountShowDb", this.countShowFlg);
+    },
+    onRenderComment() {
+      // @ts-ignore
+      this.$store.dispatch("changeRenderCommentDb", this.renderComment);
+    },
+    escapeHtml(string: any) {
+      if (typeof string !== "string") {
+        return string;
+      }
+      // return string.replace(/[&'`"<>]/g, function (match) {
+      //   return {
+      //     "&": "&amp;",
+      //     "'": "&#x27;",
+      //     "`": "&#x60;",
+      //     '"': "&quot;",
+      //     "<": "&lt;",
+      //     ">": "&gt;",
+      //   }[match];
+      // });
     },
   },
 });
