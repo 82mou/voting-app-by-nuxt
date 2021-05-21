@@ -20,7 +20,7 @@
                     <button
                       type="submit"
                       name="btn"
-                      class="btn btn-primary ml-3 js-submit-title"
+                      class="btn btn-primary ml-3"
                     >
                       送信
                     </button>
@@ -43,7 +43,7 @@
                     <button
                       type="submit"
                       name="submit-name-a"
-                      class="btn btn-primary ml-3 js-submit-name-a"
+                      class="btn btn-primary ml-3"
                     >
                       送信
                     </button>
@@ -452,29 +452,33 @@
               コメントクリア
             </button>
           </div>
-          <ul v-if="comments" ref="commentPool" class="comment-pool">
+          <ul class="comment-pool">
             <li
               v-for="(value, name, index) in comments"
               :key="`comment-${index}`"
             >
-              {{ value.text }}
+              <p class="comment-pool__text">{{ value.text }}</p>
+              <button
+                type="button"
+                class="btn btn-outline-primary comment-pool-btn js-comment-pool-btn"
+                @click="renderComment = value.text"
+              >
+                入力
+              </button>
             </li>
           </ul>
-          <form id="js-push-comment-form" name="comment-form">
+          <form name="comment-form" @submit.prevent="onRenderComment">
             <div class="form-group mt-3">
               <div class="input-group">
                 <input
+                  v-model="renderComment"
                   type="text"
                   name="comment"
                   maxlength="30"
                   class="form-control"
                   placeholder="コメント入力MAX30文字"
                 />
-                <button
-                  type="submit"
-                  name="btn"
-                  class="btn btn-primary ml-3 js-push-comment-submit"
-                >
+                <button type="submit" name="btn" class="btn btn-primary ml-3">
                   送信
                 </button>
               </div>
@@ -500,6 +504,7 @@ export default Vue.extend({
       panelNameD: "",
       countShowFlg: false,
       countStopFlg: true,
+      renderComment: "",
     };
   },
   computed: {
@@ -521,19 +526,8 @@ export default Vue.extend({
       },
     },
     comments: {
+      // return this.$store.state.comments;
       get() {
-        // const defRenderComment = (commentObj) => {
-        //   // @ts-ignore
-        //   commentPool.insertAdjacentHTML(
-        //     "beforeend",
-        //     // @ts-ignore
-        //     `<li><p class="comment-pool__text">${this.escapeHtml(
-        //       commentObj.value.comment
-        //     )}</p><button type="button" class="btn btn-outline-primary comment-pool-btn js-comment-pool-btn" value="${
-        //       commentObj.value.comment
-        //     }">入力</button></li>`
-        //   );
-        // };
         return this.$store.state.comments;
       },
       set(boolean) {
@@ -541,11 +535,15 @@ export default Vue.extend({
       },
     },
   },
-  mounted() {
+  created() {
     this.$store.dispatch("changeCountStop");
     this.$store.dispatch("changeCountShow");
     this.$store.dispatch("changeComments");
-    // const commentPool = this.$refs.commentPool;
+  },
+  mounted() {
+    // this.$store.dispatch("changeCountStop");
+    // this.$store.dispatch("changeCountShow");
+    // this.$store.dispatch("changeComments");
     /*
      * 初期化
      */
@@ -972,7 +970,6 @@ export default Vue.extend({
       this.panelNameD = "";
     },
     onChangeCountStop(e: any) {
-      console.log(e.target);
       // @ts-ignore
       this.countStopFlg = !!e.target.checked;
       // @ts-ignore
@@ -983,6 +980,10 @@ export default Vue.extend({
       this.countShowFlg = !!e.target.checked;
       // @ts-ignore
       this.$store.dispatch("changeCountShowDb", this.countShowFlg);
+    },
+    onRenderComment() {
+      // @ts-ignore
+      this.$store.dispatch("changeRenderCommentDb", this.renderComment);
     },
     escapeHtml(string: any) {
       if (typeof string !== "string") {

@@ -25,6 +25,7 @@ export const state = () => ({
   countStop: false,
   countShow: false,
   comments: {},
+  renderComment: "",
 });
 
 export const getters = {
@@ -54,6 +55,9 @@ export const mutations = {
   },
   setComments(state, { id, obj }) {
     state.comments[id] = obj;
+  },
+  setRenderComment(state, value) {
+    state.renderComment = value;
   },
 };
 
@@ -293,6 +297,40 @@ export const actions = {
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
           commit("setComments", { id: doc.id, obj: doc.data() });
+        });
+      })
+      .catch((error) => {
+        console.error("Error getting document:", error);
+      });
+  },
+  /**
+   * DBのrenderCommentを更新しstore更新のactionを呼ぶ
+   */
+  changeRenderCommentDb({ dispatch }, renderComment) {
+    this.$db
+      .collection("renderComment")
+      .doc("zJo5eHrL1SpxWxBx2sIK")
+      .update({
+        text: renderComment,
+      })
+      .then(() => {
+        dispatch("changeRenderComment");
+        console.log("Document successfully updated!");
+      })
+      .catch((error) => {
+        console.error("Error updating document: ", error);
+      });
+  },
+  /**
+   * DBのrenderCommentを取得してstoreと同期
+   */
+  changeRenderComment({ commit }) {
+    this.$db
+      .collection("renderComment")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach(function (doc) {
+          commit("setRenderComment", doc.data().text);
         });
       })
       .catch((error) => {
