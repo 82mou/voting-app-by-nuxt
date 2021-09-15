@@ -452,13 +452,8 @@
               コメントクリア
             </button>
           </div>
-          <pre>{{ comments }}</pre>
-          <pre>{{ Object.keys(comments).length }}</pre>
-          <ul v-if="Object.keys(comments).length" class="comment-pool">
-            <li
-              v-for="(value, name, index) in comments"
-              :key="`comment-${index}`"
-            >
+          <ul v-if="comments.length" class="comment-pool">
+            <li v-for="(value, index) in comments" :key="`comment-${index}`">
               <p class="comment-pool__text">{{ value.text }}</p>
               <button
                 type="button"
@@ -510,7 +505,6 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState(["comments"]),
     countShow: {
       get() {
         return this.$store.state.countShow;
@@ -528,8 +522,8 @@ export default Vue.extend({
         this.$store.commit("setCountStop", boolean);
       },
     },
+    ...mapState(["comments"]),
     comments: {
-      // return this.$store.state.comments;
       get() {
         return this.$store.state.comments;
       },

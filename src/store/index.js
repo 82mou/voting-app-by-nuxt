@@ -24,7 +24,7 @@ export const state = () => ({
   },
   countStop: false,
   countShow: false,
-  comments: {},
+  comments: [],
   renderComment: "",
 });
 
@@ -54,7 +54,10 @@ export const mutations = {
     state.countShow = boolean;
   },
   setComments(state, { id, obj }) {
-    state.comments[id] = obj;
+    state.comments.push({
+      id,
+      text: obj.text,
+    });
   },
   setRenderComment(state, value) {
     state.renderComment = value;
