@@ -93,7 +93,7 @@
               type="text"
               name="comment"
               maxlength="30"
-              class="form__input js-comment"
+              class="form__input"
               placeholder="コメントを入力してください"
             />
             <div class="btn-wrap">
@@ -199,14 +199,6 @@ export default Vue.extend({
     //     this.postActionCount(initial, this.countObj[initial]);
     //   });
     // }
-    // Nuxt移行完了までコメントアウト
-    // this.form.addEventListener('submit', (e) => {
-    //   e.preventDefault();
-    //   let commentVal = this.form.querySelector('.js-comment').value;
-    //   this.postActionComment(commentVal);
-    //   // データベースに送信後は値を空にする
-    //   this.form.querySelectorAll('.js-comment').value;
-    // });
     // refName.on("child_added", (snapshot) => {
     //  // データベースと同期
     //  nameObj[snapshot.key] = snapshot.val();

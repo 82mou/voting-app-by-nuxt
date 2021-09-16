@@ -1,5 +1,7 @@
 export const state = () => ({
+  // タイトル
   title: "",
+  // パネル表示要素
   panels: {
     a: {
       count: 0,
@@ -22,9 +24,13 @@ export const state = () => ({
       sound: 0,
     },
   },
+  // カウントを受け付けない
   countStop: false,
+  // カウントを表示する
   countShow: false,
+  // コントロールパネルで表示されるコメント
   comments: [],
+  // スクリーンに流れるコメント
   renderComment: "",
 });
 
@@ -58,6 +64,10 @@ export const mutations = {
       id,
       text: obj.text,
     });
+    console.log(state.comments);
+  },
+  deleteComments(state, id) {
+    state.comments = state.comments.filter((item) => item.id === id);
   },
   setRenderComment(state, value) {
     state.renderComment = value;
@@ -190,7 +200,7 @@ export const actions = {
       });
   },
   /**
-   * DBのコメントを更新しstore更新のactionを呼ぶ
+   * DBのコメントを追加しstore更新のactionを呼ぶ
    */
   changeCommentDb({ dispatch }, commentText) {
     this.$db
@@ -207,9 +217,24 @@ export const actions = {
       });
   },
   /**
+   * DBのcommentsドキュメントを削除し、storeのcommentsも削除する
+   */
+  changeCommentDeleteDb({ commit }, id) {
+    this.$db
+      .collection("comments")
+      .doc(id)
+      .delete()
+      .then(() => {
+        commit("deleteComments", id);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
+  },
+  /**
    * commentsを更新
    */
-  changeComment({ commit }, commentText) {
+  changeComment({ commit }) {
     this.$db
       .collection("comments")
       .get()

@@ -447,7 +447,8 @@
             <h3>Comment</h3>
             <button
               type="submit"
-              class="btn btn-outline-danger js-btn-comment-clear"
+              class="btn btn-outline-danger"
+              @click="commentClear"
             >
               コメントクリア
             </button>
@@ -518,19 +519,18 @@ export default Vue.extend({
         return this.$store.state.countStop;
       },
       set(boolean) {
-        console.log(boolean);
         this.$store.commit("setCountStop", boolean);
       },
     },
     ...mapState(["comments"]),
-    comments: {
-      get() {
-        return this.$store.state.comments;
-      },
-      set(object) {
-        this.$store.commit("setComments", object);
-      },
-    },
+    // comments: {
+    //   get() {
+    //     return this.$store.state.comments;
+    //   },
+    //   set(object) {
+    //     this.$store.commit("setComments", object);
+    //   },
+    // },
   },
   created() {
     // this.$store.dispatch("changeCountStop");
@@ -584,7 +584,6 @@ export default Vue.extend({
     // const $countSwitch = $("#js-count-switch");
     // const $btnClear = $(".js-btn-clear");
     // const $btnAllClear = $(".js-btn-all-clear");
-    // const $btnCommentClear = $(".js-btn-comment-clear");
     // const $sound = $(".js-sound");
     /*
      * View
@@ -846,13 +845,6 @@ export default Vue.extend({
     //   });
     //   $countViewSwitch.prop("checked", false);
     // });
-    // $btnCommentClear.on("click", () => {
-    //   refComment.set(null);
-    //   refPushComment.update({
-    //     pushComment: "",
-    //   });
-    //   $pushComment.val("");
-    // });
     // $countViewSwitch.on("change", (e) => {
     //   if ($(e.currentTarget).prop("checked") === true) {
     //     refView
@@ -996,6 +988,11 @@ export default Vue.extend({
       //     ">": "&gt;",
       //   }[match];
       // });
+    },
+    commentClear() {
+      this.$store.state.comments.forEach((item: any) => {
+        this.$store.dispatch("changeCommentDeleteDb", item.id);
+      });
     },
   },
 });
