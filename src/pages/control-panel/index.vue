@@ -535,16 +535,10 @@ export default Vue.extend({
       },
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch("changeCountStop");
     this.$store.dispatch("changeCountShow");
     this.$store.dispatch("changeComments");
-  },
-  mounted() {
-    // this.$store.dispatch("changeCountStop");
-    // this.$store.dispatch("changeCountShow");
-    // this.$store.dispatch("changeComments");
-
     /*
      * 初期化
      */

@@ -33,9 +33,7 @@ const config: NuxtConfig = {
     __dangerouslyDisableSanitizers: ["script"],
   },
   // css: ["~/assets/styles/global.scss"],
-  plugins: [
-    '~/plugins/firebase.ts'
-  ],
+  plugins: [{ src: "~/plugins/firebase.ts", mode: "client" }],
   components: true,
   buildModules: [
     "@nuxt/typescript-build",
