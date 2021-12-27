@@ -492,7 +492,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 
 export default Vue.extend({
   data() {
@@ -508,7 +508,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState(["comments"]),
+    // ...mapState(["comments"]),
     countShow: {
       get() {
         return this.$store.state.countShow;
@@ -544,6 +544,7 @@ export default Vue.extend({
     // this.$store.dispatch("changeCountStop");
     // this.$store.dispatch("changeCountShow");
     // this.$store.dispatch("changeComments");
+
     /*
      * 初期化
      */

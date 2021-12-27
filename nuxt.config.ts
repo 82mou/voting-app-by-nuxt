@@ -1,3 +1,4 @@
+import { NuxtConfig } from "@nuxt/types";
 import Sass from "sass";
 import Fiber from "fibers";
 
@@ -7,7 +8,7 @@ const routerBase = {
   },
 };
 
-export default {
+const config: NuxtConfig = {
   srcDir: "src",
   target: "static",
   ssr: true,
@@ -32,7 +33,9 @@ export default {
     __dangerouslyDisableSanitizers: ["script"],
   },
   // css: ["~/assets/styles/global.scss"],
-  plugins: [{ src: "~/plugins/firebase.ts", mode: "client" }],
+  plugins: [
+    '~/plugins/firebase.ts'
+  ],
   components: true,
   buildModules: [
     "@nuxt/typescript-build",
@@ -42,7 +45,7 @@ export default {
     "@nuxtjs/style-resources",
     "nuxt-svg-loader",
   ],
-  modules: ["@nuxtjs/axios", ["bootstrap-vue/nuxt"], "nuxt-webfontloader"],
+  modules: ["@nuxtjs/axios", "bootstrap-vue/nuxt", "nuxt-webfontloader"],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -80,9 +83,9 @@ export default {
         },
       },
     },
-    extend(config, { isClient, loaders: { vue } }) {
-      vue.transformAssetUrls.video = ["src", "poster"];
-    },
+    // extend(config, { isClient, loaders: { vue } }) {
+    //   vue.transformAssetUrls.video = ["src", "poster"];
+    // },
     postcss: {
       preset: {
         autoprefixer: {
@@ -105,3 +108,5 @@ export default {
     },
   },
 };
+
+export default config;
