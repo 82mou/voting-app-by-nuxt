@@ -48,6 +48,9 @@ export const mutations = {
     state.panels[panelId].name = name;
   },
   setCountStop(state, boolean) {
+    console.log("@setCountStop");
+    console.log(state);
+    console.log(boolean);
     state.countStop = boolean;
   },
   setCountShow(state, boolean) {
@@ -246,7 +249,7 @@ export const actions = {
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
-          commit("setCountStop", doc.data().countSTop);
+          commit("setCountStop", doc.data().countStop);
         });
       })
       .catch((error) => {
