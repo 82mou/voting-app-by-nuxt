@@ -453,14 +453,11 @@
             </button>
           </div>
           <ul class="comment-pool">
-            <li
-              v-for="(value, name, index) in comments"
-              :key="`comment-${index}`"
-            >
+            <li v-for="(value, index) in comments" :key="`comment-${index}`">
               <p class="comment-pool__text">{{ value.text }}</p>
               <button
                 type="button"
-                class="btn btn-outline-primary comment-pool-btn js-comment-pool-btn"
+                class="btn btn-outline-primary comment-pool-btn"
                 @click="renderComment = value.text"
               >
                 入力
@@ -526,7 +523,6 @@ export default Vue.extend({
       },
     },
     comments: {
-      // return this.$store.state.comments;
       get() {
         return this.$store.state.comments;
       },
@@ -676,35 +672,6 @@ export default Vue.extend({
     //           }
     //         });
     //     }
-    //   }
-    // };
-    // const defRenderComment = (commentObj: any) => {
-    //   // @ts-ignore
-    //   commentPool.insertAdjacentHTML(
-    //     "beforeend",
-    //     // @ts-ignore
-    //     `<li><p class="comment-pool__text">${this.escapeHtml(
-    //       commentObj.value.comment
-    //     )}</p><button type="button" class="btn btn-outline-primary comment-pool-btn js-comment-pool-btn" value="${
-    //       commentObj.value.comment
-    //     }">入力</button></li>`
-    //   );
-    // };
-    // const renderComment = (commentObj: any) => {
-    //   // 一旦全てを初期化
-    //   // @ts-ignore
-    //   commentPool.innerHTML = "";
-    //   for (const key in commentObj) {
-    //     // @ts-ignore
-    //     commentPool.insertAdjacentHTML(
-    //       "beforeend",
-    //       // @ts-ignore
-    //       `<li><p class="comment-pool__text">${this.escapeHtml(
-    //         commentObj[key].comment
-    //       )}</p><button type="button" class="btn btn-outline-primary comment-pool-btn js-comment-pool-btn" value="${
-    //         commentObj[key].comment
-    //       }">入力</button></li>`
-    //     );
     //   }
     // };
     /*
@@ -899,9 +866,6 @@ export default Vue.extend({
     //     .then((res) => {
     //       // console.log(res);
     //     });
-    // });
-    // $(document).on("click", ".js-comment-pool-btn", (e) => {
-    //   $pushComment.val($(e.currentTarget).val());
     // });
     // refSound.on("child_added", (snapshot) => {
     //   defSound({

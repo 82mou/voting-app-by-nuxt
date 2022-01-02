@@ -24,7 +24,7 @@ export const state = () => ({
   },
   countStop: false,
   countShow: false,
-  comments: {},
+  comments: [],
   renderComment: "",
 });
 
@@ -48,16 +48,16 @@ export const mutations = {
     state.panels[panelId].name = name;
   },
   setCountStop(state, boolean) {
-    console.log("@setCountStop");
-    console.log(state);
-    console.log(boolean);
     state.countStop = boolean;
   },
   setCountShow(state, boolean) {
     state.countShow = boolean;
   },
   setComments(state, { id, obj }) {
-    state.comments[id] = obj;
+    state.comments.push({
+      id,
+      text: obj.text,
+    });
   },
   setRenderComment(state, value) {
     state.renderComment = value;
