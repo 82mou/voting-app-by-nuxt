@@ -1,5 +1,5 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/firestore'
 import { Plugin } from '@nuxt/types'
 
 // 初期化
@@ -12,6 +12,7 @@ const firebaseConfig = {
   messagingSenderId: process.env.NUXT_ENV_FIREBASE_MESSAGING_SENDER_ID,
   appID: process.env.NUXT_ENV_FIREBASE_APP_ID,
 }
+
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
 }
@@ -32,7 +33,7 @@ declare module '@nuxt/types' {
 
 declare module 'vuex/types/index' {
   interface Store<S> {
-    $firebase: firebase.app.App 
+    $firebase: firebase.app.App
     $db: firebase.firestore.Firestore
 }}
 
