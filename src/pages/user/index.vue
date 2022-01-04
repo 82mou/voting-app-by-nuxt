@@ -12,11 +12,7 @@
           <div class="grid">
             <div class="grid__inner">
               <div class="grid__item">
-                <button
-                  class="count"
-                  :disabled="isProcessing"
-                  @click="submit('a')"
-                >
+                <button class="count" :disabled="isProcessing" @click="submit('a')">
                   <transition name="count__num">
                     <p v-if="countShow" class="count__num">
                       {{ panels.a.count }}
@@ -31,11 +27,7 @@
                 </button>
               </div>
               <div class="grid__item">
-                <button
-                  class="count"
-                  :disabled="isProcessing"
-                  @click="submit('b')"
-                >
+                <button class="count" :disabled="isProcessing" @click="submit('b')">
                   <p v-if="countShow" class="count__num">
                     {{ panels.b.count }}
                   </p>
@@ -48,11 +40,7 @@
                 </button>
               </div>
               <div class="grid__item">
-                <button
-                  class="count"
-                  :disabled="isProcessing"
-                  @click="submit('c')"
-                >
+                <button class="count" :disabled="isProcessing" @click="submit('c')">
                   <p v-if="countShow" class="count__num">
                     {{ panels.c.count }}
                   </p>
@@ -65,11 +53,7 @@
                 </button>
               </div>
               <div class="grid__item">
-                <button
-                  class="count"
-                  :disabled="isProcessing"
-                  @click="submit('d')"
-                >
+                <button class="count" :disabled="isProcessing" @click="submit('d')">
                   <p v-if="countShow" class="count__num">
                     {{ panels.d.count }}
                   </p>
@@ -97,9 +81,7 @@
               placeholder="コメントを入力してください"
             />
             <div class="btn-wrap">
-              <button ref="submit" type="submit" name="btn" class="btn">
-                送信
-              </button>
+              <button ref="submit" type="submit" name="btn" class="btn">送信</button>
             </div>
           </form>
         </div>
@@ -122,8 +104,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { mapState } from "vuex";
+import Vue from 'vue';
+import { mapState } from 'vuex';
 
 export default Vue.extend({
   data() {
@@ -134,21 +116,21 @@ export default Vue.extend({
       layer: {},
       layerLoading: {},
       layerCountStop: {},
-      commentText: "",
+      commentText: '',
       isProcessing: false,
     };
   },
   computed: {
-    ...mapState(["title"]),
-    ...mapState(["panels"]),
-    ...mapState(["countShow"]),
-    ...mapState(["countStop"]),
+    ...mapState(['title']),
+    ...mapState(['panels']),
+    ...mapState(['countShow']),
+    ...mapState(['countStop']),
   },
   mounted() {
-    this.$store.dispatch("changeTitle");
-    this.$store.dispatch("changePanels");
-    this.$store.dispatch("changeCountStop");
-    this.$store.dispatch("changeCountShow");
+    this.$store.dispatch('changeTitle');
+    this.$store.dispatch('changePanels');
+    this.$store.dispatch('changeCountStop');
+    this.$store.dispatch('changeCountShow');
     // this.refCount = this.$db.collection("counts").doc("count");
     // this.refName = this.$db.collection("names").doc("name");
     // this.refComment = this.$db.collection("pushComments");
@@ -302,6 +284,7 @@ export default Vue.extend({
       // let $targetCountObj = $(`.js-count-${countObj.id}`);
       // $targetCountObj.text(countObj.value);
       // this.checkFontSize($targetCountObj);
+      console.log('@user/defRenderCount: ', countObj);
     },
     renderCount(countObj: any) {
       // for (let key in countObj) {
@@ -313,14 +296,17 @@ export default Vue.extend({
       //     this.checkFontSize($targetCountObj);
       //   }
       // }
+      console.log('@user/renderCount: ', countObj);
     },
     defRenderName(nameObj: any) {
       // $(`.js-name-${nameObj.id}`).text(nameObj.value);
+      console.log('@user/defRenderName: ', nameObj);
     },
     renderName(nameObj: any) {
       // for (let key in nameObj) {
       //   $(`.js-name-${key}`).text(nameObj[key]);
       // }
+      console.log('@user/renderName: ', nameObj);
     },
     postActionCount(initial: any, countVal: any) {
       // let arg = {};
@@ -331,10 +317,12 @@ export default Vue.extend({
       //     this.hide();
       //   }, 300);
       // });
+      console.log('@user/postActionCount: ', initial);
+      console.log('@user/postActionCount: ', countVal);
     },
     onSubmitComment() {
-      this.$store.dispatch("changeCommentDb", this.commentText);
-      this.commentText = "";
+      this.$store.dispatch('changeCommentDb', this.commentText);
+      this.commentText = '';
     },
     getData() {
       // (this as any).refComment.get().then((snapshot: any) => {
@@ -354,6 +342,7 @@ export default Vue.extend({
       // } else {
       //   targetCountObj.removeClass("count__num--long");
       // }
+      console.log('@user/checkFontSize: ', targetCountObj);
     },
     show() {
       // this.layer.classList.remove("dn");
@@ -381,7 +370,7 @@ export default Vue.extend({
     },
     submit(panelId: any) {
       if (!this.isProcessing) {
-        this.$store.dispatch("changeCountDb", panelId);
+        this.$store.dispatch('changeCountDb', panelId);
       }
       this.isProcessing = true;
 
@@ -394,5 +383,5 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/global.scss";
+@import '@/assets/styles/global';
 </style>

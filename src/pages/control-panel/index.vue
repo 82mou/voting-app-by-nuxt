@@ -17,35 +17,17 @@
                       class="form-control"
                       aria-label="Amount (to the nearest dollar)"
                     />
-                    <button type="submit" name="btn" class="btn btn-primary ml-3">
-                      送信
-                    </button>
+                    <button type="submit" name="btn" class="btn btn-primary ml-3">送信</button>
                   </div>
                 </form>
               </div>
               <div class="form-group">
-                <form
-                  name="name-form-a"
-                  @submit.prevent="onSubmitPanelName('a', panelNameA)"
-                >
+                <form name="name-form-a" @submit.prevent="onSubmitPanelName('a', panelNameA)">
                   <div class="input-group">
                     <span class="input-group-addon">A</span>
-                    <input
-                      v-model="panelNameA"
-                      type="text"
-                      name="name-a"
-                      class="form-control"
-                    />
-                    <button
-                      type="submit"
-                      name="submit-name-a"
-                      class="btn btn-primary ml-3"
-                    >
-                      送信
-                    </button>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-3 pr-2"
-                    >
+                    <input v-model="panelNameA" type="text" name="name-a" class="form-control" />
+                    <button type="submit" name="submit-name-a" class="btn btn-primary ml-3">送信</button>
+                    <div class="form-check sound-text-box text-center mb-0 pl-3 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音1</span>
                         <input
@@ -57,9 +39,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音2</span>
                         <input
@@ -71,9 +51,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音3</span>
                         <input
@@ -85,9 +63,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音4</span>
                         <input
@@ -99,9 +75,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">無音</span>
                         <input
@@ -117,28 +91,14 @@
                 </form>
               </div>
               <div class="form-group">
-                <form
-                  name="name-form-b"
-                  @submit.prevent="onSubmitPanelName('b', panelNameB)"
-                >
+                <form name="name-form-b" @submit.prevent="onSubmitPanelName('b', panelNameB)">
                   <div class="input-group">
                     <span class="input-group-addon">B</span>
-                    <input
-                      v-model="panelNameB"
-                      type="text"
-                      name="name-b"
-                      class="form-control"
-                    />
-                    <button
-                      type="submit"
-                      name="submit-name-b"
-                      class="btn btn-primary ml-3 js-submit-name-b"
-                    >
+                    <input v-model="panelNameB" type="text" name="name-b" class="form-control" />
+                    <button type="submit" name="submit-name-b" class="btn btn-primary ml-3 js-submit-name-b">
                       送信
                     </button>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-3 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-3 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音1</span>
                         <input
@@ -150,9 +110,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音2</span>
                         <input
@@ -164,9 +122,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音3</span>
                         <input
@@ -178,9 +134,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音4</span>
                         <input
@@ -192,9 +146,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">無音</span>
                         <input
@@ -210,28 +162,14 @@
                 </form>
               </div>
               <div class="form-group">
-                <form
-                  name="name-form-c"
-                  @submit.prevent="onSubmitPanelName('c', panelNameC)"
-                >
+                <form name="name-form-c" @submit.prevent="onSubmitPanelName('c', panelNameC)">
                   <div class="input-group">
                     <span class="input-group-addon">C</span>
-                    <input
-                      v-model="panelNameC"
-                      type="text"
-                      name="name-c"
-                      class="form-control"
-                    />
-                    <button
-                      type="submit"
-                      name="submit-name-c"
-                      class="btn btn-primary ml-3 js-submit-name-c"
-                    >
+                    <input v-model="panelNameC" type="text" name="name-c" class="form-control" />
+                    <button type="submit" name="submit-name-c" class="btn btn-primary ml-3 js-submit-name-c">
                       送信
                     </button>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-3 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-3 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音1</span>
                         <input
@@ -243,9 +181,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音2</span>
                         <input
@@ -257,9 +193,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音3</span>
                         <input
@@ -271,9 +205,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音4</span>
                         <input
@@ -285,9 +217,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">無音</span>
                         <input
@@ -303,28 +233,14 @@
                 </form>
               </div>
               <div class="form-group">
-                <form
-                  name="name-form-d"
-                  @submit.prevent="onSubmitPanelName('d', panelNameD)"
-                >
+                <form name="name-form-d" @submit.prevent="onSubmitPanelName('d', panelNameD)">
                   <div class="input-group">
                     <span class="input-group-addon">D</span>
-                    <input
-                      v-model="panelNameD"
-                      type="text"
-                      name="name-d"
-                      class="form-control"
-                    />
-                    <button
-                      type="submit"
-                      name="submit-name-d"
-                      class="btn btn-primary ml-3 js-submit-name-d"
-                    >
+                    <input v-model="panelNameD" type="text" name="name-d" class="form-control" />
+                    <button type="submit" name="submit-name-d" class="btn btn-primary ml-3 js-submit-name-d">
                       送信
                     </button>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-3 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-3 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音1</span>
                         <input
@@ -336,9 +252,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音2</span>
                         <input
@@ -350,9 +264,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音3</span>
                         <input
@@ -364,9 +276,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">音4</span>
                         <input
@@ -378,9 +288,7 @@
                         />
                       </label>
                     </div>
-                    <div
-                      class="form-check sound-text-box text-center mb-0 pl-2 pr-2"
-                    >
+                    <div class="form-check sound-text-box text-center mb-0 pl-2 pr-2">
                       <label class="form-check-label sound-text-label pl-0">
                         <span class="sound-text mb-0 mr-3">無音</span>
                         <input
@@ -397,13 +305,7 @@
               </div>
             </div>
             <div class="text-center">
-              <button
-                type="submit"
-                class="btn btn-outline-danger"
-                @click.prevent="clearTitle"
-              >
-                入力クリア
-              </button>
+              <button type="submit" class="btn btn-outline-danger" @click.prevent="clearTitle">入力クリア</button>
             </div>
           </div>
           <div class="col-4">
@@ -431,9 +333,7 @@
                 </label>
               </div>
               <div class="text-center">
-                <button type="button" class="btn btn-danger">
-                  オールクリア
-                </button>
+                <button type="button" class="btn btn-danger">オールクリア</button>
               </div>
             </div>
           </div>
@@ -441,12 +341,7 @@
         <div class="border mt-5 p-4">
           <div class="comment-pool__headline">
             <h3>Comment</h3>
-            <button
-              type="submit"
-              class="btn btn-outline-danger js-btn-comment-clear"
-            >
-              コメントクリア
-            </button>
+            <button type="submit" class="btn btn-outline-danger js-btn-comment-clear">コメントクリア</button>
           </div>
           <ul class="comment-pool">
             <li v-for="(value, index) in comments" :key="`comment-${index}`">
@@ -471,9 +366,7 @@
                   class="form-control"
                   placeholder="コメント入力MAX30文字"
                 />
-                <button type="submit" name="btn" class="btn btn-primary ml-3">
-                  送信
-                </button>
+                <button type="submit" name="btn" class="btn btn-primary ml-3">送信</button>
               </div>
             </div>
           </form>
@@ -484,20 +377,20 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
 // import { mapState } from "vuex";
 
 export default Vue.extend({
   data() {
     return {
-      title: "",
-      panelNameA: "",
-      panelNameB: "",
-      panelNameC: "",
-      panelNameD: "",
+      title: '',
+      panelNameA: '',
+      panelNameB: '',
+      panelNameC: '',
+      panelNameD: '',
       countShowFlg: false,
       countStopFlg: true,
-      renderComment: "",
+      renderComment: '',
     };
   },
   computed: {
@@ -506,8 +399,8 @@ export default Vue.extend({
         return this.$store.state.countShow;
       },
       set(boolean) {
-        console.log('hoge')
-        this.$store.commit("setCountShow", boolean);
+        console.log('hoge');
+        this.$store.commit('setCountShow', boolean);
       },
     },
     countStop: {
@@ -515,7 +408,7 @@ export default Vue.extend({
         return this.$store.state.countStop;
       },
       set(boolean) {
-        this.$store.commit("setCountStop", boolean);
+        this.$store.commit('setCountStop', boolean);
       },
     },
     comments: {
@@ -523,14 +416,14 @@ export default Vue.extend({
         return this.$store.state.comments;
       },
       set(boolean) {
-        this.$store.commit("setComments", boolean);
+        this.$store.commit('setComments', boolean);
       },
     },
   },
   mounted() {
-    this.$store.dispatch("changeCountStop");
-    this.$store.dispatch("changeCountShow");
-    this.$store.dispatch("changeComments");
+    this.$store.dispatch('changeCountStop');
+    this.$store.dispatch('changeCountShow');
+    this.$store.dispatch('changeComments');
     /*
      * 初期化
      */
@@ -907,41 +800,41 @@ export default Vue.extend({
   methods: {
     onSubmitTitle() {
       // @ts-ignore
-      this.$store.dispatch("changeTitleDb", this.title);
+      this.$store.dispatch('changeTitleDb', this.title);
     },
     onSubmitPanelName(panelId: any, panelName: any) {
-      this.$store.dispatch("changePanelNameDb", { panelId, panelName });
+      this.$store.dispatch('changePanelNameDb', { panelId, panelName });
     },
     clearTitle() {
       // @ts-ignore
-      this.title = "";
+      this.title = '';
       // @ts-ignore
-      this.panelNameA = "";
+      this.panelNameA = '';
       // @ts-ignore
-      this.panelNameB = "";
+      this.panelNameB = '';
       // @ts-ignore
-      this.panelNameC = "";
+      this.panelNameC = '';
       // @ts-ignore
-      this.panelNameD = "";
+      this.panelNameD = '';
     },
     onChangeCountStop(e: any) {
       // @ts-ignore
       this.countStopFlg = !!e.target.checked;
       // @ts-ignore
-      this.$store.dispatch("changeCountStopDb", this.countStopFlg);
+      this.$store.dispatch('changeCountStopDb', this.countStopFlg);
     },
     onChangeCountShow(e: any) {
       // @ts-ignore
       this.countShowFlg = !!e.target.checked;
       // @ts-ignore
-      this.$store.dispatch("changeCountShowDb", this.countShowFlg);
+      this.$store.dispatch('changeCountShowDb', this.countShowFlg);
     },
     onRenderComment() {
       // @ts-ignore
-      this.$store.dispatch("changeRenderCommentDb", this.renderComment);
+      this.$store.dispatch('changeRenderCommentDb', this.renderComment);
     },
     escapeHtml(string: any) {
-      if (typeof string !== "string") {
+      if (typeof string !== 'string') {
         return string;
       }
       // return string.replace(/[&'`"<>]/g, function (match) {
@@ -960,7 +853,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/bootstrap.scss";
+@import '@/assets/styles/bootstrap';
 
 .comment-pool {
   padding-left: 0;
