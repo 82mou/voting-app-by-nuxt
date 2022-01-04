@@ -34,7 +34,9 @@ const config: NuxtConfig = {
   },
   // css: ["~/assets/styles/global.scss"],
   plugins: [{ src: "~/plugins/firebase.ts", mode: "client" }],
-  components: true,
+  components: [
+    '~/components/',
+  ],
   buildModules: [
     "@nuxt/typescript-build",
     "@nuxtjs/eslint-module",
@@ -43,12 +45,7 @@ const config: NuxtConfig = {
     "@nuxtjs/style-resources",
     "nuxt-svg-loader",
   ],
-  modules: ["@nuxtjs/axios", "bootstrap-vue/nuxt", "nuxt-webfontloader"],
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {},
+  modules: ["bootstrap-vue/nuxt", "nuxt-webfontloader"],
   styleResources: {
     scss: [
       "./src/assets/styles/_variables.scss",

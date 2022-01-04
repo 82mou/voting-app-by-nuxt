@@ -15,4 +15,12 @@ module.exports = {
     'vue/html-closing-bracket-newline': 'off',
     'vue/custom-event-name-casing': 'off',
   },
+  overrides: [
+    {
+      files: ['src/pages/**/*.vue', 'src/layouts/**/*.vue'],
+      rules: {
+        'vue/multi-word-component-names': 0,
+      },
+    },
+  ],
 };
