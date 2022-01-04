@@ -4,6 +4,9 @@
   "description": "My prime Nuxt.js project",
   "author": "k-hatsushi",
   "private": true,
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
