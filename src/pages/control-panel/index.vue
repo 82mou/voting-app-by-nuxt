@@ -17,11 +17,7 @@
                       class="form-control"
                       aria-label="Amount (to the nearest dollar)"
                     />
-                    <button
-                      type="submit"
-                      name="btn"
-                      class="btn btn-primary ml-3"
-                    >
+                    <button type="submit" name="btn" class="btn btn-primary ml-3">
                       送信
                     </button>
                   </div>
@@ -505,12 +501,12 @@ export default Vue.extend({
     };
   },
   computed: {
-    // ...mapState(["comments"]),
     countShow: {
       get() {
         return this.$store.state.countShow;
       },
       set(boolean) {
+        console.log('hoge')
         this.$store.commit("setCountShow", boolean);
       },
     },
