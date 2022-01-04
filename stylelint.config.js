@@ -1,5 +1,5 @@
 module.exports = {
-  extends: 'stylelint-config-recommended-scss',
+  extends: ['stylelint-config-recommended-scss'],
   plugins: ['stylelint-prettier'],
   rules: {
     'prettier/prettier': true,
@@ -13,4 +13,5 @@ module.exports = {
     'no-descending-specificity': null,
     'no-duplicate-selectors': null,
   },
+  // ignoreFiles: ['src/**/*.scss', 'src/assets/styles/global.scss'],
 };
