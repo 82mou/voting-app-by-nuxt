@@ -1,31 +1,31 @@
 export const state = () => ({
-  title: "",
+  title: '',
   panels: {
     a: {
       count: 0,
-      name: "",
+      name: '',
       sound: 0,
     },
     b: {
       count: 0,
-      name: "",
+      name: '',
       sound: 0,
     },
     c: {
       count: 0,
-      name: "",
+      name: '',
       sound: 0,
     },
     d: {
       count: 0,
-      name: "",
+      name: '',
       sound: 0,
     },
   },
   countStop: false,
   countShow: false,
   comments: [],
-  renderComment: "",
+  renderComment: '',
 });
 
 export const getters = {
@@ -70,17 +70,17 @@ export const actions = {
    */
   changeTitleDb({ dispatch }, title) {
     this.$db
-      .collection("title")
-      .doc("vvHrtBzRHrX9ABc7Tbu3")
+      .collection('title')
+      .doc('vvHrtBzRHrX9ABc7Tbu3')
       .update({
         text: title,
       })
       .then(() => {
-        dispatch("changeTitle");
-        console.log("Document successfully updated!");
+        dispatch('changeTitle');
+        console.log('Document successfully updated!');
       })
       .catch((error) => {
-        console.error("Error updating document: ", error);
+        console.error('Error updating document: ', error);
       });
   },
   /**
@@ -88,15 +88,15 @@ export const actions = {
    */
   changeTitle({ commit }) {
     this.$db
-      .collection("title")
+      .collection('title')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
-          commit("setTitle", doc.data().text);
+          commit('setTitle', doc.data().text);
         });
       })
       .catch((error) => {
-        console.error("Error getting document:", error);
+        console.error('Error getting document:', error);
       });
   },
   /**
@@ -104,15 +104,15 @@ export const actions = {
    */
   changePanels({ commit }) {
     this.$db
-      .collection("panels")
+      .collection('panels')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
-          commit("setPanels", { panelId: doc.id, obj: doc.data() });
+          commit('setPanels', { panelId: doc.id, obj: doc.data() });
         });
       })
       .catch((error) => {
-        console.error("Error getting document:", error);
+        console.error('Error getting document:', error);
       });
   },
   /**
@@ -120,17 +120,17 @@ export const actions = {
    */
   changePanelNameDb({ dispatch }, { panelId, panelName }) {
     this.$db
-      .collection("panels")
+      .collection('panels')
       .doc(panelId)
       .update({
         name: panelName,
       })
       .then(() => {
-        dispatch("changePanelName", panelId);
-        console.log("Document successfully updated!");
+        dispatch('changePanelName', panelId);
+        console.log('Document successfully updated!');
       })
       .catch((error) => {
-        console.error("Error updating document: ", error);
+        console.error('Error updating document: ', error);
       });
   },
   /**
@@ -138,18 +138,18 @@ export const actions = {
    */
   changePanelName({ commit }, panelId) {
     this.$db
-      .collection("panels")
+      .collection('panels')
       .doc(panelId)
       .get()
       .then((doc) => {
         if (doc.exists) {
-          commit("setPanelName", { panelId, count: doc.data().name });
+          commit('setPanelName', { panelId, count: doc.data().name });
         } else {
-          console.log("No such document!");
+          console.log('No such document!');
         }
       })
       .catch((error) => {
-        console.log("Error getting document:", error);
+        console.log('Error getting document:', error);
       });
   },
   /**
@@ -157,17 +157,17 @@ export const actions = {
    */
   changeCountDb({ dispatch }, panelId) {
     this.$db
-      .collection("panels")
+      .collection('panels')
       .doc(panelId)
       .update({
         count: this.$increment,
       })
       .then(() => {
-        dispatch("changeCount", panelId);
-        console.log("Document successfully updated!");
+        dispatch('changeCount', panelId);
+        console.log('Document successfully updated!');
       })
       .catch((error) => {
-        console.error("Error updating document: ", error);
+        console.error('Error updating document: ', error);
       });
   },
   /**
@@ -175,18 +175,18 @@ export const actions = {
    */
   changeCount({ commit }, panelId) {
     this.$db
-      .collection("panels")
+      .collection('panels')
       .doc(panelId)
       .get()
       .then((doc) => {
         if (doc.exists) {
-          commit("setPanelCount", { panelId, count: doc.data().count });
+          commit('setPanelCount', { panelId, count: doc.data().count });
         } else {
-          console.log("No such document!");
+          console.log('No such document!');
         }
       })
       .catch((error) => {
-        console.log("Error getting document:", error);
+        console.log('Error getting document:', error);
       });
   },
   /**
@@ -194,16 +194,16 @@ export const actions = {
    */
   changeCommentDb({ dispatch }, commentText) {
     this.$db
-      .collection("comments")
+      .collection('comments')
       .add({
         text: commentText,
       })
       .then((docRef) => {
-        dispatch("changeComment", commentText);
-        console.log("Document written with ID: ", docRef.id);
+        dispatch('changeComment', commentText);
+        console.log('Document written with ID: ', docRef.id);
       })
       .catch((error) => {
-        console.error("Error adding document: ", error);
+        console.error('Error adding document: ', error);
       });
   },
   /**
@@ -211,15 +211,16 @@ export const actions = {
    */
   changeComment({ commit }, commentText) {
     this.$db
-      .collection("comments")
+      .collection('comments')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
-          commit("setComments", { id: doc.id, obj: doc.data() });
+          console.log('@store/changeComment: ', commentText);
+          commit('setComments', { id: doc.id, obj: doc.data() });
         });
       })
       .catch((error) => {
-        console.error("Error getting document:", error);
+        console.error('Error getting document:', error);
       });
   },
   /**
@@ -227,17 +228,17 @@ export const actions = {
    */
   changeCountStopDb({ dispatch }, boolean) {
     this.$db
-      .collection("countStopSwitch")
-      .doc("0kVm6l0gkeOZCj2KchES")
+      .collection('countStopSwitch')
+      .doc('0kVm6l0gkeOZCj2KchES')
       .update({
         countStop: boolean,
       })
       .then(() => {
-        dispatch("changeCountStop");
-        console.log("Document successfully updated!");
+        dispatch('changeCountStop');
+        console.log('Document successfully updated!');
       })
       .catch((error) => {
-        console.error("Error updating document: ", error);
+        console.error('Error updating document: ', error);
       });
   },
   /**
@@ -245,15 +246,15 @@ export const actions = {
    */
   changeCountStop({ commit }) {
     this.$db
-      .collection("countStopSwitch")
+      .collection('countStopSwitch')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
-          commit("setCountStop", doc.data().countStop);
+          commit('setCountStop', doc.data().countStop);
         });
       })
       .catch((error) => {
-        console.error("Error getting document:", error);
+        console.error('Error getting document:', error);
       });
   },
   /**
@@ -261,17 +262,17 @@ export const actions = {
    */
   changeCountShowDb({ dispatch }, boolean) {
     this.$db
-      .collection("countShowSwitch")
-      .doc("ks5IgdHG7AxI1baZANt3")
+      .collection('countShowSwitch')
+      .doc('ks5IgdHG7AxI1baZANt3')
       .update({
         countShow: boolean,
       })
       .then(() => {
-        dispatch("changeCountShow");
-        console.log("Document successfully updated!");
+        dispatch('changeCountShow');
+        console.log('Document successfully updated!');
       })
       .catch((error) => {
-        console.error("Error updating document: ", error);
+        console.error('Error updating document: ', error);
       });
   },
   /**
@@ -279,15 +280,15 @@ export const actions = {
    */
   changeCountShow({ commit }) {
     this.$db
-      .collection("countShowSwitch")
+      .collection('countShowSwitch')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
-          commit("setCountShow", doc.data().countShow);
+          commit('setCountShow', doc.data().countShow);
         });
       })
       .catch((error) => {
-        console.error("Error getting document:", error);
+        console.error('Error getting document:', error);
       });
   },
   /**
@@ -295,15 +296,15 @@ export const actions = {
    */
   changeComments({ commit }) {
     this.$db
-      .collection("comments")
+      .collection('comments')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
-          commit("setComments", { id: doc.id, obj: doc.data() });
+          commit('setComments', { id: doc.id, obj: doc.data() });
         });
       })
       .catch((error) => {
-        console.error("Error getting document:", error);
+        console.error('Error getting document:', error);
       });
   },
   /**
@@ -311,17 +312,17 @@ export const actions = {
    */
   changeRenderCommentDb({ dispatch }, renderComment) {
     this.$db
-      .collection("renderComment")
-      .doc("zJo5eHrL1SpxWxBx2sIK")
+      .collection('renderComment')
+      .doc('zJo5eHrL1SpxWxBx2sIK')
       .update({
         text: renderComment,
       })
       .then(() => {
-        dispatch("changeRenderComment");
-        console.log("Document successfully updated!");
+        dispatch('changeRenderComment');
+        console.log('Document successfully updated!');
       })
       .catch((error) => {
-        console.error("Error updating document: ", error);
+        console.error('Error updating document: ', error);
       });
   },
   /**
@@ -329,15 +330,15 @@ export const actions = {
    */
   changeRenderComment({ commit }) {
     this.$db
-      .collection("renderComment")
+      .collection('renderComment')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
-          commit("setRenderComment", doc.data().text);
+          commit('setRenderComment', doc.data().text);
         });
       })
       .catch((error) => {
-        console.error("Error getting document:", error);
+        console.error('Error getting document:', error);
       });
   },
 };

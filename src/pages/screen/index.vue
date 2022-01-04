@@ -90,19 +90,19 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { mapState } from "vuex";
+import Vue from 'vue';
+import { mapState } from 'vuex';
 
 export default Vue.extend({
   computed: {
-    ...mapState(["title"]),
-    ...mapState(["panels"]),
-    ...mapState(["countShow"]),
-    ...mapState(["countStop"]),
+    ...mapState(['title']),
+    ...mapState(['panels']),
+    ...mapState(['countShow']),
+    ...mapState(['countStop']),
   },
   mounted() {
-    this.$store.dispatch("changeTitle");
-    this.$store.dispatch("changePanels");
+    this.$store.dispatch('changeTitle');
+    this.$store.dispatch('changePanels');
     // const TRANSITION_END = "transitionend"; // 2つ指定していると2回バインドされる
     // const ANIMATION_END = "animationend"; // 2つ指定していると2回バインドされる
     /*
@@ -455,5 +455,5 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/global.scss";
+@import '@/assets/styles/global';
 </style>
