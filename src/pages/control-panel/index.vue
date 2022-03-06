@@ -341,7 +341,9 @@
         <div class="border mt-5 p-4">
           <div class="comment-pool__headline">
             <h3>Comment</h3>
-            <button type="submit" class="btn btn-outline-danger js-btn-comment-clear">コメントクリア</button>
+            <button type="submit" class="btn btn-outline-danger js-btn-comment-clear" @click.prevent="clearComment">
+              コメントクリア
+            </button>
           </div>
           <ul class="comment-pool">
             <li v-for="(value, index) in comments" :key="`comment-${index}`">
@@ -399,7 +401,6 @@ export default Vue.extend({
         return this.$store.state.countShow;
       },
       set(boolean) {
-        console.log('hoge');
         this.$store.commit('setCountShow', boolean);
       },
     },
@@ -424,381 +425,10 @@ export default Vue.extend({
     this.$store.dispatch('changeCountStop');
     this.$store.dispatch('changeCountShow');
     this.$store.dispatch('changeComments');
-    /*
-     * 初期化
-     */
-    // const database = firebase.database();
-    // const refComment = database.ref("comment");
-    // const refTitle = database.ref("title");
-    // const refCount = database.ref("count");
-    // const refName = database.ref("name");
-    // const refSound = database.ref("sound");
-    // const refPushComment = database.ref("pushComment");
-    // const refCountStop = database.ref("countStop");
-    // const refView = database.ref("view");
-    // const $titleForm = $("#js-title-form");
-    // const $title = $(".js-title");
-    // const $submitTitle = $(".js-submit-title");
-    // let title;
-    // const $nameFormA = $("#js-name-form-a");
-    // const $nameA = $(".js-name-a");
-    // const $submitNameA = $(".js-submit-name-a");
-    // let nameA;
-    // const $nameFormB = $("#js-name-form-b");
-    // const $nameB = $(".js-name-b");
-    // const $submitNameB = $(".js-submit-name-b");
-    // let nameB;
-    // const $nameFormC = $("#js-name-form-c");
-    // const $nameC = $(".js-name-c");
-    // const $submitNameC = $(".js-submit-name-c");
-    // let nameC;
-    // const $nameFormD = $("#js-name-form-d");
-    // const $nameD = $(".js-name-d");
-    // const $submitNameD = $(".js-submit-name-d");
-    // let nameD;
-    // const $commentPool = $(".js-comment-pool");
-    // const commentObj = {};
-    // const commentKey = 0;
-    // const $pushCommentForm = $("#js-push-comment-form");
-    // const $pushComment = $(".js-push-comment");
-    // const $pushCommentSubmit = $(".js-push-comment-submit");
-    // let pushComment;
-    // const $countViewSwitch = $("#js-count-view-switch");
-    // const $countSwitch = $("#js-count-switch");
-    // const $btnClear = $(".js-btn-clear");
-    // const $btnAllClear = $(".js-btn-all-clear");
-    // const $btnCommentClear = $(".js-btn-comment-clear");
-    // const $sound = $(".js-sound");
-    /*
-     * View
-     * コメントプール表示
-     * エスケープ関数
-     * ・サウンド設定
-     */
-    // const defSound = (soundObj) => {
-    //   if (soundObj.id === "soundA") {
-    //     $("#js-name-form-a")
-    //       .find(".js-sound")
-    //       .each(function () {
-    //         if (soundObj.value === "") {
-    //           $(this).prop("checked", true);
-    //         } else if (parseInt($(this).val(), 10) == soundObj.value) {
-    //           $(this).prop("checked", true);
-    //         }
-    //       });
-    //   } else if (soundObj.id === "soundB") {
-    //     $("#js-name-form-b")
-    //       .find(".js-sound")
-    //       .each(function () {
-    //         if (soundObj.value === "") {
-    //           $(this).prop("checked", true);
-    //         } else if (parseInt($(this).val(), 10) == soundObj.value) {
-    //           $(this).prop("checked", true);
-    //         }
-    //       });
-    //   } else if (soundObj.id === "soundC") {
-    //     $("#js-name-form-c")
-    //       .find(".js-sound")
-    //       .each(function () {
-    //         if (soundObj.value === "") {
-    //           $(this).prop("checked", true);
-    //         } else if (parseInt($(this).val(), 10) == soundObj.value) {
-    //           $(this).prop("checked", true);
-    //         }
-    //       });
-    //   } else if (soundObj.id === "soundD") {
-    //     $("#js-name-form-d")
-    //       .find(".js-sound")
-    //       .each(function () {
-    //         if (soundObj.value === "") {
-    //           $(this).prop("checked", true);
-    //         } else if (parseInt($(this).val(), 10) == soundObj.value) {
-    //           $(this).prop("checked", true);
-    //         }
-    //       });
-    //   }
-    // };
-    // const sound = (soundObj) => {
-    //   for (const key in soundObj) {
-    //     if (key === "soundA") {
-    //       $("#js-name-form-a")
-    //         .find(".js-sound")
-    //         .each(function () {
-    //           if (soundObj[key] === "") {
-    //             $(this).prop("checked", true);
-    //           } else if (parseInt($(this).val(), 10) == soundObj[key]) {
-    //             $(this).prop("checked", true);
-    //           }
-    //         });
-    //     } else if (key === "soundB") {
-    //       $("#js-name-form-b")
-    //         .find(".js-sound")
-    //         .each(function () {
-    //           if (soundObj[key] === "") {
-    //             $(this).prop("checked", true);
-    //           } else if (parseInt($(this).val(), 10) == soundObj[key]) {
-    //             $(this).prop("checked", true);
-    //           }
-    //         });
-    //     } else if (key === "soundC") {
-    //       $("#js-name-form-c")
-    //         .find(".js-sound")
-    //         .each(function () {
-    //           if (soundObj[key] === "") {
-    //             $(this).prop("checked", true);
-    //           } else if (parseInt($(this).val(), 10) == soundObj[key]) {
-    //             $(this).prop("checked", true);
-    //           }
-    //         });
-    //     } else if (key === "soundD") {
-    //       $("#js-name-form-d")
-    //         .find(".js-sound")
-    //         .each(function () {
-    //           if (soundObj[key] === "") {
-    //             $(this).prop("checked", true);
-    //           } else if (parseInt($(this).val(), 10) == soundObj[key]) {
-    //             $(this).prop("checked", true);
-    //           }
-    //         });
-    //     }
-    //   }
-    // };
-    /*
-     * Changeイベント
-     * ・集計停止
-     * ・投票数表示
-     */
-    /*
-     * クリックイベント
-     * ・タイトル送信
-     * ・名前送信
-     * ・入力クリア
-     * ・オールリセット
-     * ・コメント送信
-     * ・初期読み込み
-     * ・pushイベント検知
-     */
-    // $titleForm.on("submit", (e) => {
-    //   console.log("hoge");
-    //   e.preventDefault();
-    //   title = $title.val();
-    //   refTitle
-    //     .update({
-    //       title,
-    //     })
-    //     .then((res) => {
-    //       // console.log(res);
-    //     });
-    // });
-    // $nameFormA.on("submit", (e) => {
-    //   e.preventDefault();
-    //   nameA = $nameA.val();
-    //   refName
-    //     .update({
-    //       a: nameA,
-    //     })
-    //     .then((res) => {
-    //       // console.log(res);
-    //     });
-    // });
-    // $nameFormB.on("submit", (e) => {
-    //   e.preventDefault();
-    //   nameB = $nameB.val();
-    //   refName
-    //     .update({
-    //       b: nameB,
-    //     })
-    //     .then((res) => {
-    //       // console.log(res);
-    //     });
-    // });
-    // $nameFormC.on("submit", (e) => {
-    //   e.preventDefault();
-    //   nameC = $nameC.val();
-    //   refName
-    //     .update({
-    //       c: nameC,
-    //     })
-    //     .then((res) => {
-    //       // console.log(res);
-    //     });
-    // });
-    // $nameFormD.on("submit", (e) => {
-    //   e.preventDefault();
-    //   nameD = $nameD.val();
-    //   refName
-    //     .update({
-    //       d: nameD,
-    //     })
-    //     .then((res) => {
-    //       // console.log(res);
-    //     });
-    // });
-    // $sound.on("change", (e) => {
-    //   if ($(e.currentTarget).prop("checked") === false) {
-    //     return;
-    //   }
-    //   const alphabet = $(e.currentTarget).data("alphabet");
-    //   const value = $(e.currentTarget).val();
-    //   const arg = {};
-    //   arg[`sound${alphabet}`] = value;
-    //   refSound.update(arg).then((res) => {
-    //     // console.log(res);
-    //   });
-    // });
-    // $btnClear.on("click", () => {
-    //   $title.val("");
-    //   $nameA.val("");
-    //   $nameB.val("");
-    //   $nameC.val("");
-    //   $nameD.val("");
-    //   refSound.update({
-    //     soundA: 0,
-    //     soundB: 1,
-    //     soundC: 2,
-    //     soundD: 3,
-    //   });
-    // });
-    // $btnAllClear.on("click", () => {
-    //   refTitle.update({
-    //     title: "",
-    //   });
-    //   $title.val("");
-    //   refName.update({
-    //     a: "",
-    //     b: "",
-    //     c: "",
-    //     d: "",
-    //   });
-    //   $nameA.val("");
-    //   $nameB.val("");
-    //   $nameC.val("");
-    //   $nameD.val("");
-    //   refSound.update({
-    //     soundA: 0,
-    //     soundB: 1,
-    //     soundC: 2,
-    //     soundD: 3,
-    //   });
-    //   refCount.update({
-    //     a: 0,
-    //     b: 0,
-    //     c: 0,
-    //     d: 0,
-    //   });
-    //   refComment.set(null);
-    //   refPushComment.update({
-    //     pushComment: "",
-    //   });
-    //   $pushComment.val("");
-    //   refCountStop.update({
-    //     countStop: false,
-    //   });
-    //   $countSwitch.prop("checked", false);
-    //   refView.update({
-    //     view: false,
-    //   });
-    //   $countViewSwitch.prop("checked", false);
-    // });
-    // $btnCommentClear.on("click", () => {
-    //   refComment.set(null);
-    //   refPushComment.update({
-    //     pushComment: "",
-    //   });
-    //   $pushComment.val("");
-    // });
-    // $countViewSwitch.on("change", (e) => {
-    //   if ($(e.currentTarget).prop("checked") === true) {
-    //     refView
-    //       .update({
-    //         view: true,
-    //       })
-    //       .then((res) => {
-    //         // console.log(res);
-    //       });
-    //   } else {
-    //     refView
-    //       .update({
-    //         view: false,
-    //       })
-    //       .then((res) => {
-    //         // console.log(res);
-    //       });
-    //   }
-    // });
-    // $countSwitch.on("change", (e) => {
-    //   if ($(e.currentTarget).prop("checked") === true) {
-    //     refCountStop
-    //       .update({
-    //         countStop: true,
-    //       })
-    //       .then((res) => {
-    //         // console.log(res);
-    //       });
-    //   } else {
-    //     refCountStop
-    //       .update({
-    //         countStop: false,
-    //       })
-    //       .then((res) => {
-    //         // console.log(res);
-    //       });
-    //   }
-    // });
-    // $pushCommentForm.on("submit", (e) => {
-    //   e.preventDefault();
-    //   // pushComment = escapeHtml($pushComment.val());
-    //   refPushComment
-    //     .update({
-    //       pushComment: $pushComment.val(),
-    //     })
-    //     .then((res) => {
-    //       // console.log(res);
-    //     });
-    // });
-    // refSound.on("child_added", (snapshot) => {
-    //   defSound({
-    //     id: snapshot.key,
-    //     value: snapshot.val(),
-    //   });
-    // });
-    // refSound.on("value", (snapshot) => {
-    //   sound(snapshot.val());
-    // });
-    // refComment.on("child_added", (snapshot) => {
-    //   // データベースと同期
-    //   // commentObj[snapshot.key] = snapshot.val();
-    //   defRenderComment({
-    //     id: snapshot.key,
-    //     value: snapshot.val(),
-    //   });
-    // });
-    // refComment.on("value", (snapshot) => {
-    //   renderComment(snapshot.val());
-    // });
-    // refView.on("child_added", (snapshot) => {
-    //   if (snapshot.val() === true) {
-    //     $countViewSwitch.prop("checked", true);
-    //   }
-    // });
-    // refView.on("value", (snapshot) => {
-    //   if (snapshot.val().countStop === true) {
-    //     $countViewSwitch.prop("checked", true);
-    //   }
-    // });
-    // refCountStop.on("child_added", (snapshot) => {
-    //   if (snapshot.val() === true) {
-    //     $countSwitch.prop("checked", true);
-    //   }
-    // });
-    // refCountStop.on("value", (snapshot) => {
-    //   if (snapshot.val().countStop === true) {
-    //     $countSwitch.prop("checked", true);
-    //   }
-    // });
   },
   methods: {
     onSubmitTitle() {
+      console.log('fuga');
       // @ts-ignore
       this.$store.dispatch('changeTitleDb', this.title);
     },
@@ -806,6 +436,7 @@ export default Vue.extend({
       this.$store.dispatch('changePanelNameDb', { panelId, panelName });
     },
     clearTitle() {
+      // TODO DBの方も消す
       // @ts-ignore
       this.title = '';
       // @ts-ignore
@@ -828,6 +459,11 @@ export default Vue.extend({
       this.countShowFlg = !!e.target.checked;
       // @ts-ignore
       this.$store.dispatch('changeCountShowDb', this.countShowFlg);
+    },
+    clearComment() {
+      // @ts-ignore
+      this.renderComment = '';
+      this.$store.dispatch('clearCommentDb', this.renderComment);
     },
     onRenderComment() {
       // @ts-ignore

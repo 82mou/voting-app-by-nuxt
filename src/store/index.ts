@@ -1,3 +1,6 @@
+// import admin from 'firebase-admin';
+// import serviceAccount from '../../config/event-7c677-firebase-adminsdk-la7hm-51b5b3a590.json';
+
 export const state = () => ({
   title: '',
   panels: {
@@ -35,40 +38,105 @@ export const getters = {
 };
 
 export const mutations = {
-  setTitle(state, value) {
+  setTitle(state: any, value: string) {
     state.title = value;
   },
-  setPanels(state, { panelId, obj }) {
+  setPanels(state: any, { panelId, obj }: { panelId: string; obj: object }) {
     state.panels[panelId] = obj;
   },
-  setPanelCount(state, { panelId, count }) {
+  setPanelCount(state: any, { panelId, count }: { panelId: string; count: number }) {
     state.panels[panelId].count = count;
   },
-  setPanelName(state, { panelId, name }) {
+  setPanelName(state: any, { panelId, name }: { panelId: string; name: string }) {
     state.panels[panelId].name = name;
   },
-  setCountStop(state, boolean) {
+  setCountStop(state: any, boolean: boolean) {
     state.countStop = boolean;
   },
-  setCountShow(state, boolean) {
+  setCountShow(state: any, boolean: boolean) {
     state.countShow = boolean;
   },
-  setComments(state, { id, obj }) {
+  setComments(state: any, { id, obj }: { id: string; obj: object }) {
     state.comments.push({
       id,
       text: obj.text,
     });
   },
-  setRenderComment(state, value) {
+  setClearComments(state: any) {
+    state.comments = state.comments.splice(-state.comments.length);
+  },
+  setRenderComment(state: any, value: string) {
     state.renderComment = value;
   },
 };
 
 export const actions = {
+  // async nuxtServerInit() {
+  // firebase-adminの初期化
+  // const admin = require('~/utils/firebaseAdmin').default;
+  // console.log(admin);
+  // admin
+  //   .firestore()
+  //   .collection('~~~~~')
+  //   .doc('~~~~~')
+  //   .get()
+  //   .then((doc) => {
+  //     console.log(doc.data())
+  //   })
+  // },
+  // nuxtServerInit(vuexContext: any, context) {
+  //   admin.initializeApp({ credential: admin.credential.cert(serviceAccount as admin.ServiceAccount) });
+
+  //   // Delete all documents.
+  //   type DocumentReference = FirebaseFirestore.DocumentReference;
+
+  //   const document = [['comments']];
+
+  //   (async () => {
+  //     const deepDelete = async (collections: string[], parentRef?: DocumentReference) => {
+  //       const collectionName = collections.shift();
+  //       if (!collectionName) return;
+  //       const parent = parentRef ?? this.$db;
+  //       const snapshots = await parent.collection(collectionName).get();
+  //       await Promise.all(
+  //         snapshots.docs.map(async (doc) => {
+  //           const docRef = parent.collection(collectionName).doc(doc.id);
+  //           await docRef.delete();
+  //           if (collections.length) await deepDelete([...collections], docRef);
+  //         })
+  //       );
+  //     };
+
+  //     await Promise.all(document.map(async (collections) => await deepDelete(collections)));
+  //     vuexContext.actions('changeRenderComment');
+  //   })();
+  // return new Promise((resolve, reject) => {
+  //   setTimeout(() => {
+  //     vuexContext.commit('setPosts', [
+  //       {
+  //         id: '1',
+  //         title: '最初の投稿',
+  //         previewText: 'プレビューのテキスト',
+  //         thumbnail: 'サムネ',
+  //       },
+  //       {
+  //         id: '2',
+  //         title: '二回目の投稿',
+  //         previewText: '二回目のプレビューテキスト',
+  //         thumbnail: 'サムネ',
+  //       },
+  //     ]);
+  //     resolve();
+  //   }, 1000);
+  // });
+  // },
+  // setPosts(vuexContext, posts) {
+  //   vuexContext.commit('setPosts', posts);
+  // },
   /**
    * DBのtitleを更新しstore更新のactionを呼ぶ
    */
-  changeTitleDb({ dispatch }, title) {
+  changeTitleDb({ dispatch }: { dispatch: Function }, title: string) {
     this.$db
       .collection('title')
       .doc('vvHrtBzRHrX9ABc7Tbu3')
@@ -79,14 +147,14 @@ export const actions = {
         dispatch('changeTitle');
         console.log('Document successfully updated!');
       })
-      .catch((error) => {
+      .catch((error: object) => {
         console.error('Error updating document: ', error);
       });
   },
   /**
    * DBのtitleを取得してstoreと同期
    */
-  changeTitle({ commit }) {
+  changeTitle({ commit }: { commit: Function }) {
     this.$db
       .collection('title')
       .get()
@@ -95,7 +163,7 @@ export const actions = {
           commit('setTitle', doc.data().text);
         });
       })
-      .catch((error) => {
+      .catch((error: Function) => {
         console.error('Error getting document:', error);
       });
   },
@@ -111,7 +179,7 @@ export const actions = {
           commit('setPanels', { panelId: doc.id, obj: doc.data() });
         });
       })
-      .catch((error) => {
+      .catch((error: Function) => {
         console.error('Error getting document:', error);
       });
   },
@@ -340,5 +408,28 @@ export const actions = {
       .catch((error) => {
         console.error('Error getting document:', error);
       });
+  },
+  /**
+   * DBのrenderCommentを更新しstore更新のactionを呼ぶ
+   */
+  clearCommentDb({ dispatch }) {
+    this.$db
+      .collection('comments')
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          this.$db.collection('comments').doc(doc.id).delete();
+        });
+        dispatch('clearComment');
+      })
+      .catch((error) => {
+        console.error('Error updating document: ', error);
+      });
+  },
+  /**
+   * DBのrenderCommentを取得してstoreと同期
+   */
+  clearComment({ commit }) {
+    commit('setClearComments');
   },
 };
