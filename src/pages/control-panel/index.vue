@@ -380,7 +380,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-// import { mapState } from "vuex";
+import { mapMutations, mapActions } from 'vuex';
 
 export default Vue.extend({
   data() {
@@ -422,11 +422,17 @@ export default Vue.extend({
     },
   },
   mounted() {
-    this.$store.dispatch('changeCountStop');
-    this.$store.dispatch('changeCountShow');
-    this.$store.dispatch('changeComments');
+    this.changeCountStop();
+    this.changeCountShow();
+    this.changeComments();
+    this.startListener();
+  },
+  beforeDestroy() {
+    this.stopListener();
   },
   methods: {
+    ...mapMutations(['startListener', 'stopListener']),
+    ...mapActions(['changeCountStop', 'changeCountShow', 'changeComments']),
     onSubmitTitle() {
       console.log('fuga');
       // @ts-ignore

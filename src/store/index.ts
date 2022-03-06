@@ -1,6 +1,3 @@
-// import admin from 'firebase-admin';
-// import serviceAccount from '../../config/event-7c677-firebase-adminsdk-la7hm-51b5b3a590.json';
-
 export const state = () => ({
   title: '',
   panels: {
@@ -29,6 +26,7 @@ export const state = () => ({
   countShow: false,
   comments: [],
   renderComment: '',
+  unsubscribe: null,
 });
 
 export const getters = {
@@ -38,6 +36,16 @@ export const getters = {
 };
 
 export const mutations = {
+  startListener(state: { unsubscribe: Function | object }) {
+    state.unsubscribe = this.$db.collection('comments').onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        console.log('change: ', change.doc.data());
+      });
+    });
+  },
+  stopListener(state: any) {
+    state.unsubscribe();
+  },
   setTitle(state: any, value: string) {
     state.title = value;
   },
@@ -56,7 +64,7 @@ export const mutations = {
   setCountShow(state: any, boolean: boolean) {
     state.countShow = boolean;
   },
-  setComments(state: any, { id, obj }: { id: string; obj: object }) {
+  setComments(state: any, { id, obj }: { id: string; obj: { text: string } }) {
     state.comments.push({
       id,
       text: obj.text,
@@ -71,68 +79,6 @@ export const mutations = {
 };
 
 export const actions = {
-  // async nuxtServerInit() {
-  // firebase-adminの初期化
-  // const admin = require('~/utils/firebaseAdmin').default;
-  // console.log(admin);
-  // admin
-  //   .firestore()
-  //   .collection('~~~~~')
-  //   .doc('~~~~~')
-  //   .get()
-  //   .then((doc) => {
-  //     console.log(doc.data())
-  //   })
-  // },
-  // nuxtServerInit(vuexContext: any, context) {
-  //   admin.initializeApp({ credential: admin.credential.cert(serviceAccount as admin.ServiceAccount) });
-
-  //   // Delete all documents.
-  //   type DocumentReference = FirebaseFirestore.DocumentReference;
-
-  //   const document = [['comments']];
-
-  //   (async () => {
-  //     const deepDelete = async (collections: string[], parentRef?: DocumentReference) => {
-  //       const collectionName = collections.shift();
-  //       if (!collectionName) return;
-  //       const parent = parentRef ?? this.$db;
-  //       const snapshots = await parent.collection(collectionName).get();
-  //       await Promise.all(
-  //         snapshots.docs.map(async (doc) => {
-  //           const docRef = parent.collection(collectionName).doc(doc.id);
-  //           await docRef.delete();
-  //           if (collections.length) await deepDelete([...collections], docRef);
-  //         })
-  //       );
-  //     };
-
-  //     await Promise.all(document.map(async (collections) => await deepDelete(collections)));
-  //     vuexContext.actions('changeRenderComment');
-  //   })();
-  // return new Promise((resolve, reject) => {
-  //   setTimeout(() => {
-  //     vuexContext.commit('setPosts', [
-  //       {
-  //         id: '1',
-  //         title: '最初の投稿',
-  //         previewText: 'プレビューのテキスト',
-  //         thumbnail: 'サムネ',
-  //       },
-  //       {
-  //         id: '2',
-  //         title: '二回目の投稿',
-  //         previewText: '二回目のプレビューテキスト',
-  //         thumbnail: 'サムネ',
-  //       },
-  //     ]);
-  //     resolve();
-  //   }, 1000);
-  // });
-  // },
-  // setPosts(vuexContext, posts) {
-  //   vuexContext.commit('setPosts', posts);
-  // },
   /**
    * DBのtitleを更新しstore更新のactionを呼ぶ
    */
