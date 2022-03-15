@@ -1,3 +1,5 @@
+import { db } from '@/plugins/firebase';
+
 export const state = () => ({
   title: '',
   panels: {
@@ -36,16 +38,26 @@ export const getters = {
 };
 
 export const mutations = {
-  startListener(state: { unsubscribe: Function | object }) {
-    state.unsubscribe = this.$db.collection('comments').onSnapshot((snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        console.log('change: ', change.doc.data());
-      });
-    });
-  },
-  stopListener(state: any) {
-    state.unsubscribe();
-  },
+  // startListener(state: any) {
+  //   state.unsubscribe = db.collection('comments').onSnapshot((snapshot) => {
+  //     snapshot.docChanges().forEach((change) => {
+  //       console.log('change: ', change.doc.data());
+  //       // console.log(state.comments);
+  //       // state.comments.forEach((comment) => {
+  //       //   console.log(comment.id);
+  //       // });
+  //       console.log(state.comments.length);
+  //       // state.comments = state.comments.splice(0, state.comments.length);
+  //       // state.comments.push({
+  //       //   id: change.doc.id,
+  //       //   text: change.doc.data().text,
+  //       // });
+  //     });
+  //   });
+  // },
+  // stopListener(state: any) {
+  //   state.unsubscribe();
+  // },
   setTitle(state: any, value: string) {
     state.title = value;
   },
@@ -71,7 +83,7 @@ export const mutations = {
     });
   },
   setClearComments(state: any) {
-    state.comments = state.comments.splice(-state.comments.length);
+    state.comments = state.comments.splice(0, state.comments.length);
   },
   setRenderComment(state: any, value: string) {
     state.renderComment = value;
@@ -79,12 +91,31 @@ export const mutations = {
 };
 
 export const actions = {
+  // startListener(state: any) {
+  //   state.unsubscribe = db.collection('comments').onSnapshot((snapshot) => {
+  //     snapshot.docChanges().forEach((change) => {
+  //       console.log('change: ', change.doc.data());
+  //       // console.log(state.comments);
+  //       // state.comments.forEach((comment) => {
+  //       //   console.log(comment.id);
+  //       // });
+  //       console.log(state.comments.length);
+  //       // state.comments = state.comments.splice(0, state.comments.length);
+  //       // state.comments.push({
+  //       //   id: change.doc.id,
+  //       //   text: change.doc.data().text,
+  //       // });
+  //     });
+  //   });
+  // },
+  // stopListener(state: any) {
+  //   state.unsubscribe();
+  // },
   /**
    * DBのtitleを更新しstore更新のactionを呼ぶ
    */
   changeTitleDb({ dispatch }: { dispatch: Function }, title: string) {
-    this.$db
-      .collection('title')
+    db.collection('title')
       .doc('vvHrtBzRHrX9ABc7Tbu3')
       .update({
         text: title,
@@ -101,8 +132,7 @@ export const actions = {
    * DBのtitleを取得してstoreと同期
    */
   changeTitle({ commit }: { commit: Function }) {
-    this.$db
-      .collection('title')
+    db.collection('title')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
@@ -117,8 +147,7 @@ export const actions = {
    * DBのpanelsを取得してstoreと同期
    */
   changePanels({ commit }) {
-    this.$db
-      .collection('panels')
+    db.collection('panels')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
@@ -133,8 +162,7 @@ export const actions = {
    * DBのpanelsのnameを更新しstore更新のactionを呼ぶ
    */
   changePanelNameDb({ dispatch }, { panelId, panelName }) {
-    this.$db
-      .collection('panels')
+    db.collection('panels')
       .doc(panelId)
       .update({
         name: panelName,
@@ -151,8 +179,7 @@ export const actions = {
    * panelsのnameを更新
    */
   changePanelName({ commit }, panelId) {
-    this.$db
-      .collection('panels')
+    db.collection('panels')
       .doc(panelId)
       .get()
       .then((doc) => {
@@ -170,8 +197,7 @@ export const actions = {
    * DBのpanelsのカウントを更新しstore更新のactionを呼ぶ
    */
   changeCountDb({ dispatch }, panelId) {
-    this.$db
-      .collection('panels')
+    db.collection('panels')
       .doc(panelId)
       .update({
         count: this.$increment,
@@ -188,8 +214,7 @@ export const actions = {
    * panelsのcountを更新
    */
   changeCount({ commit }, panelId) {
-    this.$db
-      .collection('panels')
+    db.collection('panels')
       .doc(panelId)
       .get()
       .then((doc) => {
@@ -207,8 +232,7 @@ export const actions = {
    * DBのコメントを更新しstore更新のactionを呼ぶ
    */
   changeCommentDb({ dispatch }, commentText) {
-    this.$db
-      .collection('comments')
+    db.collection('comments')
       .add({
         text: commentText,
       })
@@ -224,8 +248,7 @@ export const actions = {
    * commentsを更新
    */
   changeComment({ commit }, commentText) {
-    this.$db
-      .collection('comments')
+    db.collection('comments')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
@@ -241,8 +264,7 @@ export const actions = {
    * DBのcountStopを更新しstore更新のactionを呼ぶ
    */
   changeCountStopDb({ dispatch }, boolean) {
-    this.$db
-      .collection('countStopSwitch')
+    db.collection('countStopSwitch')
       .doc('0kVm6l0gkeOZCj2KchES')
       .update({
         countStop: boolean,
@@ -259,8 +281,7 @@ export const actions = {
    * DBのcountStopを取得してstoreと同期
    */
   changeCountStop({ commit }) {
-    this.$db
-      .collection('countStopSwitch')
+    db.collection('countStopSwitch')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
@@ -275,8 +296,7 @@ export const actions = {
    * DBのcountShowを更新しstore更新のactionを呼ぶ
    */
   changeCountShowDb({ dispatch }, boolean) {
-    this.$db
-      .collection('countShowSwitch')
+    db.collection('countShowSwitch')
       .doc('ks5IgdHG7AxI1baZANt3')
       .update({
         countShow: boolean,
@@ -293,8 +313,7 @@ export const actions = {
    * DBのcountShowを取得してstoreと同期
    */
   changeCountShow({ commit }) {
-    this.$db
-      .collection('countShowSwitch')
+    db.collection('countShowSwitch')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
@@ -309,8 +328,7 @@ export const actions = {
    * DBのcommentsを取得してstoreと同期
    */
   changeComments({ commit }) {
-    this.$db
-      .collection('comments')
+    db.collection('comments')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
@@ -325,8 +343,7 @@ export const actions = {
    * DBのrenderCommentを更新しstore更新のactionを呼ぶ
    */
   changeRenderCommentDb({ dispatch }, renderComment) {
-    this.$db
-      .collection('renderComment')
+    db.collection('renderComment')
       .doc('zJo5eHrL1SpxWxBx2sIK')
       .update({
         text: renderComment,
@@ -343,8 +360,7 @@ export const actions = {
    * DBのrenderCommentを取得してstoreと同期
    */
   changeRenderComment({ commit }) {
-    this.$db
-      .collection('renderComment')
+    db.collection('renderComment')
       .get()
       .then((snapshot) => {
         snapshot.forEach(function (doc) {
@@ -359,12 +375,11 @@ export const actions = {
    * DBのrenderCommentを更新しstore更新のactionを呼ぶ
    */
   clearCommentDb({ dispatch }) {
-    this.$db
-      .collection('comments')
+    db.collection('comments')
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
-          this.$db.collection('comments').doc(doc.id).delete();
+          db.collection('comments').doc(doc.id).delete();
         });
         dispatch('clearComment');
       })

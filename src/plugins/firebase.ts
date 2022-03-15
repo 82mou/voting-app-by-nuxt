@@ -22,34 +22,35 @@ if (!firebase.apps.length) {
 declare module 'vue/types/vue' {
   interface Vue {
     $firebase: firebase.app.App;
-    $db: firebase.firestore.Firestore;
+    // $db: firebase.firestore.Firestore;
   }
 }
 
 declare module '@nuxt/types' {
   interface NuxtAppOptions {
     $firebase: firebase.app.App;
-    $db: firebase.firestore.Firestore;
+    // $db: firebase.firestore.Firestore;
   }
 }
 
 declare module 'vuex/types/index' {
   interface Store<S> {
     $firebase: firebase.app.App;
-    $db: firebase.firestore.Firestore;
+    // $db: firebase.firestore.Firestore;
   }
 }
 
 // inject
 const myPlugin: Plugin = (context, inject) => {
   inject('firebase', firebase);
-  inject('db', firebase.firestore());
+  // inject('db', firebase.firestore());
   inject('increment', firebase.firestore.FieldValue.increment(1));
 };
 
 // use firestorePlugin
 Vue.use(firestorePlugin);
 
+export const db = firebase.firestore();
 const { Timestamp, GeoPoint } = firebase.firestore;
 export { Timestamp, GeoPoint };
 

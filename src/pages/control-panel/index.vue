@@ -381,6 +381,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapMutations, mapActions } from 'vuex';
+import { db } from '@/plugins/firebase';
 
 export default Vue.extend({
   data() {
@@ -394,6 +395,14 @@ export default Vue.extend({
       countStopFlg: true,
       renderComment: '',
     };
+  },
+  firestore: {
+    comments: db.collection('comments').onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        // 変更後のデータが取得できる
+        console.log('change: ', change.doc.data());
+      });
+    }),
   },
   computed: {
     countShow: {
@@ -425,11 +434,11 @@ export default Vue.extend({
     this.changeCountStop();
     this.changeCountShow();
     this.changeComments();
-    this.startListener();
+    // this.startListener();
   },
-  beforeDestroy() {
-    this.stopListener();
-  },
+  // beforeDestroy() {
+  //   this.stopListener();
+  // },
   methods: {
     ...mapMutations(['startListener', 'stopListener']),
     ...mapActions(['changeCountStop', 'changeCountShow', 'changeComments']),
