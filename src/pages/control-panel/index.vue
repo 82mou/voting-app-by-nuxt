@@ -394,15 +394,11 @@ export default Vue.extend({
       countShowFlg: false,
       countStopFlg: true,
       renderComment: '',
+      comments: [],
     };
   },
   firestore: {
-    comments: db.collection('comments').onSnapshot((snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        // 変更後のデータが取得できる
-        console.log('change: ', change.doc.data());
-      });
-    }),
+    comments: db.collection('comments'),
   },
   computed: {
     countShow: {
@@ -421,7 +417,7 @@ export default Vue.extend({
         this.$store.commit('setCountStop', boolean);
       },
     },
-    comments: {
+    updateComments: {
       get() {
         return this.$store.state.comments;
       },
