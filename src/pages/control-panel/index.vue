@@ -380,7 +380,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapMutations, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import { db } from '@/plugins/firebase';
 
 export default Vue.extend({
@@ -398,7 +398,7 @@ export default Vue.extend({
     };
   },
   firestore: {
-    comments: db.collection('comments'),
+    comments: db.collection('comments').orderBy('createdAt', 'desc'),
   },
   computed: {
     countShow: {
@@ -430,16 +430,16 @@ export default Vue.extend({
     this.changeCountStop();
     this.changeCountShow();
     this.changeComments();
+    // this.$store.dispatch('bindDocuments');
     // this.startListener();
   },
   // beforeDestroy() {
   //   this.stopListener();
   // },
   methods: {
-    ...mapMutations(['startListener', 'stopListener']),
+    // ...mapMutations(['startListener', 'stopListener']),
     ...mapActions(['changeCountStop', 'changeCountShow', 'changeComments']),
     onSubmitTitle() {
-      console.log('fuga');
       // @ts-ignore
       this.$store.dispatch('changeTitleDb', this.title);
     },

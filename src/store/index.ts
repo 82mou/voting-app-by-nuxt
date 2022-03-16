@@ -1,4 +1,5 @@
-import { db } from '@/plugins/firebase';
+import { vuexfireMutations } from 'vuexfire';
+import { db, FieldValue } from '@/plugins/firebase';
 
 export const state = () => ({
   title: '',
@@ -38,6 +39,7 @@ export const getters = {
 };
 
 export const mutations = {
+  ...vuexfireMutations,
   // startListener(state: any) {
   //   state.unsubscribe = db.collection('comments').onSnapshot((snapshot) => {
   //     snapshot.docChanges().forEach((change) => {
@@ -76,9 +78,10 @@ export const mutations = {
   setCountShow(state: any, boolean: boolean) {
     state.countShow = boolean;
   },
-  setComments(state: any, { id, obj }: { id: string; obj: { text: string } }) {
+  setComments(state: any, { id, obj }: { id: string; obj: { createdAt: string; text: string } }) {
     state.comments.push({
       id,
+      createdAt: obj.createdAt,
       text: obj.text,
     });
   },
@@ -234,6 +237,7 @@ export const actions = {
   changeCommentDb({ dispatch }, commentText) {
     db.collection('comments')
       .add({
+        createdAt: FieldValue.serverTimestamp(),
         text: commentText,
       })
       .then((docRef) => {

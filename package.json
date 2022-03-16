@@ -23,7 +23,8 @@
     "firebase": "^9.6.8",
     "nuxt": "^2.15.8",
     "nuxt-webfontloader": "^1.1.0",
-    "vuefire": "^2.2.5"
+    "vuefire": "^2.2.5",
+    "vuexfire": "^3.2.5"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",

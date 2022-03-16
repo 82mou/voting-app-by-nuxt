@@ -51,7 +51,7 @@ const myPlugin: Plugin = (context, inject) => {
 Vue.use(firestorePlugin);
 
 export const db = firebase.firestore();
-const { Timestamp, GeoPoint } = firebase.firestore;
-export { Timestamp, GeoPoint };
+const { Timestamp, GeoPoint, FieldValue } = firebase.firestore;
+export { Timestamp, GeoPoint, FieldValue };
 
 export default myPlugin;
