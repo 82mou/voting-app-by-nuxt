@@ -345,7 +345,7 @@
               コメントクリア
             </button>
           </div>
-          <ul class="comment-pool">
+          <ul v-if="comments.length" class="comment-pool">
             <li v-for="(value, index) in comments" :key="`comment-${index}`">
               <p class="comment-pool__text">{{ value.text }}</p>
               <button
@@ -426,18 +426,16 @@ export default Vue.extend({
       },
     },
   },
+  beforeCreate() {
+    // 初期化
+    this.$store.dispatch('clearRenderCommentDb');
+  },
   mounted() {
     this.changeCountStop();
     this.changeCountShow();
     this.changeComments();
-    // this.$store.dispatch('bindDocuments');
-    // this.startListener();
   },
-  // beforeDestroy() {
-  //   this.stopListener();
-  // },
   methods: {
-    // ...mapMutations(['startListener', 'stopListener']),
     ...mapActions(['changeCountStop', 'changeCountShow', 'changeComments']),
     onSubmitTitle() {
       // @ts-ignore

@@ -76,7 +76,9 @@
             </div>
           </div>
           <p class="push-comment">
-            <span class="push-comment-text js-push-comment-text"></span>
+            <span v-if="renderComment.length" class="push-comment-text js-push-comment-text">{{
+              renderComment[0].text
+            }}</span>
           </p>
         </div>
       </main>
@@ -92,8 +94,12 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapState } from 'vuex';
+import { db } from '@/plugins/firebase';
 
 export default Vue.extend({
+  firestore: {
+    renderComment: db.collection('renderComment'),
+  },
   computed: {
     ...mapState(['title']),
     ...mapState(['panels']),

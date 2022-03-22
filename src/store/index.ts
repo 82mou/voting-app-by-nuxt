@@ -28,38 +28,18 @@ export const state = () => ({
   countStop: false,
   countShow: false,
   comments: [],
-  renderComment: '',
+  renderComment: [
+    {
+      text: '',
+    },
+  ],
   unsubscribe: null,
 });
 
-export const getters = {
-  //  authenticated(state) {
-  //   return state.cognitoUser != null && state.authenticatedMember != null
-  // },
-};
+export const getters = {};
 
 export const mutations = {
   ...vuexfireMutations,
-  // startListener(state: any) {
-  //   state.unsubscribe = db.collection('comments').onSnapshot((snapshot) => {
-  //     snapshot.docChanges().forEach((change) => {
-  //       console.log('change: ', change.doc.data());
-  //       // console.log(state.comments);
-  //       // state.comments.forEach((comment) => {
-  //       //   console.log(comment.id);
-  //       // });
-  //       console.log(state.comments.length);
-  //       // state.comments = state.comments.splice(0, state.comments.length);
-  //       // state.comments.push({
-  //       //   id: change.doc.id,
-  //       //   text: change.doc.data().text,
-  //       // });
-  //     });
-  //   });
-  // },
-  // stopListener(state: any) {
-  //   state.unsubscribe();
-  // },
   setTitle(state: any, value: string) {
     state.title = value;
   },
@@ -91,29 +71,16 @@ export const mutations = {
   setRenderComment(state: any, value: string) {
     state.renderComment = value;
   },
+  setClearRenderComment(state: any) {
+    state.renderComment = [
+      {
+        text: '',
+      },
+    ];
+  },
 };
 
 export const actions = {
-  // startListener(state: any) {
-  //   state.unsubscribe = db.collection('comments').onSnapshot((snapshot) => {
-  //     snapshot.docChanges().forEach((change) => {
-  //       console.log('change: ', change.doc.data());
-  //       // console.log(state.comments);
-  //       // state.comments.forEach((comment) => {
-  //       //   console.log(comment.id);
-  //       // });
-  //       console.log(state.comments.length);
-  //       // state.comments = state.comments.splice(0, state.comments.length);
-  //       // state.comments.push({
-  //       //   id: change.doc.id,
-  //       //   text: change.doc.data().text,
-  //       // });
-  //     });
-  //   });
-  // },
-  // stopListener(state: any) {
-  //   state.unsubscribe();
-  // },
   /**
    * DBのtitleを更新しstore更新のactionを呼ぶ
    */
@@ -348,11 +315,13 @@ export const actions = {
    */
   changeRenderCommentDb({ dispatch }, renderComment) {
     db.collection('renderComment')
-      .doc('zJo5eHrL1SpxWxBx2sIK')
-      .update({
-        text: renderComment,
-      })
-      .then(() => {
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          db.collection('renderComment').doc(doc.id).update({
+            text: renderComment,
+          });
+        });
         dispatch('changeRenderComment');
         console.log('Document successfully updated!');
       })
@@ -396,5 +365,29 @@ export const actions = {
    */
   clearComment({ commit }) {
     commit('setClearComments');
+  },
+  /**
+   * DBのrenderCommentを削除し、storeの方も削除するactionを呼ぶ
+   */
+  clearRenderCommentDb({ dispatch }) {
+    db.collection('renderComment')
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          db.collection('renderComment').doc(doc.id).update({
+            text: '',
+          });
+        });
+        dispatch('clearRenderComment');
+      })
+      .catch((error) => {
+        console.error('Error updating document: ', error);
+      });
+  },
+  /**
+   * DBのrenderCommentを取得してstoreと同期
+   */
+  clearRenderComment({ commit }) {
+    commit('setClearRenderComment');
   },
 };
