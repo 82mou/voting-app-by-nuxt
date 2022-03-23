@@ -97,6 +97,11 @@ import { mapState } from 'vuex';
 import { db } from '@/plugins/firebase';
 
 export default Vue.extend({
+  data() {
+    return {
+      renderComment: '',
+    };
+  },
   firestore: {
     renderComment: db.collection('renderComment'),
   },
