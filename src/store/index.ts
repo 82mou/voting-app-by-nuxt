@@ -1,4 +1,5 @@
 import { vuexfireMutations } from 'vuexfire';
+// @ts-ignore
 import { db, FieldValue } from '@/plugins/firebase';
 
 export const state = () => ({
@@ -104,7 +105,9 @@ export const actions = {
   changeTitle({ commit }: { commit: Function }) {
     db.collection('title')
       .get()
+      // @ts-ignore
       .then((snapshot) => {
+        // @ts-ignore
         snapshot.forEach(function (doc) {
           commit('setTitle', doc.data().text);
         });
@@ -116,10 +119,13 @@ export const actions = {
   /**
    * DBのpanelsを取得してstoreと同期
    */
+  // @ts-ignore
   changePanels({ commit }) {
     db.collection('panels')
       .get()
+      // @ts-ignore
       .then((snapshot) => {
+        // @ts-ignore
         snapshot.forEach(function (doc) {
           commit('setPanels', { panelId: doc.id, obj: doc.data() });
         });
@@ -131,6 +137,7 @@ export const actions = {
   /**
    * DBのpanelsのnameを更新しstore更新のactionを呼ぶ
    */
+  // @ts-ignore
   changePanelNameDb({ dispatch }, { panelId, panelName }) {
     db.collection('panels')
       .doc(panelId)
@@ -141,6 +148,7 @@ export const actions = {
         dispatch('changePanelName', panelId);
         console.log('Document successfully updated!');
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error updating document: ', error);
       });
@@ -148,10 +156,12 @@ export const actions = {
   /**
    * panelsのnameを更新
    */
+  // @ts-ignore
   changePanelName({ commit }, panelId) {
     db.collection('panels')
       .doc(panelId)
       .get()
+      // @ts-ignore
       .then((doc) => {
         if (doc.exists) {
           commit('setPanelName', { panelId, count: doc.data().name });
@@ -159,6 +169,7 @@ export const actions = {
           console.log('No such document!');
         }
       })
+      // @ts-ignore
       .catch((error) => {
         console.log('Error getting document:', error);
       });
@@ -166,16 +177,19 @@ export const actions = {
   /**
    * DBのpanelsのカウントを更新しstore更新のactionを呼ぶ
    */
+  // @ts-ignore
   changeCountDb({ dispatch }, panelId) {
     db.collection('panels')
       .doc(panelId)
       .update({
+        // @ts-ignore
         count: this.$increment,
       })
       .then(() => {
         dispatch('changeCount', panelId);
         console.log('Document successfully updated!');
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error updating document: ', error);
       });
@@ -183,10 +197,12 @@ export const actions = {
   /**
    * panelsのcountを更新
    */
+  // @ts-ignore
   changeCount({ commit }, panelId) {
     db.collection('panels')
       .doc(panelId)
       .get()
+      // @ts-ignore
       .then((doc) => {
         if (doc.exists) {
           commit('setPanelCount', { panelId, count: doc.data().count });
@@ -194,6 +210,7 @@ export const actions = {
           console.log('No such document!');
         }
       })
+      // @ts-ignore
       .catch((error) => {
         console.log('Error getting document:', error);
       });
@@ -201,16 +218,19 @@ export const actions = {
   /**
    * DBのコメントを更新しstore更新のactionを呼ぶ
    */
+  // @ts-ignore
   changeCommentDb({ dispatch }, commentText) {
     db.collection('comments')
       .add({
         createdAt: FieldValue.serverTimestamp(),
         text: commentText,
       })
+      // @ts-ignore
       .then((docRef) => {
         dispatch('changeComment', commentText);
         console.log('Document written with ID: ', docRef.id);
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error adding document: ', error);
       });
@@ -218,15 +238,19 @@ export const actions = {
   /**
    * commentsを更新
    */
+  // @ts-ignore
   changeComment({ commit }, commentText) {
     db.collection('comments')
       .get()
+      // @ts-ignore
       .then((snapshot) => {
+        // @ts-ignore
         snapshot.forEach(function (doc) {
           console.log('@store/changeComment: ', commentText);
           commit('setComments', { id: doc.id, obj: doc.data() });
         });
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error getting document:', error);
       });
@@ -234,6 +258,7 @@ export const actions = {
   /**
    * DBのcountStopを更新しstore更新のactionを呼ぶ
    */
+  // @ts-ignore
   changeCountStopDb({ dispatch }, boolean) {
     db.collection('countStopSwitch')
       .doc('0kVm6l0gkeOZCj2KchES')
@@ -244,6 +269,7 @@ export const actions = {
         dispatch('changeCountStop');
         console.log('Document successfully updated!');
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error updating document: ', error);
       });
@@ -251,14 +277,18 @@ export const actions = {
   /**
    * DBのcountStopを取得してstoreと同期
    */
+  // @ts-ignore
   changeCountStop({ commit }) {
     db.collection('countStopSwitch')
       .get()
+      // @ts-ignore
       .then((snapshot) => {
+        // @ts-ignore
         snapshot.forEach(function (doc) {
           commit('setCountStop', doc.data().countStop);
         });
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error getting document:', error);
       });
@@ -266,6 +296,7 @@ export const actions = {
   /**
    * DBのcountShowを更新しstore更新のactionを呼ぶ
    */
+  // @ts-ignore
   changeCountShowDb({ dispatch }, boolean) {
     db.collection('countShowSwitch')
       .doc('ks5IgdHG7AxI1baZANt3')
@@ -276,6 +307,7 @@ export const actions = {
         dispatch('changeCountShow');
         console.log('Document successfully updated!');
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error updating document: ', error);
       });
@@ -283,14 +315,18 @@ export const actions = {
   /**
    * DBのcountShowを取得してstoreと同期
    */
+  // @ts-ignore
   changeCountShow({ commit }) {
     db.collection('countShowSwitch')
       .get()
+      // @ts-ignore
       .then((snapshot) => {
+        // @ts-ignore
         snapshot.forEach(function (doc) {
           commit('setCountShow', doc.data().countShow);
         });
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error getting document:', error);
       });
@@ -298,14 +334,18 @@ export const actions = {
   /**
    * DBのcommentsを取得してstoreと同期
    */
+  // @ts-ignore
   changeComments({ commit }) {
     db.collection('comments')
       .get()
+      // @ts-ignore
       .then((snapshot) => {
+        // @ts-ignore
         snapshot.forEach(function (doc) {
           commit('setComments', { id: doc.id, obj: doc.data() });
         });
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error getting document:', error);
       });
@@ -313,10 +353,13 @@ export const actions = {
   /**
    * DBのrenderCommentを更新しstore更新のactionを呼ぶ
    */
+  // @ts-ignore
   changeRenderCommentDb({ dispatch }, renderComment) {
     db.collection('renderComment')
       .get()
+      // @ts-ignore
       .then((snapshot) => {
+        // @ts-ignore
         snapshot.forEach((doc) => {
           db.collection('renderComment').doc(doc.id).update({
             text: renderComment,
@@ -325,6 +368,7 @@ export const actions = {
         dispatch('changeRenderComment');
         console.log('Document successfully updated!');
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error updating document: ', error);
       });
@@ -332,14 +376,18 @@ export const actions = {
   /**
    * DBのrenderCommentを取得してstoreと同期
    */
+  // @ts-ignore
   changeRenderComment({ commit }) {
     db.collection('renderComment')
       .get()
+      // @ts-ignore
       .then((snapshot) => {
+        // @ts-ignore
         snapshot.forEach(function (doc) {
           commit('setRenderComment', doc.data().text);
         });
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error getting document:', error);
       });
@@ -347,15 +395,19 @@ export const actions = {
   /**
    * DBのrenderCommentを更新しstore更新のactionを呼ぶ
    */
+  // @ts-ignore
   clearCommentDb({ dispatch }) {
     db.collection('comments')
       .get()
+      // @ts-ignore
       .then((snapshot) => {
+        // @ts-ignore
         snapshot.forEach((doc) => {
           db.collection('comments').doc(doc.id).delete();
         });
         dispatch('clearComment');
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error updating document: ', error);
       });
@@ -363,16 +415,20 @@ export const actions = {
   /**
    * DBのrenderCommentを取得してstoreと同期
    */
+  // @ts-ignore
   clearComment({ commit }) {
     commit('setClearComments');
   },
   /**
    * DBのrenderCommentを削除し、storeの方も削除するactionを呼ぶ
    */
+  // @ts-ignore
   clearRenderCommentDb({ dispatch }) {
     db.collection('renderComment')
       .get()
+      // @ts-ignore
       .then((snapshot) => {
+        // @ts-ignore
         snapshot.forEach((doc) => {
           db.collection('renderComment').doc(doc.id).update({
             text: '',
@@ -380,6 +436,7 @@ export const actions = {
         });
         dispatch('clearRenderComment');
       })
+      // @ts-ignore
       .catch((error) => {
         console.error('Error updating document: ', error);
       });
@@ -387,6 +444,7 @@ export const actions = {
   /**
    * DBのrenderCommentを取得してstoreと同期
    */
+  // @ts-ignore
   clearRenderComment({ commit }) {
     commit('setClearRenderComment');
   },

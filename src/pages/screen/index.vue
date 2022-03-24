@@ -94,6 +94,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapState } from 'vuex';
+// @ts-ignore
 import { db } from '@/plugins/firebase';
 
 export default Vue.extend({
