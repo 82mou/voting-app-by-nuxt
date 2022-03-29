@@ -76,16 +76,6 @@ const config: NuxtConfig = {
         },
       },
     },
-    // extend(config, { isClient, loaders: { vue } }) {
-    //   vue.transformAssetUrls.video = ["src", "poster"];
-    // },
-    postcss: {
-      preset: {
-        autoprefixer: {
-          grid: 'autoplace',
-        },
-      },
-    },
     babel: {
       presets({ isServer }) {
         return [
