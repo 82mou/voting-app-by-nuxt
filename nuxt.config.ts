@@ -77,6 +77,7 @@ const config: NuxtConfig = {
       },
     },
     babel: {
+      compact: true,
       presets({ isServer }) {
         return [
           [
